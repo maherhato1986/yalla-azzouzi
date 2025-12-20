@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>مشاهدة المباراة | Yalla Azzouzi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:#0b1220;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+    }
+    .card{
+      background:#111827;
+      border-radius:12px;
+      padding:24px;
+      width:90%;
+      max-width:420px;
+      text-align:center;
+      box-shadow:0 10px 30px rgba(0,0,0,.4);
+    }
+    h1{font-size:20px;margin-bottom:10px;}
+    p{opacity:.85;margin-bottom:18px;}
+    .btn{
+      display:block;
+      background:#22c55e;
+      color:#0b1220;
+      text-decoration:none;
+      padding:14px;
+      border-radius:10px;
+      font-weight:bold;
+      margin-bottom:10px;
+    }
+    .small{
+      font-size:12px;opacity:.7;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1 id="matchTitle">جاري تجهيز البث…</h1>
+  <p>سيتم تحويلك إلى موقع البث الخارجي</p>
+  <a id="goStream" class="btn" href="#" target="_blank">▶️ اضغط للمشاهدة</a>
+  <div class="small">ملاحظة: البث من مصدر خارجي</div>
+</div>
+
+<script>
+  // جدول ربط المباريات بروابط البث
+  const streams = {
+    "Real Madrid vs Barcelona": "https://example-stream-1.com",
+    "Chelsea vs Arsenal": "https://example-stream-2.com"
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const match = params.get("match");
+
+  document.getElementById("matchTitle").textContent = match || "مباراة اليوم";
+
+  if (streams[match]) {
+    document.getElementById("goStream").href = streams[match];
+  } else {
+    document.getElementById("goStream").textContent = "سيتم إضافة رابط البث قبل المباراة";
+    document.getElementById("goStream").href = "javascript:void(0)";
+  }
+</script>
+
+</body>
+</html>
