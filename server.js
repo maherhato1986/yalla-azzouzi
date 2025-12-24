@@ -1,21 +1,34 @@
-const express = require('express');
-const request = require('request');
+import express from "express";
+import fetch from "node-fetch";
+import fs from "fs";
+
 const app = express();
+const API_KEY = process.env.API_FOOTBALL_KEY;
 
-app.get('/stream', (req, res) => {
-  const targetUrl = 'https://s1.streaming-on.online/b-1/';
+app.get("/api/matches/today", async (req, res) => {
+  const today = new Date().toISOString().split("T")[0];
 
-  req.pipe(
-    request({
-      url: targetUrl,
+  const r = await fetch(
+    `https://v3.football.api-sports.io/fixtures?date=${today}`,
+    {
       headers: {
-        'User-Agent': 'Mozilla/5.0',
-        'Referer': 'https://yalla-azzouzi.live'
+        "x-apisports-key": API_KEY
       }
-    })
-  ).pipe(res);
+    }
+  );
+
+  const data = await r.json();
+
+  const matches = data.response.map(m => ({
+    id: m.fixture.id,
+    league: m.league.name,
+    home: m.teams.home.name,
+    away: m.teams.away.name,
+    time: m.fixture.date,
+    streams: [] // روابط البث تُضاف لاحقًا
+  }));
+
+  res.json(matches);
 });
 
-app.listen(3000, () => {
-  console.log('Proxy running on port 3000');
-});
+app.listen(3000, () => console.log("API running on :3000"));
