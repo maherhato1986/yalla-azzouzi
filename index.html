@@ -1,7 +1,8 @@
 <div id="matches"></div>
 
 <script>
-fetch("/api/matches/today")
+fetch("/data/matches.json")
+
 .then(r => r.json())
 .then(matches => {
   const box = document.getElementById("matches");
@@ -19,3 +20,4 @@ function watch(id){
   location.href = "watch.html?id=" + id;
 }
 </script>
+
