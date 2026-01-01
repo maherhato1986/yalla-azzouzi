@@ -1,134 +1,544 @@
 {
     "channels": [
         {
-            "name": "Abu Dhabi Sports 1 (1080p)",
-            "logo": "https://i.imgur.com/6BVWk8z.png",
-            "url": "https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/abudhabi_sports_1/abudhabi_sports_1_hls_nd/index.m3u8"
+            "name": "MBC DRAMA PLUS HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a05z"
         },
         {
-            "name": "Abu Dhabi Sports 2 (1080p)",
-            "logo": "https://i.imgur.com/y1I2jFK.png",
-            "url": "https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/abudhabi_sports_2/abudhabi_sports_2_hls_nd/index.m3u8"
+            "name": "MBC5 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a05y"
         },
         {
-            "name": "Bahrain Sports 1 (720p) [Not 24/7]",
-            "logo": "https://i.imgur.com/fBpLsbC.png",
-            "url": "https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8"
+            "name": "OSN Action",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a036"
         },
         {
-            "name": "Bahrain Sports 2 (720p) [Not 24/7]",
-            "logo": "https://i.imgur.com/ZkuZmIo.png",
-            "url": "https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8"
+            "name": "OSN Movies",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a04q"
         },
         {
-            "name": "Dubai Sports 1 (1080p)",
-            "logo": "https://i.imgur.com/Poxw8lG.png",
-            "url": "https://dmidspta.cdn.mgmlcdn.com/dubaisports/smil:dubaisports.stream.smil/chunklist.m3u8"
+            "name": "OSN Movies First",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a035"
         },
         {
-            "name": "Dubai Sports 2 (720p)",
-            "logo": "https://i.postimg.cc/qRHqQ87Z/dubaisports2.png",
-            "url": "https://dmitwlvvll.cdn.mgmlcdn.com/dubaisportshd/smil:dubaisportshd.smil/chunklist.m3u8"
+            "name": "OSN YH Cinema",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a03a"
         },
         {
-            "name": "Dubai Sports 3 (1080p) [Not 24/7]",
-            "logo": "https://i.postimg.cc/hj8jYfz4/dubaisports3.png",
-            "url": "https://dmitwlvvll.cdn.mgmlcdn.com/dubaisportshd5/smil:dubaisportshd5.smil/chunklist.m3u8"
+            "name": "OSN YaHala",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a05o"
         },
         {
-            "name": "KSA Sports 1 (1080p)",
-            "logo": "https://i.postimg.cc/bNzQP2ht/ksasports1.png",
-            "url": "http://66.102.120.18:8000/play/a03o/index.m3u8"
+            "name": "OSN Yahala Oula",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a04t"
         },
         {
-            "name": "KSA Sports 2 (1080p)",
-            "logo": "https://i.postimg.cc/4NBpxNfF/ksasports2.png",
-            "url": "http://66.102.120.18:8000/play/a03p/index.m3u8"
+            "name": "ST-SportBein",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a08f"
         },
         {
-            "name": "Oman Sports TV (1080p) [Not 24/7]",
-            "logo": "https://i.imgur.com/1omi7p8.png",
-            "url": "https://partneta.cdn.mgmlcdn.com/omsport/smil:omsport.stream.smil/chunklist.m3u8"
+            "name": "beIN Drama HD1",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a05w"
         },
         {
-            "name": "Sharjah Sports (1080p) [Geo-blocked]",
-            "logo": "https://i.imgur.com/CsEElsJ.png",
-            "url": "https://svs.itworkscdn.net/smc4sportslive/smc4.smil/playlist.m3u8"
+            "name": "beIN Movies HD1",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a069"
         },
         {
-            "name": "Sportska televizija Ⓖ",
-            "logo": "https://i.imgur.com/xdxjcVh.png",
-            "url": "https://stream.agatin.hr:3087/live/sptvlive.m3u8"
+            "name": "beIN Movies HD2",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a06a"
+        },
+        {
+            "name": "beIN Movies HD3",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a06b"
+        },
+        {
+            "name": "beIN Movies HD4",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a06c"
+        },
+        {
+            "name": "beIN Sports HD1 PREMIUM",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a05u"
+        },
+        {
+            "name": "beIN Sports HD6",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://213.57.124.217:8000/play/a05v"
+        },
+        {
+            "name": "Amazon Prime 1 HD Events",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a05b"
+        },
+        {
+            "name": "Amazon Prime 10 HD Events",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a05l"
+        },
+        {
+            "name": "Amazon Prime 2 HD Events",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a05c"
+        },
+        {
+            "name": "Amazon Prime 3 HD Events",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a05d"
+        },
+        {
+            "name": "Amazon Prime 4 HD Events",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a05e"
+        },
+        {
+            "name": "Amazon Prime 5 HD Events",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a05f"
+        },
+        {
+            "name": "Amazon Prime 6 HD Events",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a05g"
+        },
+        {
+            "name": "Amazon Prime 7 HD Events",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a05h"
+        },
+        {
+            "name": "Amazon Prime 8 HD Events",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a05i"
+        },
+        {
+            "name": "Amazon Prime 9 HD Events",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a05j"
+        },
+        {
+            "name": "MBC+ Variety HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06f"
+        },
+        {
+            "name": "beIN AFC 1 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a073"
+        },
+        {
+            "name": "beIN AFC 2 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a074"
+        },
+        {
+            "name": "beIN AFC 3 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a075"
+        },
+        {
+            "name": "beIN Baraem",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06e"
+        },
+        {
+            "name": "beIN Drama  1 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06a"
+        },
+        {
+            "name": "beIN Fatafeat HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06b"
+        },
+        {
+            "name": "beIN Global HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a072"
+        },
+        {
+            "name": "beIN Gourmet HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06c"
+        },
+        {
+            "name": "beIN Jeem",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06d"
+        },
+        {
+            "name": "beIN Movies 1 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06h"
+        },
+        {
+            "name": "beIN Movies 2 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06g"
+        },
+        {
+            "name": "beIN Movies 3 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06j"
+        },
+        {
+            "name": "beIN Movies 4 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06i"
+        },
+        {
+            "name": "beIN Series 1 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06l"
+        },
+        {
+            "name": "beIN Series 2 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06k"
+        },
+        {
+            "name": "beIN Sports 1 English HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06y"
+        },
+        {
+            "name": "beIN Sports 1 French HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a070"
+        },
+        {
+            "name": "beIN Sports 1 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06o"
+        },
+        {
+            "name": "beIN Sports 1 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a04h"
+        },
+        {
+            "name": "beIN Sports 1 Premium HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06v"
+        },
+        {
+            "name": "beIN Sports 1 SD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a04i"
+        },
+        {
+            "name": "beIN Sports 2 English HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06z"
+        },
+        {
+            "name": "beIN Sports 2 French HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a071"
+        },
+        {
+            "name": "beIN Sports 2 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06p"
+        },
+        {
+            "name": "beIN Sports 2 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a04j"
+        },
+        {
+            "name": "beIN Sports 2 Premium HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06w"
+        },
+        {
+            "name": "beIN Sports 2 SD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a04k"
+        },
+        {
+            "name": "beIN Sports 3 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06q"
+        },
+        {
+            "name": "beIN Sports 3 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a04l"
+        },
+        {
+            "name": "beIN Sports 3 Premium HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06x"
+        },
+        {
+            "name": "beIN Sports 3 SD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a04m"
+        },
+        {
+            "name": "beIN Sports 4 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06r"
+        },
+        {
+            "name": "beIN Sports 5 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06s"
+        },
+        {
+            "name": "beIN Sports 6 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06t"
+        },
+        {
+            "name": "beIN Sports 7 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06u"
+        },
+        {
+            "name": "beIN Sports HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06n"
+        },
+        {
+            "name": "beIN Sports Max 10 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a04t"
+        },
+        {
+            "name": "beIN Sports Max 4 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a04n"
+        },
+        {
+            "name": "beIN Sports Max 5 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a04o"
+        },
+        {
+            "name": "beIN Sports Max 6 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a04p"
+        },
+        {
+            "name": "beIN Sports Max 7 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a04q"
+        },
+        {
+            "name": "beIN Sports Max 8 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a04r"
+        },
+        {
+            "name": "beIN Sports Max 9 HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a04s"
+        },
+        {
+            "name": "beIN Sports News HD",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://194.127.172.154:8000/play/a06m"
+        },
+        {
+            "name": "N1 Bosna i Hercegovina",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://best-str.umn.cdn.united.cloud/stream?channel=n1bos&p=n1Sh4redSecre7iNf0&sp=n1info&stream=sp1400&u=n1info"
+        },
+        {
+            "name": "13 Prime",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://origin.dpsgo.com/ssai/event/p4mmBxEzSmKAxY1GusOHrw/master.m3u8"
+        },
+        {
+            "name": "MBC Masr 1",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://mbc1-enc.edgenextcdn.net/out/v1/d5036cabf11e45bf9d0db410ca135c18/index.m3u8"
+        },
+        {
+            "name": "MBC Masr 2",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://shls-masr2-ak.akamaized.net/out/v1/f683685242b549f48ea8a5171e3e993a/index.m3u8"
         },
         {
             "name": "Tagesschau24",
-            "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Tagesschau24-2012.svg/640px-Tagesschau24-2012.svg.png",
+            "logo": "assets/img/default-logo.png",
             "url": "https://tagesschau.akamaized.net/hls/live/2020115/tagesschau/tagesschau_1/master.m3u8"
         },
         {
-            "name": "ERT Sports 1 Ⓖ",
-            "logo": "https://i.imgur.com/EsczO2H.png",
-            "url": "https://ertflix.akamaized.net/ertlive/ertsports1/clrdef24724a/index.m3u8"
+            "name": "MBC TV",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://123.254.72.24:1935/tvlive/livestream2/playlist.m3u8"
         },
         {
-            "name": "TVB Finance (Sports & Information Channel)",
-            "logo": "https://i.imgur.com/Fkkp7x7.png",
-            "url": "https://tvp22.sky4k.top/index2.php"
+            "name": "Prime Ⓖ",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://livebeta.publika.md/LIVE/1/600.m3u8"
         },
         {
-            "name": "J SPORTS 1",
-            "logo": "https://www.starcat.co.jp/ch/upload/channel/69/jsports1_logo.jpg",
-            "url": "https://stream01.willfonk.com/live_playlist.m3u8?cid=BS242&r=FHD&ccode=JP&m=d0:20:20:04:35:cc&t=0d6938cb3dcf4b79848bc1753a59daf1"
+            "name": "MBC 1",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://mbc1-enc.edgenextcdn.net/out/v1/0965e4d7deae49179172426cbfb3bc5e/index.m3u8"
         },
         {
-            "name": "J SPORTS 2",
-            "logo": "https://www.starcat.co.jp/ch/upload/channel/70/jsports2_logo.jpg",
-            "url": "https://stream01.willfonk.com/live_playlist.m3u8?cid=BS243&r=FHD&ccode=JP&m=d0:20:20:04:35:cc&t=0d6938cb3dcf4b79848bc1753a59daf1"
+            "name": "MBC 2 Ⓢ",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://37.122.156.107:4000/play/a07g/index.m3u8"
         },
         {
-            "name": "J SPORTS 3",
-            "logo": "https://www.starcat.co.jp/ch/upload/channel/71/jsports3_logo.jpg",
-            "url": "https://stream01.willfonk.com/live_playlist.m3u8?cid=BS244&r=FHD&ccode=JP&m=d0:20:20:04:35:cc&t=0d6938cb3dcf4b79848bc1753a59daf1"
+            "name": "MBC 3",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://shls-mbc3-prod-dub.shahid.net/out/v1/d5bbe570e1514d3d9a142657d33d85e6/index.m3u8"
         },
         {
-            "name": "J SPORTS 4",
-            "logo": "https://www.starcat.co.jp/ch/upload/channel/74/jsports4_logo.jpg",
-            "url": "https://stream01.willfonk.com/live_playlist.m3u8?cid=BS245&r=FHD&ccode=JP&m=d0:20:20:04:35:cc&t=0d6938cb3dcf4b79848bc1753a59daf1"
+            "name": "MBC 4",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://mbc4-prod-dub-ak.akamaized.net/out/v1/c08681f81775496ab4afa2bac7ae7638/index.m3u8"
         },
         {
-            "name": "BBC Radio 5 Sports Extra",
-            "logo": "https://experiencersinternational.github.io/tvsetup/tvg-ico/bbcrd5s-epg.png",
-            "url": "http://as-hls-uk-live.akamaized.net/pool_904/live/uk/bbc_radio_five_live_sports_extra/bbc_radio_five_live_sports_extra.isml/bbc_radio_five_live_sports_extra-audio%3d96000.norewind.m3u8"
+            "name": "MBC 5",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://shls-mbc5-prod-dub.shahid.net/out/v1/2720564b6a4641658fdfb6884b160da2/index.m3u8"
         },
         {
-            "name": "Abu Dhabi Sports 1",
-            "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Abu_Dhabi_Sports_logo_2023.svg/2560px-Abu_Dhabi_Sports_logo_2023.svg.png",
-            "url": "https://vo-live.cdb.cdn.orange.com/Content/Channel/AbuDhabiSportsChannel1/HLS/index.m3u8"
+            "name": "MBC Action Ⓢ",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://37.122.156.107:4000/play/a07h/index.m3u8"
         },
         {
-            "name": "Abu Dhabi Sports 2",
-            "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Abu_Dhabi_Sports_logo_2023.svg/2560px-Abu_Dhabi_Sports_logo_2023.svg.png",
-            "url": "https://vo-live.cdb.cdn.orange.com/Content/Channel/AbuDhabiSportsChannel2/HLS/index.m3u8"
+            "name": "MBC Bollywood",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://shls-mbcbollywood-prod-dub.shahid.net/out/v1/a79c9d7ef2a64a54a64d5c4567b3462a/index.m3u8"
+        },
+        {
+            "name": "MBC Drama",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://mbc1-enc.edgenextcdn.net/out/v1/b0b3a0e6750d4408bb86d703d5feffd1/index.m3u8"
+        },
+        {
+            "name": "MBC Max Ⓢ",
+            "logo": "assets/img/default-logo.png",
+            "url": "http://37.122.156.107:4000/play/a07i/index.m3u8"
+        },
+        {
+            "name": "MBC Persia",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://shls-mbcpersia-prod-dub.shahid.net/out/v1/bdc7cd0d990e4c54808632a52c396946/index.m3u8"
+        },
+        {
+            "name": "Dubai TV",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://dmisxthvll.cdn.mgmlcdn.com/dubaitvht/smil:dubaitv.stream.smil/playlist.m3u8"
+        },
+        {
+            "name": "Dubai One",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://dminnvll.cdn.mangomolo.com/dubaione/smil:dubaione.stream.smil/playlist.m3u8"
         },
         {
             "name": "Dubai Sports 1",
-            "logo": "https://www.lyngsat.com/logo/tv/dd/dubai-sports-ae.png",
+            "logo": "assets/img/default-logo.png",
             "url": "https://dmitnthfr.cdn.mgmlcdn.com/dubaisports/smil:dubaisports.stream.smil/chunklist.m3u8"
         },
         {
             "name": "Dubai Sports 2",
-            "logo": "https://www.lyngsat.com/logo/tv/dd/dubai-sports-ae.png",
+            "logo": "assets/img/default-logo.png",
             "url": "https://dmitwlvvll.cdn.mangomolo.com/dubaisportshd/smil:dubaisportshd.smil/index.m3u8"
         },
         {
             "name": "Dubai Sports 3",
-            "logo": "https://www.lyngsat.com/logo/tv/dd/dubai-sports-ae.png",
+            "logo": "assets/img/default-logo.png",
             "url": "https://dmitwlvvll.cdn.mangomolo.com/dubaisportshd5/smil:dubaisportshd5.smil/index.m3u8"
         },
         {
-            "name": "Unbeaten Sports – Pluto TV",
-            "logo": "https://i.imgur.com/UAiv612.png",
-            "url": "https://service-stitcher.clusters.pluto.tv/v1/stitch/embed/hls/channel/64c3b106dac71b00080a26d2/master.m3u8?deviceId=channel&deviceModel=web&deviceVersion=1.0&appVersion=1.0&deviceType=rokuChannel&deviceMake=rokuChannel&deviceDNT=1&advertisingId=channel&embedPartner=rokuChannel&appName=rokuchannel&is_lat=1&bmodel=bm1&content=channel&platform=web&tags=ROKU_CONTENT_TAGS&coppa=false&content_type=livefeed&rdid=channel&genre=ROKU_ADS_CONTENT_GENRE&content_rating=ROKU_ADS_CONTENT_RATING&studio_id=viacom&channel_id=channel"
+            "name": "Dubai Racing 1",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://dmisvthvll.cdn.mgmlcdn.com/events/smil:events.stream.smil/playlist.m3u8"
+        },
+        {
+            "name": "Dubai Racing 2",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://dmithrvll.cdn.mangomolo.com/dubairacing/smil:dubairacing.smil/playlist.m3u8"
+        },
+        {
+            "name": "Dubai Racing 3",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://dmithrvll.cdn.mangomolo.com/dubaimubasher/smil:dubaimubasher.smil/playlist.m3u8"
+        },
+        {
+            "name": "Dubai Zaman",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://dmiffthvll.cdn.mangomolo.com/dubaizaman/smil:dubaizaman.stream.smil/playlist.m3u8"
+        },
+        {
+            "name": "Sama Dubai",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://dmieigthvll.cdn.mgmlcdn.com/samadubaiht/smil:samadubai.stream.smil/playlist.m3u8"
+        },
+        {
+            "name": "Noor Dubai",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://dmiffthvll.cdn.mangomolo.com/noordubaitv/smil:noordubaitv.smil/playlist.m3u8"
+        },
+        {
+            "name": "MBC 3",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-3-usa/5d58265a862a476dc7f97694addb5ded/index.m3u8"
+        },
+        {
+            "name": "MBC 4",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-4/24f134f1cd63db9346439e96b86ca6ed/index.m3u8"
+        },
+        {
+            "name": "MBC 5",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-5/ee6b000cee0629411b666ab26cb13e9b/index.m3u8"
+        },
+        {
+            "name": "MBC+ دراما",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-plus-drama/e37251ec2aac8f6c98f75cd0fa37cd28/index.m3u8"
+        },
+        {
+            "name": "MBC بـــولــــيّـــود",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-bollywood/546eb40d7dcf9a209255dd2496903764/index.m3u8"
+        },
+        {
+            "name": "MBC عــــراق",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-iraq/e38c44b1b43474e1c39cb5b90203691e/index.m3u8"
+        },
+        {
+            "name": "MBC FM",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://mbcfm-riyadh-prod-dub.shahid.net/out/v1/69c8a03f507e422f99cf5c07291c9e3a/index.m3u8"
+        },
+        {
+            "name": "MBC مصر 2",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-masr-2/754931856515075b0aabf0e583495c68/index.m3u8"
+        },
+        {
+            "name": "MBC دراما مصر",
+            "logo": "assets/img/default-logo.png",
+            "url": "https://shls-live-enc.edgenextcdn.net/out/v1/08eca926a78a41339b8010c882410307/index.m3u8"
         }
     ]
 }
