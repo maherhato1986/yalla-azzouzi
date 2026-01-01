@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>بث مباشر للمباراة | يلا عزوزي</title>
+    <style>
+        body { background: #1a1a1a; color: #fff; margin: 0; text-align: center; font-family: sans-serif; }
+        .player-container { max-width: 900px; margin: 20px auto; background: #000; border: 2px solid #e74c3c; position: relative; padding-top: 56.25%; /* 16:9 Aspect Ratio */ }
+        iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .match-title { padding: 20px; font-size: 24px; color: #e74c3c; }
+        .server-list { margin: 20px; display: flex; justify-content: center; gap: 10px; }
+        .server-btn { background: #333; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; }
+        .server-btn:hover { background: #e74c3c; }
+    </style>
+</head>
+<body>
+
+    <div class="match-title">بث مباشر مباراة (اسم الفريقين)</div>
+
+    <div class="container">
+        <div class="player-container">
+            <iframe src="https://تضع-هنا-رابط-البث" allowfullscreen></iframe>
+        </div>
+
+        <div class="server-list">
+            <button class="server-btn">سيرفر 1</button>
+            <button class="server-btn">سيرفر 2</button>
+            <button class="server-btn">سيرفر 3 (جودة ضعيفة)</button>
+        </div>
+    </div>
+
+</body>
+</html>
