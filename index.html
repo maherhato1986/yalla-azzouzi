@@ -6,9 +6,11 @@
     <title>يلا عزوزي | Yalla Azzouzi | بث مباشر مباريات اليوم</title>
     <meta name="description" content="يلا عزوزي بث مباشر لمباريات اليوم بدون تقطيع، تابع أهم المباريات والنتائج الحية عبر موقع yalla-azzouzi.live" />
     
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
     <style>
         :root {
-            --main_color: #e74c3c; /* لون أحمر احترافي للبث المباشر */
+            --main_color: #e74c3c; 
             --header_bg: #210808;
             --body_bg: #eceef2;
             --LightColor: #ffffff;
@@ -20,159 +22,54 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--body_bg);
-            margin: 0;
-            padding: 0;
-            direction: rtl;
+            margin: 0; padding: 0; direction: rtl;
         }
 
-        .container {
-            max-width: 1024px;
-            margin: auto;
-            padding: 0 15px;
-        }
+        .container { max-width: 1024px; margin: auto; padding: 0 15px; }
 
-        /* الهيدر */
-        header {
-            background: var(--header_bg);
-            color: #fff;
-            padding: 15px 0;
-            box-shadow: 0 2px 5px var(--bk-shadow);
-        }
+        header { background: var(--header_bg); color: #fff; padding: 15px 0; box-shadow: 0 2px 5px var(--bk-shadow); }
+        .logo { font-size: 28px; font-weight: bold; color: #fff; text-decoration: none; }
 
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #fff;
-            text-decoration: none;
-        }
+        .AY_Block { background: var(--LightColor); border-radius: var(--rounded); margin: 20px 0; overflow: hidden; box-shadow: 0 0 10px var(--bk-shadow); }
+        .AYb_Head { background: #273340; color: #fff; padding: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .albaflex { display: flex; flex-direction: column; padding: 10px; }
 
-        /* جدول المباريات */
-        .AY_Block {
-            background: var(--LightColor);
-            border-radius: var(--rounded);
-            margin: 20px 0;
-            overflow: hidden;
-            box-shadow: 0 0 10px var(--bk-shadow);
-        }
+        /* تصميم بطاقة المباراة */
+        .AY_Match { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--Gray2); border-radius: var(--rounded); margin-bottom: 15px; transition: 0.3s; position: relative; }
+        .AY_Match:hover { transform: translateY(-3px); box-shadow: 0 5px 15px var(--bk-shadow); }
+        .MT_Inner_Data { display: flex; align-items: center; justify-content: space-around; padding: 15px; }
+        .TM_Logo img { width: 55px; height: 55px; object-fit: contain; }
+        .TM_Name { font-weight: bold; font-size: 15px; margin-top: 5px; text-align: center;}
+        .MT_Data { text-align: center; flex: 1; }
+        .MT_Result { font-size: 24px; font-weight: bold; background: #f1f1f1; padding: 5px 15px; border-radius: 20px; display: inline-block; }
+        .MT_Stat { background: var(--main_color); color: #fff; padding: 3px 10px; border-radius: 4px; font-size: 12px; margin-top: 10px; display: inline-block; animation: pulse 1.5s infinite; }
+        .watch-link { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 10; }
 
-        .AYb_Head {
-            background: #273340;
-            color: #fff;
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .albaflex {
-            display: flex;
-            flex-direction: column;
-            padding: 10px;
-        }
-
-        /* بطاقة المباراة الاحترافية [تعديل بناءً على تصميم يلا شوت] */
-        .AY_Match {
-            display: flex;
-            flex-direction: column;
-            background: #fff;
-            border: 1px solid var(--Gray2);
-            border-radius: var(--rounded);
-            margin-bottom: 15px;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .AY_Match:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px var(--bk-shadow);
-        }
-
-        .MT_Inner_Data {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
+        /* تصميم منطقة القنوات الجديدة */
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
             padding: 15px;
         }
-
-        .MT_Team {
-            text-align: center;
-            flex: 1;
-        }
-
-        .TM_Logo img {
-            width: 55px;
-            height: 55px;
-            object-fit: contain;
-        }
-
-        .TM_Name {
-            font-weight: bold;
-            font-size: 15px;
-            margin-top: 5px;
-        }
-
-        .MT_Data {
-            text-align: center;
-            flex: 1;
-        }
-
-        .MT_Result {
-            font-size: 24px;
-            font-weight: bold;
-            background: #f1f1f1;
-            padding: 5px 15px;
-            border-radius: 20px;
-            display: inline-block;
-        }
-
-        .MT_Stat {
-            background: var(--main_color);
-            color: #fff;
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-top: 10px;
-            display: inline-block;
-            animation: pulse 1.5s infinite;
-        }
-
-        .MT_Info {
+        .channel-card {
             background: #f9f9f9;
-            border-top: 1px solid var(--Gray2);
-            padding: 8px;
-        }
-
-        .MT_Info ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 0;
-            padding: 0;
-            font-size: 12px;
-            color: #666;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
-
-        /* زر المشاهدة */
-        .watch-link {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 10;
-        }
-
-        footer {
-            background: var(--header_bg);
-            color: #fff;
+            border-radius: var(--rounded);
+            padding: 15px;
             text-align: center;
-            padding: 20px 0;
-            margin-top: 30px;
+            border: 1px solid var(--Gray2);
+            cursor: pointer;
+            transition: 0.3s;
         }
+        .channel-card:hover { border-color: var(--main_color); background: #fff; }
+        .channel-card img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 8px; }
+        .channel-card h3 { font-size: 13px; margin: 0; color: #333; }
+
+        /* منطقة المشغل */
+        #main-player-section { display: none; margin-bottom: 20px; text-align: center; background: #000; padding: 10px; border-radius: var(--rounded); }
+        video { width: 100%; max-height: 500px; background: #000; }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -184,72 +81,109 @@
 </header>
 
 <main class="container">
+    
+    <section id="main-player-section">
+        <h3 id="playing-now-title" style="color: white; margin-bottom: 10px;"></h3>
+        <video id="video-player" controls></video>
+    </section>
+
     <section class="AY_Block">
         <div class="AYb_Head">
             <h2>مباريات اليوم</h2>
-            <span>التاريخ: 2024-05-20</span>
+            <span>بث مباشر</span>
         </div>
-
         <div class="albaflex">
-            <div class="AY_Match live">
-                <a href="match.html?stream=رابط_سيرفر_البث_هنا" class="watch-link"></a>
-                <div class="MT_Inner_Data">
-                    <div class="MT_Team">
-                        <div class="TM_Logo"><img src="https://path-to-logo1.png" alt="فريق 1"></div>
-                        <div class="TM_Name">ريال مدريد</div>
-                    </div>
-                    <div class="MT_Data">
-                        <div class="MT_Result">2 - 1</div>
-                        <div class="MT_Stat">مباشر الآن</div>
-                    </div>
-                    <div class="MT_Team">
-                        <div class="TM_Logo"><img src="https://path-to-logo2.png" alt="فريق 2"></div>
-                        <div class="TM_Name">برشلونة</div>
-                    </div>
-                </div>
-                <div class="MT_Info">
-                    <ul>
-                        <li>📺 beIN Sports 1</li>
-                        <li>🎤 عصام الشوالي</li>
-                        <li>🏆 الدوري الإسباني</li>
-                    </ul>
-                </div>
-            </div>
-
             <div class="AY_Match">
-                <a href="match2.html" class="watch-link"></a>
                 <div class="MT_Inner_Data">
-                    <div class="MT_Team">
-                        <div class="TM_Logo"><img src="https://path-to-logo3.png" alt="فريق 1"></div>
-                        <div class="TM_Name">مانشستر سيتي</div>
-                    </div>
-                    <div class="MT_Data">
-                        <div class="MT_Time">22:00</div>
-                        <div class="MT_Result">VS</div>
-                    </div>
-                    <div class="MT_Team">
-                        <div class="TM_Logo"><img src="https://path-to-logo4.png" alt="فريق 2"></div>
-                        <div class="TM_Name">ليفربول</div>
-                    </div>
-                </div>
-                <div class="MT_Info">
-                    <ul>
-                        <li>📺 beIN Sports 2</li>
-                        <li>🎤 خليل البلوشي</li>
-                        <li>🏆 الدوري الإنجليزي</li>
-                    </ul>
+                    <div class="MT_Team"><img src="https://via.placeholder.com/55" alt=""><div class="TM_Name">فريق أ</div></div>
+                    <div class="MT_Data"><div class="MT_Result">0 - 0</div><br><div class="MT_Stat">مباشر</div></div>
+                    <div class="MT_Team"><img src="https://via.placeholder.com/55" alt=""><div class="TM_Name">فريق ب</div></div>
                 </div>
             </div>
         </div>
     </section>
+
+    <section class="AY_Block">
+        <div class="AYb_Head">
+            <h2>قنوات بث مباشر</h2>
+            <span>تحديث تلقائي</span>
+        </div>
+        <div class="channels-grid" id="channels-list">
+            </div>
+    </section>
 </main>
 
 <footer>
-    <div class="container">
+    <div class="container" style="text-align: center; padding: 20px; color: #666;">
         <p>&copy; 2024 جميع الحقوق محفوظة لموقع يلا عزوزي</p>
     </div>
 </footer>
 
+<script>
+    // أسماء ملفاتك التي رفعتها
+    const m3uFiles = ['Freecatv-41.m3u8', 'mbc&osn.m3u8', 'amazon prime sports.m3u8'];
+
+    async function loadAllChannels() {
+        const listContainer = document.getElementById('channels-list');
+        for (const file of m3uFiles) {
+            try {
+                const response = await fetch(file);
+                if(response.ok) {
+                    const data = await response.text();
+                    parseM3U(data);
+                }
+            } catch (err) { console.log("خطأ في تحميل: " + file); }
+        }
+    }
+
+    function parseM3U(content) {
+        const lines = content.split('\n');
+        let currentName = "";
+        let currentLogo = "";
+
+        lines.forEach(line => {
+            if (line.startsWith('#EXTINF:')) {
+                const nameParts = line.split(',');
+                currentName = nameParts[nameParts.length - 1].trim();
+                const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+                currentLogo = logoMatch ? logoMatch[1] : "https://via.placeholder.com/50?text=TV";
+            } else if (line.startsWith('http')) {
+                createCard(currentName, currentLogo, line.trim());
+            }
+        });
+    }
+
+    function createCard(name, logo, url) {
+        const container = document.getElementById('channels-list');
+        const card = document.createElement('div');
+        card.className = 'channel-card';
+        card.innerHTML = `<img src="${logo}"><h3>${name}</h3>`;
+        card.onclick = () => playStream(url, name);
+        container.appendChild(card);
+    }
+
+    function playStream(url, name) {
+        const section = document.getElementById('main-player-section');
+        const video = document.getElementById('video-player');
+        const title = document.getElementById('playing-now-title');
+        
+        section.style.display = 'block';
+        title.innerText = "بث مباشر: " + name;
+
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource(url);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+        } else {
+            video.src = url;
+            video.play();
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.onload = loadAllChannels;
+</script>
+
 </body>
 </html>
-
