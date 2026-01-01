@@ -3,118 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yalla Azzouzi TV | البث المباشر</title>
+    <title>يلا عزوزي - بث مباشر مباريات اليوم</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        :root { --neon: #00fbff; --dark: #0a0a0a; --card: #161616; }
-        body { background: var(--dark); color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding-bottom: 50px; }
-        
-        header { background: #000; padding: 20px; text-align: center; border-bottom: 2px solid var(--neon); sticky: top; }
-        header h1 { margin: 0; color: var(--neon); font-size: 24px; text-transform: uppercase; letter-spacing: 2px; }
-
-        .nav-tabs { display: flex; overflow-x: auto; background: #111; padding: 10px; gap: 10px; sticky: top; z-index: 100; border-bottom: 1px solid #333; scrollbar-width: none; }
-        .tab { background: #222; border: 1px solid #444; padding: 8px 20px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: 0.3s; font-size: 14px; }
-        .tab.active { background: var(--neon); color: #000; font-weight: bold; box-shadow: 0 0 10px var(--neon); }
-
-        #player-container { width: 100%; max-width: 900px; margin: 10px auto; background: #000; border-radius: 12px; overflow: hidden; display: none; border: 1px solid #333; }
-        video { width: 100%; aspect-ratio: 16/9; display: block; }
-        .p-info { padding: 15px; background: #111; border-top: 1px solid #333; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; padding: 15px; max-width: 1200px; margin: auto; }
-        .card { background: var(--card); border-radius: 12px; padding: 10px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #222; position: relative; overflow: hidden; }
-        .card:hover { transform: translateY(-5px); border-color: var(--neon); box-shadow: 0 5px 15px rgba(0, 251, 255, 0.2); }
-        .card img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 8px; border-radius: 8px; background: #000; }
-        .card h3 { font-size: 12px; margin: 0; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-        .loading { text-align: center; padding: 50px; color: var(--neon); font-size: 18px; }
+        :root { --main-color: #004d40; }
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .navbar { background-color: var(--main-color) ! alienation; color: white; }
+        #main-player { background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 30px; }
+        video { width: 100%; aspect-ratio: 16/9; }
+        .channel-item { cursor: pointer; border: none; transition: 0.3s; background: white; border-radius: 10px; }
+        .channel-item:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .channel-logo { width: 60px; height: 60px; object-fit: contain; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>YALLA AZZOUZI TV</h1>
-</header>
+<nav class="navbar navbar-dark mb-4">
+    <div class="container text-center">
+        <a class="navbar-brand fw-bold" href="#">Yalla Azzouzi - يلا عزوزي</a>
+    </div>
+</nav>
 
-<div class="nav-tabs">
-    <div class="tab active" onclick="filterChannels('الكل', event)">📺 الكل</div>
-    <div class="tab" onclick="filterChannels('Sport', event)">⚽ رياضة</div>
-    <div class="tab" onclick="filterChannels('News', event)">📰 أخبار</div>
-    <div class="tab" onclick="filterChannels('MBC', event)">🎬 منوعات</div>
-    <div class="tab" onclick="filterChannels('Kids', event)">🧸 أطفال</div>
-</div>
+<div class="container">
+    <div id="main-player" class="d-none"> <video id="videoPlayer" controls autoplay></video>
+        <div class="p-3 bg-dark text-white">
+            <h5 id="now-playing">أنت تشاهد الآن: </h5>
+        </div>
+    </div>
 
-<div id="player-container">
-    <video id="video" controls></video>
-    <div class="p-info">
-        <strong id="p-title" style="color: var(--neon);">اسم القناة</strong>
+    <h3 class="mb-3 border-bottom pb-2">القنوات الرياضية المباشرة</h3>
+    <div id="channels-grid" class="row g-3 mb-5">
+        <div class="text-center py-5">جاري جلب القنوات...</div>
     </div>
 </div>
 
-<div id="loading" class="loading">جاري جلب أحدث القنوات...</div>
-<div class="grid" id="grid"></div>
-
 <script>
-    let allData = [];
-    const video = document.getElementById('video');
-    const hls = new Hls();
+    const video = document.getElementById('videoPlayer');
+    const playerContainer = document.getElementById('main-player');
+    const nowPlayingText = document.getElementById('now-playing');
+    const channelsGrid = document.getElementById('channels-grid');
 
-    async function loadData() {
-        try {
-            // إضافة التوقيت لمنع المتصفح من حفظ نسخة قديمة (Cache Buster)
-            const response = await fetch('channels.json?v=' + new Date().getTime());
-            allData = await response.json();
-            document.getElementById('loading').style.display = 'none';
-            renderGrid(allData);
-        } catch (e) {
-            document.getElementById('loading').innerText = "خطأ في تحميل القنوات. جاري المحاولة مرة أخرى...";
-        }
-    }
-
-    function renderGrid(list) {
-        const grid = document.getElementById('grid');
-        grid.innerHTML = '';
-        list.forEach(c => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            const logo = c.logo || 'https://cdn-icons-png.flaticon.com/512/716/716429.png';
-            card.innerHTML = `<img src="${logo}"><h3>${c.name}</h3>`;
-            card.onclick = () => play(c.url, c.name);
-            grid.appendChild(card);
-        });
-    }
-
-    function play(url, name) {
-        document.getElementById('player-container').style.display = 'block';
-        document.getElementById('p-title').innerText = name;
-        window.scrollTo({top: 0, behavior: 'smooth'});
-
-        // استخدام البروكسي الخاص بك لفك التشفير
-        const finalUrl = "https://yalla-azzouzi.crimson-grass-c7f2.workers.dev/?url=" + encodeURIComponent(url);
+    // وظيفة تشغيل القناة
+    function startStream(url, name) {
+        playerContainer.classList.remove('d-none');
+        nowPlayingText.innerText = "أنت تشاهد الآن: " + name;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
 
         if (Hls.isSupported()) {
-            hls.loadSource(finalUrl);
+            const hls = new Hls();
+            hls.loadSource(url);
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
         } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = finalUrl;
-            video.addEventListener('loadedmetadata', () => video.play());
+            video.src = url;
+            video.play();
         }
     }
 
-    function filterChannels(type, e) {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        e.target.classList.add('active');
-        
-        if (type === 'الكل') {
-            renderGrid(allData);
-        } else {
-            const filtered = allData.filter(c => c.name.toUpperCase().includes(type.toUpperCase()));
-            renderGrid(filtered);
+    // جلب البيانات من الملف الذي يحدثه GitHub Action تلقائياً
+    async function loadChannels() {
+        try {
+            const response = await fetch('channels.json');
+            const data = await response.json();
+            channelsGrid.innerHTML = ''; // تفريغ منطقة التحميل
+
+            data.channels.forEach(channel => {
+                const col = document.createElement('div');
+                col.className = 'col-6 col-md-3 col-lg-2';
+                col.innerHTML = `
+                    <div class="card channel-item p-3 text-center h-100" onclick="startStream('${channel.url}', '${channel.name}')">
+                        <img src="${channel.logo}" class="channel-logo mx-auto mb-2" alt="${channel.name}">
+                        <div class="fw-bold small">${channel.name}</div>
+                    </div>
+                `;
+                channelsGrid.appendChild(col);
+            });
+        } catch (error) {
+            channelsGrid.innerHTML = '<div class="alert alert-danger">فشل تحميل القنوات، يرجى المحاولة لاحقاً.</div>';
         }
     }
 
-    // تحميل البيانات عند فتح الصفحة
-    loadData();
+    // تشغيل الجلب عند فتح الصفحة
+    loadChannels();
 </script>
 
 </body>
