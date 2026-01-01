@@ -1,44 +1,53 @@
 import requests
+import base64
+import time
 
-# أقوى مستودعات GitHub المحدثة حالياً لقنوات beIN و SSC والعرب
-sources = [
-    "https://raw.githubusercontent.com/arab-iptv/arab-iptv/master/arab-iptv.m3u",
-    "https://raw.githubusercontent.com/MoamenHany/IPTV/master/Arab.m3u",
-    "https://raw.githubusercontent.com/S-K-S-K/IPTV/main/Arab.m3u",
-    "https://iptv-org.github.io/iptv/languages/ara.m3u",
-    "https://raw.githubusercontent.com/mahmoud-m-ismail/IPTV/main/M3U/BeIN_Sports.m3u"
-]
+# البحث عن ملفات m3u8 تحتوي على قنوات عربية ورياضية ومحدثة مؤخراً
+GITHUB_SEARCH_API = "https://api.github.com/search/code?q=extension:m3u8+arab+sport+in:path&sort=indexed&order=desc"
 
-def update_m3u():
+def fetch_github_m3u():
     combined_content = "#EXTM3U\n"
-    # لضمان عدم تكرار القنوات
-    unique_urls = set()
+    seen_urls = set()
     
-    for url in sources:
-        try:
-            print(f"جاري السحب من: {url}")
-            r = requests.get(url, timeout=15)
-            if r.status_code == 200:
-                lines = r.text.split('\n')
-                for i in range(len(lines)):
-                    if lines[i].startswith('#EXTINF'):
-                        # استخراج رابط القناة (السطر التالي)
-                        stream_url = lines[i+1].strip() if (i+1) < len(lines) else ""
-                        
-                        # فلتر رياضي: جلب قنوات BEIN, SSC, الرياضية فقط لضمان الجودة
-                        info = lines[i].upper()
-                        keywords = ["BEIN", "SSC", "KSA SPORT", "AD SPORT", "ALKASS", "SPORT", "بطولة"]
-                        
-                        if any(key in info for key in keywords) or "ARA.M3U" in url.lower():
-                            if stream_url.startswith('http') and stream_url not in unique_urls:
-                                combined_content += lines[i] + "\n" + stream_url + "\n"
-                                unique_urls.add(stream_url)
-        except:
-            continue
+    try:
+        # طلب البحث من GitHub API
+        headers = {'Accept': 'application/vnd.github.v3+json'}
+        response = requests.get(GITHUB_SEARCH_API, headers=headers, timeout=30)
+        
+        if response.status_code == 200:
+            items = response.json().get('items', [])
+            print(f"تم العثور على {len(items)} مستودع محتمل...")
+            
+            for item in items[:15]:  # فحص أفضل 15 نتيجة حديثة جداً
+                file_raw_url = item['url']
+                file_data = requests.get(file_raw_url, headers=headers).json()
+                
+                # فك تشفير المحتوى
+                try:
+                    content = base64.b64decode(file_data['content']).decode('utf-8')
+                    lines = content.split('\n')
+                    
+                    for i in range(len(lines)):
+                        if lines[i].startswith('#EXTINF'):
+                            stream_url = lines[i+1].strip() if (i+1) < len(lines) else ""
+                            
+                            # التأكد أن الرابط يبدأ بـ http ولم يسبق جلبة
+                            if stream_url.startswith('http') and stream_url not in seen_urls:
+                                # تصفية ذكية للقنوات المهمة فقط (beIN, SSC, MBC, إلخ)
+                                name = lines[i].upper()
+                                if any(k in name for k in ["BEIN", "SSC", "SPORT", "ARA", "KSA", "MBC", "OSN"]):
+                                    combined_content += lines[i] + "\n" + stream_url + "\n"
+                                    seen_urls.add(stream_url)
+                except: continue
+                time.sleep(1) # لتجنب حظر GitHub API
+        
+        # حفظ كل ما تم صيده في ملف واحد للموقع
+        with open("playlist.m3u8", "w", encoding="utf-8") as f:
+            f.write(combined_content)
+        print(f"تم بنجاح استخراج {len(seen_urls)} قناة شغالة!")
 
-    with open("playlist.m3u8", "w", encoding="utf-8") as f:
-        f.write(combined_content)
-    print(f"تم! وجدت {len(unique_urls)} قناة رياضية وعربية.")
+    except Exception as e:
+        print(f"حدث خطأ أثناء الصيد: {e}")
 
 if __name__ == "__main__":
-    update_m3u()
+    fetch_github_m3u()
