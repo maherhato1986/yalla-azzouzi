@@ -1,41 +1,100 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>تجربة تشغيل يلا عزوزي</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>يلا عزوزي - البث الشامل</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body { background: #0f0f0f; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        header { background: #1a1a1a; padding: 15px; text-align: center; border-bottom: 2px solid #e74c3c; position: sticky; top: 0; z-index: 100; }
+        .container { max-width: 1000px; margin: auto; padding: 20px; }
+        #video-container { background: #000; border-radius: 12px; overflow: hidden; margin-bottom: 20px; border: 2px solid #333; position: relative; }
+        video { width: 100%; aspect-ratio: 16/9; display: block; }
+        .channel-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; height: 400px; overflow-y: auto; background: #1a1a1a; padding: 10px; border-radius: 8px; }
+        .channel-item { background: #252525; padding: 10px; border-radius: 5px; text-align: center; cursor: pointer; font-size: 12px; transition: 0.2s; border: 1px solid transparent; }
+        .channel-item:hover { background: #e74c3c; border-color: white; }
+        .loading { text-align: center; padding: 20px; color: #e74c3c; font-weight: bold; }
+        #current-track { padding: 10px; background: #e74c3c; font-weight: bold; font-size: 14px; text-align: center; }
+    </style>
 </head>
-<body style="background:#000; color:#fff; text-align:center;">
+<body>
 
-    <h1>فحص تشغيل البث المباشر</h1>
-    
-    <video id="my-video" controls autoplay width="100%" style="max-width:800px; border:5px solid red;">
-        <source src="https://skynews-skynewsarabia-main.ateme.tv/playlist.m3u8" type="application/x-mpegURL">
-        متصفحك لا يدعم التشغيل المباشر.
-    </video>
+<header><h1>YALLA AZZOUZI LIVE</h1></header>
 
-    <div style="margin-top:20px;">
-        <button onclick="playTest()" style="padding:20px; background:green; color:white; font-size:20px;">اضغط هنا لتجربة التشغيل</button>
+<div class="container">
+    <div id="video-container">
+        <div id="current-track">اختر قناة من القائمة بالأسفل</div>
+        <video id="video" controls autoplay></video>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script>
-        function playTest() {
-            var video = document.getElementById('my-video');
-            // رابط قناة سكاي نيوز (لأننا نعرف أنه شغال 100%)
-            var videoSrc = 'https://skynews-skynewsarabia-main.ateme.tv/playlist.m3u8';
+    <h3 style="border-right: 4px solid #e74c3c; padding-right: 10px;">جميع القنوات في مستودعك:</h3>
+    <div id="list-container" class="channel-list">
+        <div class="loading">جاري قراءة ملف playlist (2).m3u8...</div>
+    </div>
+</div>
 
-            if (Hls.isSupported()) {
-                var hls = new Hls();
-                hls.loadSource(videoSrc);
-                hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                    video.play();
-                });
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = videoSrc;
-                video.play();
+<script>
+    const playlistURL = 'playlist (2).m3u8'; // الملف الموجود في مستودعك
+    const video = document.getElementById('video');
+    const listContainer = document.getElementById('list-container');
+    const trackLabel = document.getElementById('current-track');
+
+    async function loadPlaylist() {
+        try {
+            const response = await fetch(playlistURL);
+            const data = await response.text();
+            const lines = data.split('\n');
+            listContainer.innerHTML = ''; // مسح علامة التحميل
+
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].startsWith('#EXTINF')) {
+                    // استخراج اسم القناة
+                    const parts = lines[i].split(',');
+                    const name = parts[parts.length - 1].trim() || "قناة مجهولة";
+                    const url = lines[i + 1] ? lines[i + 1].trim() : null;
+
+                    if (url && url.startsWith('http')) {
+                        const item = document.createElement('div');
+                        item.className = 'channel-item';
+                        item.innerText = name;
+                        item.onclick = () => playStream(url, name);
+                        listContainer.appendChild(item);
+                    }
+                }
             }
+        } catch (error) {
+            listContainer.innerHTML = '<div class="loading">فشل تحميل الملف. تأكد من وجود playlist.m3u8 في المستودع</div>';
         }
-    </script>
+    }
+
+    function playStream(url, name) {
+        trackLabel.innerText = "تشغيل الآن: " + name;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // البروكسي لحل مشكلة "مش شغاله في الموقع"
+        const proxy = "https://api.allorigins.win/raw?url=";
+        const finalUrl = proxy + encodeURIComponent(url);
+
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(finalUrl); // تشغيل عبر البروكسي
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+            
+            hls.on(Hls.Events.ERROR, (event, data) => {
+                if (data.fatal) {
+                    console.error("خطأ في تشغيل الرابط حتى مع البروكسي.");
+                }
+            });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = finalUrl;
+            video.play();
+        }
+    }
+
+    loadPlaylist();
+</script>
+
 </body>
 </html>
