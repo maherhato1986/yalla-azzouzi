@@ -1,51 +1,22 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بث مباشر للمباراة - يلا عزوزي</title>
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <style>
-        body { background: #121212; color: #fff; font-family: sans-serif; margin: 0; padding: 0; }
-        header { background: #210808; padding: 15px; text-align: center; border-bottom: 2px solid #e74c3c; }
-        .player-container { max-width: 900px; margin: 20px auto; background: #000; position: relative; padding-top: 56.25%; }
-        iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .servers { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
-        .server-btn { background: #e74c3c; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; }
-        .match-info { text-align: center; margin-top: 20px; padding: 10px; background: #1e1e1e; }
+        .video-container { width: 100%; max-width: 800px; margin: auto; direction: ltr; }
+        .vjs-big-play-button { top: 50% !important; left: 50% !important; transform: translate(-50%, -50%); }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>YALLA-AZZOUZI LIVE</h1>
-</header>
+    <h2 style="text-align: center; color: red;">بث مباشر - يلا عزوزي</h2>
 
-<div class="match-info">
-    <h2 id="match-title">بث مباشر مباراة اليوم</h2>
-</div>
+    <div class="video-container">
+        <video id="my-video" class="video-js vjs-default-skin vjs-16-9" controls preload="auto" data-setup='{}'>
+            <source src="https://example.com/live/playlist.m3u8" type="application/x-mpegURL">
+        </video>
+    </div>
 
-<div class="player-container">
-    <iframe id="main-player" src="" allowfullscreen></iframe>
-</div>
-
-<div class="servers">
-    <button class="server-btn" onclick="changeServer('https://A-SERVER-LINK')">سيرفر 1</button>
-    <button class="server-btn" onclick="changeServer('https://B-SERVER-LINK')">سيرفر 2</button>
-</div>
-
-<script>
-    // وظيفة لتغيير السيرفر (مثل يلا شوت تماماً)
-    function changeServer(url) {
-        document.getElementById('main-player').src = url;
-    }
-
-    // جلب رابط البث من الـ URL (اختياري للمحترفين)
-    const urlParams = new URLSearchParams(window.location.search);
-    const streamUrl = urlParams.get('stream');
-    if(streamUrl) {
-        document.getElementById('main-player').src = streamUrl;
-    }
-</script>
-
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
 </body>
 </html>
