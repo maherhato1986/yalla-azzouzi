@@ -162,28 +162,41 @@
         container.appendChild(card);
     }
 
-    function playStream(url, name) {
-        const section = document.getElementById('main-player-section');
-        const video = document.getElementById('video-player');
-        const title = document.getElementById('playing-now-title');
+function playStream(url, name) {
+    const section = document.getElementById('main-player-section');
+    const video = document.getElementById('video-player');
+    const title = document.getElementById('playing-now-title');
+    
+    section.style.display = 'block';
+    title.innerText = "بث مباشر: " + name;
+
+    // إضافة البروكسي للرابط لتجاوز الحماية
+    // ملاحظة: يمكنك تجربة عدة بروكسيات إذا توقف أحدهم
+    const proxy = "https://cors-anywhere.herokuapp.com/";
+    const proxyUrl = proxy + url;
+
+    if (Hls.isSupported()) {
+        var hls = new Hls();
+        // نحاول أولاً بالرابط المباشر، إذا فشل نستخدم البروكسي
+        hls.loadSource(url); 
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
         
-        section.style.display = 'block';
-        title.innerText = "بث مباشر: " + name;
-
-        if (Hls.isSupported()) {
-            var hls = new Hls();
-            hls.loadSource(url);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-        } else {
-            video.src = url;
-            video.play();
-        }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // في حال حدوث خطأ في الشبكة (CORS)، نستخدم البروكسي تلقائياً
+        hls.on(Hls.Events.ERROR, function (event, data) {
+            if (data.details === Hls.ErrorDetails.MANIFEST_LOAD_ERROR) {
+                console.log("CORS error detected, switching to proxy...");
+                hls.loadSource(proxyUrl);
+            }
+        });
+    } else {
+        video.src = url;
+        video.play();
     }
-
-    window.onload = loadAllChannels;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 </script>
 
 </body>
 </html>
+
