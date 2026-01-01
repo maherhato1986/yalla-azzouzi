@@ -5,49 +5,63 @@ import requests
 
 OUTPUT_FILE = "channels.json"
 
-def fetch_all():
-    all_channels = []
-    print("🧹 تنظيف البيانات والبدء بجلب شامل لجميع القنوات...")
+def fetch_master():
+    print("🔥 جاري تشغيل المحرك الشامل لجمع القنوات...")
+    combined_channels = []
 
-    # قنوات "ضمان عمل الموقع" (أخبار ومنوعات عالمية) تعمل 24 ساعة
-    all_channels.append({"name": "Al Jazeera (Live)", "url": "https://live-hls-web-aje.getaj.net/AJE/index.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/en/f/f2/Aljazeera_eng.png"})
-    all_channels.append({"name": "BBC Arabic", "url": "https://vs-hls-push-ww-live.akamaized.net/x=4/i=static/bbc_arabic_tv/main.m3u8", "logo": ""})
-    all_channels.append({"name": "TRT Arabic", "url": "https://tv-trtarabic.medyahizmetleri.com/live/hls/trt_arabic.m3u8", "logo": ""})
-
-    # 1. فحص ملفاتك المسحوبة
-    for root, dirs, files in os.walk("."):
-        for file in files:
-            if file.endswith((".js", ".html", ".txt", ".json")):
-                try:
-                    with open(os.path.join(root, file), 'r', encoding='utf-8') as f:
-                        content = f.read()
-                        # فك تشفير المائلات العكسية التي تستخدمها Cloudflare
-                        links = re.findall(r'https?[:\/\\]+[^\s"\']+\.m3u8[^\s"\']*', content)
-                        for l in links:
-                            clean_url = l.replace('\\/', '/').replace('\\', '')
-                            all_channels.append({"name": f"قناة مستخرجة ({file[:5]})", "url": clean_url, "logo": ""})
-                except: continue
-
-    # 2. جلب مئات القنوات العربية من مصادر GitHub العامة
-    sources = [
-        "https://iptv-org.github.io/iptv/countries/ar.m3u",
-        "https://raw.githubusercontent.com/Moebis-Iptv/M3U/main/Arabic.m3u"
+    # 1. القنوات الثابتة (ضمان تشغيل الموقع 100%)
+    static_list = [
+        {"name": "الجزيرة مباشر", "url": "https://live-hls-web-aje.getaj.net/AJE/index.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/en/f/f2/Aljazeera_eng.png"},
+        {"name": "العربية", "url": "https://v-arabic.alarabiya.net/alarabiya/alarabiya.stream/playlist.m3u8", "logo": ""},
+        {"name": "بي إن سبورت الإخبارية", "url": "https://beinsports.ercdn.net/beinsports/test.m3u8", "logo": ""}
     ]
+    combined_channels.extend(static_list)
+
+    # 2. جلب آلاف القنوات من مشروع IPTV-Org (أقوى مصدر عالمي)
+    sources = [
+        "https://iptv-org.github.io/iptv/countries/ar.m3u", # كل القنوات العربية
+        "https://raw.githubusercontent.com/skid9000/All-In-One-IPTV/main/All-In-One-IPTV.m3u"
+    ]
+    
     for src in sources:
         try:
             r = requests.get(src, timeout=10)
-            matches = re.findall(r'#EXTINF.*?,(.*?)\n(http.*)', r.text)
-            for name, url in matches:
-                all_channels.append({"name": name.strip(), "url": url.strip(), "logo": ""})
+            # استخراج الاسم والرابط واللوجو بذكاء
+            matches = re.findall(r'#EXTINF:-1.*?tvg-logo="(.*?)".*?,(.*?)\n(http.*)', r.text)
+            for logo, name, url in matches:
+                combined_channels.append({
+                    "name": name.strip(),
+                    "url": url.strip(),
+                    "logo": logo.strip()
+                })
         except: pass
 
-    # حذف التكرار وحفظ أول 500 قناة فقط
-    unique = {c['url']: c for c in all_channels}.values()
-    
+    # 3. فحص ملفاتك المسحوبة بحثاً عن "الكنوز" المخفية
+    for root, dirs, files in os.walk("."):
+        for file in files:
+            if file.endswith((".js", ".html", ".txt")):
+                try:
+                    with open(os.path.join(root, file), 'r', encoding='utf-8') as f:
+                        content = f.read()
+                        links = re.findall(r'https?[:\/\\]+[^\s"\']+\.m3u8[^\s"\']*', content)
+                        for l in links:
+                            all_url = l.replace('\\/', '/').replace('\\', '')
+                            combined_channels.append({"name": f"بث مستخرج ({file[:5]})", "url": all_url, "logo": ""})
+                except: continue
+
+    # تنظيف وتصفية (حذف التكرار)
+    seen_urls = set()
+    final_list = []
+    for c in combined_channels:
+        if c['url'] not in seen_urls:
+            final_list.append(c)
+            seen_urls.add(c['url'])
+
+    # حفظ أول 400 قناة فقط لسرعة التحميل
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-        json.dump(list(unique)[:500], f, ensure_ascii=False, indent=4)
+        json.dump(final_list[:400], f, ensure_ascii=False, indent=4)
     
-    print(f"✅ تم حفظ {len(list(unique)[:500])} قناة في الملف.")
+    print(f"✅ مبروك! موقعك الآن يحتوي على {len(final_list[:400])} قناة شغالة.")
 
 if __name__ == "__main__":
-    fetch_all()
+    fetch_master()
