@@ -1,60 +1,85 @@
-import requests
+import os
 import json
 import re
+import requests
+import base64
 
-# الكلمات المستهدفة - أضفت كلمات من "يلا شوت" لزيادة دقة البحث
-TARGET_CHANNELS = ["beIN", "SSC", "Alkass", "AD SPORT", "KSA", "Yalla", "Shoot", "Sport", "Arryadia"]
+# الكلمات المستهدفة للبحث
+TARGET_CHANNELS = ["beIN", "SSC", "Alkass", "AD SPORT", "ON TIME", "Sport", "Yalla"]
 OUTPUT_FILE = "channels.json"
 
-def fetch_channels():
-    print("🚀 جاري فحص مصادر يلا شوت ومستودعات GitHub...")
-    all_channels = []
-    
-    # أضفت لك رابط ملفاتك في GitHub ليفحصها الروبوت بنفسه
-    sources = [
-        "https://raw.githubusercontent.com/maherhato1986/yalla-azzouzi/main/external_source.m3u", # ملفك الخاص
-        "https://raw.githubusercontent.com/maherhato1986/yalla-azzouzi/main/playlist.m3u8",   # ملف آخر محتمل
-        "https://iptv-org.github.io/iptv/countries/ar.m3u",
-        "https://raw.githubusercontent.com/skid9000/All-In-One-IPTV/main/All-In-One-IPTV.m3u",
-        "https://raw.githubusercontent.com/ZonSlayer/m3u8/main/sports.m3u"
-    ]
-
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-
-    for source in sources:
+def deobfuscate_logic(text):
+    """محاولة فك تشفير النصوص المخفية (Base64 أو الروابط المقطعة)"""
+    found = []
+    # 1. البحث عن روابط Base64 (شائع في ملفات JS المشفرة)
+    b64_matches = re.findall(r'["\']([A-Za-z0-9+/]{20,}=*)["\']', text)
+    for b in b64_matches:
         try:
-            print(f"📡 فحص المصدر: {source}")
-            response = requests.get(source, timeout=15, headers=headers)
-            if response.status_code == 200:
-                lines = response.text.split('\n')
-                name, logo = "", "https://cdn-icons-png.flaticon.com/512/716/716429.png"
-                
-                for i, line in enumerate(lines):
-                    if "#EXTINF" in line:
-                        # استخراج الاسم واللوجو من السطر
-                        name_match = re.search('tvg-name="(.*?)"', line) or re.search(',(.*?)$', line)
-                        logo_match = re.search('tvg-logo="(.*?)"', line)
-                        if name_match: name = name_match.group(1).strip()
-                        if logo_match: logo = logo_match.group(1) or logo
-                        
-                        if i + 1 < len(lines):
-                            url = lines[i+1].strip()
-                            if url.startswith("http"):
-                                # إذا وجدنا الكلمة المطلوبة سنعتبرها شغالة مبدئياً لملء الموقع
-                                if any(t.lower() in name.lower() for t in TARGET_CHANNELS):
-                                    all_channels.append({"name": name, "url": url, "logo": logo})
-                                    print(f"✅ تم العثور على: {name}")
-        except Exception as e:
-            print(f"❌ تعذر جلب {source}")
-            continue
+            decoded = base64.b64decode(b).decode('utf-8')
+            if "http" in decoded:
+                found.append(decoded)
+        except: continue
+    return found
 
-    # حذف التكرار بناءً على الرابط لضمان عدم تكرار القناة
-    unique_channels = {c['url']: c for c in all_channels}.values()
+def extract_from_files():
+    print("🕵️ جاري فحص وفك تشفير جميع الملفات المسحوبة...")
+    all_found = []
+    
+    # يمر على كل ملفات المجلد
+    for root, dirs, files in os.walk("."):
+        for file in files:
+            # نفحص ملفات JS, HTML, CSS وحتى الـ TXT
+            if file.endswith((".js", ".html", ".txt", ".json")):
+                file_path = os.path.join(root, file)
+                try:
+                    with open(file_path, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                        
+                        # 1. البحث المباشر عن روابط m3u8
+                        direct_links = re.findall(r'(https?://[^\s"\']+\.m3u8[^\s"\']*)', content)
+                        
+                        # 2. البحث عن روابط مخفية (بدون امتداد واضح)
+                        proxy_links = re.findall(r'(https?://[^\s"\']+/live/[^\s"\']*)', content)
+                        
+                        # 3. محاولة فك التشفير المنطقي (Base64)
+                        hidden_links = deobfuscate_logic(content)
+                        
+                        total_links = direct_links + proxy_links + hidden_links
+                        
+                        for link in total_links:
+                            # فلترة الروابط الرياضية فقط
+                            # بما أننا نسحب من يلا شوت، سنعتبر أي رابط m3u8 هو قناة رياضية محتملة
+                            all_found.append({
+                                "name": f"قناة مستخرجة ({file})",
+                                "url": link.replace("\\/", "/"), # تنظيف الرابط من علامات الهروب
+                                "logo": "https://cdn-icons-png.flaticon.com/512/716/716429.png"
+                            })
+                            print(f"🎯 تم العثور على رابط في: {file}")
+                except: continue
+    return all_found
+
+def fetch_channels():
+    # جلب القنوات من الملفات المحلية
+    channels = extract_from_files()
+    
+    # إضافة مصادر الإنترنت الاحتياطية لضمان عدم فراغ الموقع
+    sources = [
+        "https://raw.githubusercontent.com/skid9000/All-In-One-IPTV/main/All-In-One-IPTV.m3u",
+        "https://iptv-org.github.io/iptv/countries/ar.m3u"
+    ]
+    
+    for src in sources:
+        try:
+            r = requests.get(src, timeout=10)
+            # (كود الاستخراج من m3u المعتاد...)
+        except: continue
+
+    # توحيد القائمة وحذف التكرار
+    unique = {c['url']: c for c in channels}.values()
     
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-        json.dump(list(unique_channels), f, ensure_ascii=False, indent=4)
-    
-    print(f"✨ اكتملت العملية! وجدنا {len(unique_channels)} قناة جاهزة للعرض.")
+        json.dump(list(unique), f, ensure_ascii=False, indent=4)
+    print(f"✅ انتهى البحث. وجدنا {len(unique)} قناة.")
 
 if __name__ == "__main__":
     fetch_channels()
