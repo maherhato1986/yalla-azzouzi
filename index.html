@@ -2,154 +2,99 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yalla Azzouzi Pro | يلا عزوزي الاحترافي</title>
+    <title>Yalla Azzouzi - GitHub Live Finder</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        :root { --accent: #00fbff; --bg: #050505; --card: #121212; --text: #e0e0e0; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; }
-        
-        /* الهيدر والمشغل */
-        header { background: #000; padding: 15px; text-align: center; border-bottom: 2px solid var(--accent); position: sticky; top: 0; z-index: 1000; }
-        .player-container { background: #000; width: 100%; max-width: 900px; margin: 10px auto; border-radius: 12px; overflow: hidden; display: none; border: 1px solid #333; }
+        :root { --neon: #00fbff; --dark: #0a0a0a; }
+        body { background: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; }
+        header { background: #000; padding: 15px; text-align: center; border-bottom: 2px solid var(--neon); }
+        .nav-tabs { display: flex; overflow-x: auto; background: #111; padding: 10px; gap: 10px; sticky top: 0; z-index: 10; }
+        .tab { background: #222; border: 1px solid #333; padding: 8px 15px; border-radius: 20px; cursor: pointer; white-space: nowrap; font-size: 13px; }
+        .tab.active { background: var(--neon); color: #000; font-weight: bold; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; padding: 15px; }
+        .card { background: #161616; border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; border: 1px solid #222; transition: 0.3s; }
+        .card:hover { border-color: var(--neon); transform: translateY(-5px); }
+        .card img { width: 45px; height: 45px; object-fit: contain; margin-bottom: 10px; }
+        #player-view { display: none; width: 100%; max-width: 800px; margin: 10px auto; border: 1px solid var(--neon); }
         video { width: 100%; aspect-ratio: 16/9; }
-
-        /* شريط التصنيفات */
-        .categories-wrapper { background: #111; padding: 10px; position: sticky; top: 70px; z-index: 999; display: flex; gap: 10px; overflow-x: auto; border-bottom: 1px solid #222; }
-        .cat-btn { background: #222; color: #fff; border: 1px solid #333; padding: 8px 18px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: 0.3s; }
-        .cat-btn.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: bold; }
-
-        /* البحث والشبكة */
-        .main-content { max-width: 1200px; margin: auto; padding: 20px; }
-        .search-box { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: #fff; margin-bottom: 20px; outline: none; }
-        
-        .channels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
-        .channel-card { background: var(--card); border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #222; position: relative; }
-        .channel-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 5px 15px rgba(0,251,255,0.1); }
-        .channel-card img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 10px; }
-        .channel-card h3 { font-size: 12px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        
-        /* إخفاء شريط التمرير */
-        .categories-wrapper::-webkit-scrollbar { height: 4px; }
-        .categories-wrapper::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1 style="margin:0; font-size: 22px;">YALLA <span style="color:var(--accent);">AZZOUZI</span></h1>
-</header>
+<header><h1>YALLA <span style="color:var(--neon)">AZZOUZI</span> TV</h1></header>
 
-<div id="player-section" class="player-container">
-    <div id="chan-label" style="padding:8px; font-size:13px; text-align:center; background:#1a1a1a;"></div>
+<div id="player-view">
+    <div id="p-title" style="padding:5px; text-align:center; font-size:12px; background:#111;"></div>
     <video id="video" controls autoplay></video>
 </div>
 
-<div class="categories-wrapper" id="cats">
-    <button class="cat-btn active" onclick="filterByCategory('الكل')">الكل</button>
-    <button class="cat-btn" onclick="filterByCategory('رياضة')">⚽ رياضة</button>
-    <button class="cat-btn" onclick="filterByCategory('beIN')">🟣 beIN</button>
-    <button class="cat-btn" onclick="filterByCategory('أخبار')">🌍 أخبار</button>
-    <button class="cat-btn" onclick="filterByCategory('أطفال')">🧸 أطفال</button>
-    <button class="cat-btn" onclick="filterByCategory('ترفيه')">🎬 منوعات</button>
+<div class="nav-tabs" id="tabs">
+    <div class="tab active" onclick="filterBy('الكل')">الكل</div>
+    <div class="tab" onclick="filterBy('beIN')">🟣 beIN</div>
+    <div class="tab" onclick="filterBy('SSC')">🟢 SSC</div>
+    <div class="tab" onclick="filterBy('رياضة')">⚽ رياضة</div>
+    <div class="tab" onclick="filterBy('عربية')">📺 قنوات عربية</div>
 </div>
 
-<div class="main-content">
-    <input type="text" id="search" class="search-box" placeholder="ابحث عن قناة بالاسم..." oninput="searchChannels()">
-    
-    <div id="grid" class="channels-grid">
-        <p style="text-align:center; width:100%;">جاري ترتيب القنوات حسب التصنيف...</p>
-    </div>
-</div>
+<div id="grid" class="grid"></div>
 
 <script>
-    let allChannels = [];
+    let channels = [];
     const video = document.getElementById('video');
     const hls = new Hls();
 
-    async function init() {
-        try {
-            const r = await fetch('playlist.m3u8?v=' + Date.now());
-            const text = await r.text();
-            parse(text);
-        } catch (e) { console.error("Load error"); }
-    }
-
-    function parse(data) {
-        const lines = data.split('\n');
-        allChannels = [];
-        for (let i = 0; i < lines.length; i++) {
-            if (lines[i].startsWith('#EXTINF')) {
-                const info = lines[i].toUpperCase();
-                const name = lines[i].split(',')[1] || "قناة";
-                const logoMatch = lines[i].match(/tvg-logo="([^"]+)"/);
-                const logo = logoMatch ? logoMatch[1] : 'https://cdn-icons-png.flaticon.com/512/716/716429.png';
+    async function start() {
+        const r = await fetch('playlist.m3u8?t=' + Date.now());
+        const text = await r.text();
+        const lines = text.split('\n');
+        
+        lines.forEach((line, i) => {
+            if (line.startsWith('#EXTINF')) {
+                const name = line.split(',')[1] || "Channel";
                 const url = lines[i+1]?.trim();
+                const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+                const logo = logoMatch ? logoMatch[1] : 'https://cdn-icons-png.flaticon.com/512/716/716429.png';
                 
-                // تحديد التصنيف تلقائياً بناءً على الكلمات المفتاحية
-                let category = 'عام';
-                if (info.includes('BEIN') || info.includes('SSC') || info.includes('SPORT') || info.includes('ALKASS')) category = 'رياضة';
-                if (info.includes('BEIN')) category = 'beIN'; // تصنيف خاص لـ bein
-                if (info.includes('NEWS') || info.includes('أخبار') || info.includes('الجزيرة') || info.includes('حدث')) category = 'أخبار';
-                if (info.includes('KIDS') || info.includes('أطفال') || info.includes('MAJID') || info.includes('CN')) category = 'أطفال';
-                if (info.includes('MOVIES') || info.includes('MBC') || info.includes('DRAMA')) category = 'ترفيه';
+                let type = 'عربية';
+                if (name.includes('BEIN')) type = 'beIN';
+                else if (name.includes('SSC')) type = 'SSC';
+                else if (name.includes('SPORT')) type = 'رياضة';
 
-                if (url && url.startsWith('http')) {
-                    allChannels.push({ name, url, logo, category });
-                }
+                if (url && url.startsWith('http')) channels.push({ name, url, logo, type });
             }
-        }
-        render(allChannels);
+        });
+        render(channels);
     }
 
     function render(list) {
         const grid = document.getElementById('grid');
         grid.innerHTML = '';
-        list.forEach(ch => {
-            const card = document.createElement('div');
-            card.className = 'channel-card';
-            card.innerHTML = `<img src="${ch.logo}" onerror="this.src='https://via.placeholder.com/50/000/fff?text=TV'"><h3>${ch.name}</h3>`;
-            card.onclick = () => play(ch.url, ch.name);
-            grid.appendChild(card);
+        list.forEach(c => {
+            const d = document.createElement('div');
+            d.className = 'card';
+            d.innerHTML = `<img src="${c.logo}"><h3>${c.name}</h3>`;
+            d.onclick = () => {
+                document.getElementById('player-view').style.display = 'block';
+                document.getElementById('p-title').innerText = c.name;
+                window.scrollTo({top: 0, behavior: 'smooth'});
+                const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(c.url);
+                if (Hls.isSupported()) {
+                    hls.loadSource(proxyUrl);
+                    hls.attachMedia(video);
+                }
+            };
+            grid.appendChild(d);
         });
     }
 
-    function filterByCategory(cat) {
-        // تحديث الأزرار
-        document.querySelectorAll('.cat-btn').forEach(btn => {
-            btn.classList.remove('active');
-            if(btn.innerText.includes(cat)) btn.classList.add('active');
-        });
-
-        if (cat === 'الكل') {
-            render(allChannels);
-        } else {
-            const filtered = allChannels.filter(ch => ch.category === cat || (cat === 'رياضة' && ch.category === 'beIN'));
-            render(filtered);
-        }
+    function filterBy(t) {
+        document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        if (t === 'الكل') render(channels);
+        else render(channels.filter(c => c.type === t || (t === 'رياضة' && (c.type === 'beIN' || c.type === 'SSC'))));
     }
 
-    function searchChannels() {
-        const q = document.getElementById('search').value.toLowerCase();
-        const filtered = allChannels.filter(ch => ch.name.toLowerCase().includes(q));
-        render(filtered);
-    }
-
-    function play(url, name) {
-        document.getElementById('player-section').style.display = 'block';
-        document.getElementById('chan-label').innerText = "بث مباشر: " + name;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        const finalUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
-
-        if (Hls.isSupported()) {
-            hls.loadSource(finalUrl);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-        }
-    }
-
-    init();
+    start();
 </script>
 </body>
 </html>
