@@ -1,63 +1,52 @@
 import requests
 import json
 import re
+import os
 
-# مصادر مجمعة (Aggregators) ومستودعات GitHub نشطة جداً
+# المصادر العالمية + روابط ملفاتك الجديدة في المستودع
 SOURCES = [
-    "https://iptv-org.github.io/iptv/countries/qa.m3u", # beIN الأساسية
-    "https://iptv-org.github.io/iptv/countries/sa.m3u", # SSC وقنوات السعودية
-    "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/ar.m3u",
-    "https://raw.githubusercontent.com/Guu-M/IPTV/main/Bein.m3u", # مستودع خارجي متخصص
-    "https://raw.githubusercontent.com/Moebis/tv/master/playlist.m3u", # قنوات متنوعة
-    "https://raw.githubusercontent.com/Yousof-A-A/Arabic_IPTV/main/Arabic_IPTV.m3u" # قنوات عربية مشفرة
+    "https://raw.githubusercontent.com/maherhato1986/yalla-azzouzi/main/mbc%26osn.m3u8", # ملفك الجديد لـ OSN
+    "https://raw.githubusercontent.com/maherhato1986/yalla-azzouzi/main/amazon%20prime%20sports.m3u8", # ملفك الجديد لـ Amazon
+    "https://raw.githubusercontent.com/maherhato1986/yalla-azzouzi/main/playlist.m3u8",
+    "https://raw.githubusercontent.com/Guu-M/IPTV/main/Bein.m3u", # مصدر beIN العالمي
+    "https://iptv-org.github.io/iptv/countries/qa.m3u"
 ]
 
 def fetch_channels():
     channels_list = []
     seen_urls = set()
-    
-    # كلمات دلالية للبحث عن القنوات الرياضية والمشفرة
-    target_keywords = ["beIN", "SSC", "Alkass", "AD Sports", "Osn", "Shahid", "Starz", "Netflix"]
+    # الكلمات التي نبحث عنها لضمان ظهور القنوات المشفرة
+    target_keys = ["BEIN", "SSC", "OSN", "MBC", "AMAZON", "PRIME", "SHAHID", "NETFLIX"]
 
     for url in SOURCES:
         try:
-            print(f"جاري الفحص في: {url}")
-            response = requests.get(url, timeout=20)
+            print(f"Scanning source: {url}")
+            response = requests.get(url, timeout=15)
             if response.status_code == 200:
-                content = response.text
-                lines = content.split('\n')
-                current_item = {}
-                
+                lines = response.text.split('\n')
+                current = {}
                 for line in lines:
                     line = line.strip()
                     if line.startswith("#EXTINF"):
-                        # استخراج الاسم واللوجو
-                        name_match = re.search('tvg-name="([^"]+)"', line) or re.search(',(.+)$', line)
+                        name_match = re.search(',(.+)$', line)
                         logo_match = re.search('tvg-logo="([^"]+)"', line)
-                        
-                        name = name_match.group(1).strip() if name_match else "Unknown Channel"
-                        current_item = {
-                            "name": name,
+                        current = {
+                            "name": name_match.group(1).strip() if name_match else "Channel",
                             "logo": logo_match.group(1) if logo_match else "assets/img/default-logo.png"
                         }
-                    
-                    elif line.startswith("http") and current_item:
-                        # فلترة ذكية: إذا كان الاسم يحتوي على أحد الكلمات المستهدفة
-                        if any(key.lower() in current_item["name"].lower() for key in target_keywords):
+                    elif line.startswith("http") and current:
+                        if any(k in current['name'].upper() for k in target_keys):
                             if line not in seen_urls:
-                                current_item["url"] = line
-                                channels_list.append(current_item)
+                                current["url"] = line
+                                channels_list.append(current)
                                 seen_urls.add(line)
-                        current_item = {}
-                        
-        except Exception as e:
-            print(f"تخطى المصدر بسبب خطأ: {e}")
+                        current = {}
+        except: continue
 
-    # حفظ في channels.json ليعرضه الموقع مباشرة
+    # حفظ النتائج ليقرأها الموقع من channels.json
     with open('channels.json', 'w', encoding='utf-8') as f:
         json.dump({"channels": channels_list}, f, ensure_ascii=False, indent=4)
-    
-    print(f"تم بنجاح! تم العثور على {len(channels_list)} قناة مشفرة/رياضية.")
+    print(f"Success! Found {len(channels_list)} encrypted channels.")
 
 if __name__ == "__main__":
     fetch_channels()
