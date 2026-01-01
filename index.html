@@ -66,26 +66,35 @@
         render(channels);
     }
 
-    function render(list) {
-        const grid = document.getElementById('grid');
-        grid.innerHTML = '';
-        list.forEach(c => {
-            const d = document.createElement('div');
-            d.className = 'card';
-            d.innerHTML = `<img src="${c.logo}"><h3>${c.name}</h3>`;
-            d.onclick = () => {
-                document.getElementById('player-view').style.display = 'block';
-                document.getElementById('p-title').innerText = c.name;
-                window.scrollTo({top: 0, behavior: 'smooth'});
-                const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(c.url);
-                if (Hls.isSupported()) {
-                    hls.loadSource(proxyUrl);
-                    hls.attachMedia(video);
-                }
-            };
-            grid.appendChild(d);
-        });
-    }
+function render(list) {
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    list.forEach(c => {
+        const d = document.createElement('div');
+        d.className = 'card';
+        d.innerHTML = `<img src="${c.logo}"><h3>${c.name}</h3>`;
+        d.onclick = () => {
+            document.getElementById('player-view').style.display = 'block';
+            document.getElementById('p-title').innerText = c.name;
+            window.scrollTo({top: 0, behavior: 'smooth'});
+
+            // تم استبدال البروكسي القديم برابط الـ Worker الخاص بك لفك تشفير القنوات
+            const proxyUrl = "https://yalla-azzouzi.crimson-grass-c7f2.workers.dev/?url=" + encodeURIComponent(c.url);
+
+            if (Hls.isSupported()) {
+                hls.loadSource(proxyUrl);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.play();
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                // لدعم متصفحات Safari على iPhone
+                video.src = proxyUrl;
+            }
+        };
+        grid.appendChild(d);
+    });
+}
 
     function filterBy(t) {
         document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
@@ -98,3 +107,4 @@
 </script>
 </body>
 </html>
+
