@@ -1,67 +1,51 @@
-import os
+import requests
 import json
 import re
-import requests
 
-OUTPUT_FILE = "channels.json"
+# قائمة بمصادر الروابط المفتوحة (M3U Playlists)
+SOURCES = [
+    "https://iptv-org.github.io/iptv/countries/qa.m3u", # قنوات قطر ومنها beIN
+    "https://raw.githubusercontent.com/maherhato1986/yalla-azzouzi/main/playlist.m3u8" # ملفك الحالي
+]
 
-def fetch_master():
-    print("🔥 جاري تشغيل المحرك الشامل لجمع القنوات...")
-    combined_channels = []
-
-    # 1. القنوات الثابتة (ضمان تشغيل الموقع 100%)
-    static_list = [
-        {"name": "الجزيرة مباشر", "url": "https://live-hls-web-aje.getaj.net/AJE/index.m3u8", "logo": "https://upload.wikimedia.org/wikipedia/en/f/f2/Aljazeera_eng.png"},
-        {"name": "العربية", "url": "https://v-arabic.alarabiya.net/alarabiya/alarabiya.stream/playlist.m3u8", "logo": ""},
-        {"name": "بي إن سبورت الإخبارية", "url": "https://beinsports.ercdn.net/beinsports/test.m3u8", "logo": ""}
-    ]
-    combined_channels.extend(static_list)
-
-    # 2. جلب آلاف القنوات من مشروع IPTV-Org (أقوى مصدر عالمي)
-    sources = [
-        "https://iptv-org.github.io/iptv/countries/ar.m3u", # كل القنوات العربية
-        "https://raw.githubusercontent.com/skid9000/All-In-One-IPTV/main/All-In-One-IPTV.m3u"
-    ]
+def fetch_channels():
+    found_channels = []
     
-    for src in sources:
+    for url in SOURCES:
         try:
-            r = requests.get(src, timeout=10)
-            # استخراج الاسم والرابط واللوجو بذكاء
-            matches = re.findall(r'#EXTINF:-1.*?tvg-logo="(.*?)".*?,(.*?)\n(http.*)', r.text)
-            for logo, name, url in matches:
-                combined_channels.append({
-                    "name": name.strip(),
-                    "url": url.strip(),
-                    "logo": logo.strip()
-                })
-        except: pass
+            response = requests.get(url, timeout=10)
+            if response.status_code == 200:
+                content = response.text
+                # تقسيم الملف بناءً على وسوم M3U
+                lines = content.split('\n')
+                current_name = ""
+                
+                for line in lines:
+                    if "#EXTINF" in line:
+                        # استخراج اسم القناة باستخدام Regex
+                        name_match = re.search('tvg-name="([^"]+)"', line)
+                        if not name_match:
+                            name_match = re.search(',(.+)$', line)
+                        
+                        if name_match:
+                            current_name = name_match.group(1).strip()
+                    
+                    elif line.startswith("http"):
+                        # فلترة القنوات لتشمل beIN Sports فقط أو القنوات الرياضية
+                        if "beIN" in current_name or "Sports" in current_name:
+                            found_channels.append({
+                                "name": current_name,
+                                "url": line.strip(),
+                                "category": "Sports"
+                            })
+        except Exception as e:
+            print(f"Error fetching from {url}: {e}")
 
-    # 3. فحص ملفاتك المسحوبة بحثاً عن "الكنوز" المخفية
-    for root, dirs, files in os.walk("."):
-        for file in files:
-            if file.endswith((".js", ".html", ".txt")):
-                try:
-                    with open(os.path.join(root, file), 'r', encoding='utf-8') as f:
-                        content = f.read()
-                        links = re.findall(r'https?[:\/\\]+[^\s"\']+\.m3u8[^\s"\']*', content)
-                        for l in links:
-                            all_url = l.replace('\\/', '/').replace('\\', '')
-                            combined_channels.append({"name": f"بث مستخرج ({file[:5]})", "url": all_url, "logo": ""})
-                except: continue
-
-    # تنظيف وتصفية (حذف التكرار)
-    seen_urls = set()
-    final_list = []
-    for c in combined_channels:
-        if c['url'] not in seen_urls:
-            final_list.append(c)
-            seen_urls.add(c['url'])
-
-    # حفظ أول 400 قناة فقط لسرعة التحميل
-    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-        json.dump(final_list[:400], f, ensure_ascii=False, indent=4)
+    # حفظ النتائج في ملف channels.json
+    with open('channels.json', 'w', encoding='utf-8') as f:
+        json.dump({"channels": found_channels}, f, ensure_ascii=False, indent=4)
     
-    print(f"✅ مبروك! موقعك الآن يحتوي على {len(final_list[:400])} قناة شغالة.")
+    print(f"تم تحديث القائمة بنجاح! تم العثور على {len(found_channels)} قناة.")
 
 if __name__ == "__main__":
-    fetch_master()
+    fetch_channels()
