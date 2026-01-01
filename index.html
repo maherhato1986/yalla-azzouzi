@@ -3,139 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>يلا عزوزي - البث الرياضي المباشر</title>
+    <title>Yalla Azzouzi - البث الرياضي المباشر</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
         :root { --main-color: #00fbff; --bg-dark: #080808; --card-bg: #121212; }
         body { background: var(--bg-dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
-        header { background: #000; padding: 20px; text-align: center; border-bottom: 2px solid var(--main-color); box-shadow: 0 4px 15px rgba(0,251,255,0.1); }
+        header { background: #000; padding: 20px; text-align: center; border-bottom: 2px solid var(--main-color); }
         .container { max-width: 1100px; margin: auto; padding: 20px; }
         
-        /* مشغل الفيديو */
-        #video-section { position: sticky; top: 10px; z-index: 100; background: #000; border-radius: 15px; overflow: hidden; border: 1px solid #333; margin-bottom: 25px; display: none; }
+        /* قسم المشغل المثبت */
+        #video-section { position: sticky; top: 10px; z-index: 100; background: #000; border-radius: 15px; overflow: hidden; border: 1px solid #333; margin-bottom: 25px; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         video { width: 100%; aspect-ratio: 16/9; display: block; }
         .playing-bar { background: var(--main-color); color: #000; padding: 8px; font-weight: bold; text-align: center; font-size: 14px; }
 
         /* صندوق البحث */
         .search-container { margin-bottom: 25px; }
-        #search-input { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: white; outline: none; font-size: 16px; }
-        #search-input:focus { border-color: var(--main-color); }
+        #search-input { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #333; background: #1a1a1a; color: white; outline: none; font-size: 16px; transition: 0.3s; }
+        #search-input:focus { border-color: var(--main-color); box-shadow: 0 0 10px rgba(0,251,255,0.2); }
 
         /* شبكة القنوات */
         .channel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
-        .channel-card { background: var(--card-bg); border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #222; position: relative; overflow: hidden; }
-        .channel-card:hover { border-color: var(--main-color); transform: translateY(-5px); background: #1a1a1a; }
-        .channel-card img { width: 55px; height: 55px; object-fit: contain; margin-bottom: 10px; }
-        .channel-card h3 { font-size: 13px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .channel-card { background: var(--card-bg); border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #222; position: relative; }
+        .channel-card:hover { border-color: var(--main-color); transform: translateY(-5px); }
+        .channel-card img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 10px; border-radius: 5px; }
+        .channel-card h3 { font-size: 12px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
-        .live-badge { position: absolute; top: 8px; right: 8px; background: red; color: white; font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: bold; animation: blink 1.5s infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
+        .live-dot { position: absolute; top: 10px; right: 10px; height: 8px; width: 8px; background-color: #ff0000; border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); } }
         
-        .loading { text-align: center; padding: 50px; color: var(--main-color); font-weight: bold; }
+        .loading { text-align: center; padding: 50px; color: var(--main-color); }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 style="margin:0; letter-spacing: 2px;">YALLA <span style="color:var(--main-color);">AZZOUZI</span> LIVE</h1>
+    <h1 style="margin:0;">YALLA <span style="color:var(--main-color);">AZZOUZI</span> LIVE</h1>
 </header>
 
 <div class="container">
     <div id="video-section">
-        <div id="current-channel" class="playing-bar">جاري التجهيز...</div>
+        <div id="current-channel" class="playing-bar">جاري تشغيل القناة...</div>
         <video id="video" controls autoplay playsinline></video>
     </div>
 
     <div class="search-container">
-        <input type="text" id="search-input" placeholder="ابحث عن قناة (beIN, SSC, Alkass)..." oninput="filterChannels()">
+        <input type="text" id="search-input" placeholder="ابحث عن قناة (مثلاً: beIN, SSC, Alkass)..." oninput="filterChannels()">
     </div>
 
-    <h2 id="list-title" style="border-right: 4px solid var(--main-color); padding-right: 15px; margin-bottom: 20px; font-size: 18px;">القنوات المحدثة تلقائياً</h2>
-    
     <div id="grid" class="channel-grid">
-        <div class="loading">جاري جلب القنوات من ملف playlist.m3u8...</div>
+        <div class="loading">جاري مزامنة القنوات من الروبوت...</div>
     </div>
 </div>
 
 <script>
-    const m3uFile = 'playlist.m3u8'; // الملف الذي يحدثه ملف البايثون
     let allChannels = [];
     const video = document.getElementById('video');
     const hls = new Hls();
 
-    // جلب القنوات من الملف الذي أنشأه الروبوت
-    async function fetchChannels() {
+    // 1. جلب الملف الذي أنشأه ملف البايثون
+    async function loadM3U() {
         try {
-            const response = await fetch(m3uFile + '?v=' + Date.now());
+            // إضافة Timestamp لمنع الكاش لضمان جلب التحديثات الجديدة من GitHub
+            const response = await fetch('playlist.m3u8?t=' + new Date().getTime());
             const data = await response.text();
             parseM3U(data);
-        } catch (error) {
-            document.getElementById('grid').innerHTML = '<p style="color:red; text-align:center;">فشل تحميل القائمة. تأكد من عمل ملف البايثون بنجاح.</p>';
+        } catch (e) {
+            document.getElementById('grid').innerHTML = 'خطأ في جلب القنوات. تأكد من تشغيل GitHub Actions بنجاح.';
         }
     }
 
-    function parseM3U(content) {
-        const lines = content.split('\n');
+    // 2. تحليل ملف m3u8 وتحويله لبيانات
+    function parseM3U(data) {
+        const lines = data.split('\n');
         allChannels = [];
-        
         for (let i = 0; i < lines.length; i++) {
             if (lines[i].startsWith('#EXTINF')) {
-                const info = lines[i];
-                const name = info.split(',')[1] || "قناة غير معروفة";
-                const logoMatch = info.match(/tvg-logo="([^"]+)"/);
+                const name = lines[i].split(',')[1] || "قناة غير معروفة";
+                const logoMatch = lines[i].match(/tvg-logo="([^"]+)"/);
                 const logo = logoMatch ? logoMatch[1] : 'https://cdn-icons-png.flaticon.com/512/716/716429.png';
                 const url = lines[i+1]?.trim();
-
                 if (url && url.startsWith('http')) {
-                    allChannels.append({ name, url, logo });
+                    allChannels.push({ name, url, logo });
                 }
             }
         }
-        renderChannels(allChannels);
+        render(allChannels);
     }
 
-    function renderChannels(channels) {
+    // 3. عرض القنوات في الصفحة
+    function render(channels) {
         const grid = document.getElementById('grid');
         grid.innerHTML = '';
-        
         channels.forEach(ch => {
             const card = document.createElement('div');
             card.className = 'channel-card';
-            card.innerHTML = `
-                <div class="live-badge">LIVE</div>
-                <img src="${ch.logo}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/716/716429.png'">
-                <h3>${ch.name}</h3>
-            `;
-            card.onclick = () => playStream(ch.url, ch.name);
+            card.innerHTML = `<div class="live-dot"></div><img src="${ch.logo}"><h3>${ch.name}</h3>`;
+            card.onclick = () => play(ch.url, ch.name);
             grid.appendChild(card);
         });
     }
 
+    // 4. ميزة البحث
     function filterChannels() {
         const query = document.getElementById('search-input').value.toLowerCase();
-        const filtered = allChannels.filter(ch => ch.name.toLowerCase().includes(query));
-        renderChannels(filtered);
+        const filtered = allChannels.filter(c => c.name.toLowerCase().includes(query));
+        render(filtered);
     }
 
-    function playStream(url, name) {
+    // 5. تشغيل البث المباشر
+    function play(url, name) {
         document.getElementById('video-section').style.display = 'block';
-        document.getElementById('current-channel').innerText = "أنت تشاهد الآن: " + name;
+        document.getElementById('current-channel').innerText = "بث مباشر: " + name;
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // استخدام بروكسي لكسر الحماية
-        const finalUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
+        // نستخدم البروكسي لتجاوز حظر المتصفحات للروابط الخارجية
+        const proxiedUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
 
         if (Hls.isSupported()) {
-            hls.loadSource(finalUrl);
+            hls.loadSource(proxiedUrl);
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
         } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = finalUrl;
+            video.src = proxiedUrl;
             video.play();
         }
     }
 
-    fetchChannels();
+    loadM3U();
 </script>
 </body>
 </html>
