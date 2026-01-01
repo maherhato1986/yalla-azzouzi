@@ -3,164 +3,106 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>يلا عزوزي | Yalla Azzouzi | بث مباشر مباريات اليوم</title>
-    <meta name="description" content="يلا عزوزي بث مباشر لمباريات اليوم بدون تقطيع، تابع أهم المباريات والنتائج الحية عبر موقع yalla-azzouzi.live" />
-    
+    <title>يلا عزوزي | فحص البث المباشر</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
     <style>
-        :root {
-            --main_color: #e74c3c; 
-            --header_bg: #210808;
-            --body_bg: #eceef2;
-            --LightColor: #ffffff;
-            --Gray2: #ddd;
-            --rounded: 8px;
-            --bk-shadow: rgba(0, 0, 0, 0.2);
+        :root { --main_color: #e74c3c; --header_bg: #210808; --body_bg: #eceef2; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--body_bg); margin: 0; direction: rtl; }
+        header { background: var(--header_bg); color: white; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .container { max-width: 1000px; margin: auto; padding: 20px; }
+        
+        #player-wrapper { 
+            background: #000; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            margin-bottom: 30px; 
+            border: 3px solid var(--main_color);
+            display: none; /* يظهر عند النقر */
         }
+        video { width: 100%; display: block; }
+        
+        .status-bar { background: #333; color: #fff; padding: 10px; text-align: center; font-size: 14px; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--body_bg);
-            margin: 0; padding: 0; direction: rtl;
+        .channels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
+        .channel-card { 
+            background: white; 
+            padding: 15px; 
+            text-align: center; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
         }
-
-        .container { max-width: 1024px; margin: auto; padding: 0 15px; }
-
-        header { background: var(--header_bg); color: white; padding: 15px 0; text-align: center; box-shadow: 0 2px 5px var(--bk-shadow); }
-        header h1 { margin: 0; font-size: 24px; letter-spacing: 2px; }
-
-        /* ستايل جدول المباريات */
-        .matches-container { margin: 20px 0; display: grid; gap: 15px; }
-        .match-card { background: white; border-radius: var(--rounded); display: flex; align-items: center; justify-content: space-between; padding: 15px; box-shadow: 0 2px 5px var(--bk-shadow); }
-        .team { flex: 1; text-align: center; }
-        .team img { width: 50px; height: 50px; display: block; margin: 0 auto 5px; }
-        .match-info { flex: 1; text-align: center; border-left: 1px solid var(--Gray2); border-right: 1px solid var(--Gray2); }
-        .time { font-weight: bold; font-size: 18px; color: var(--main_color); }
-        .live-btn { background: var(--main_color); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
-
-        /* المشغل */
-        #main-player-section { display: none; background: #000; padding: 20px 0; margin-bottom: 20px; }
-        #video-player { width: 100%; max-width: 800px; display: block; margin: auto; border: 2px solid var(--main_color); }
-        .player-title { color: white; text-align: center; margin-bottom: 10px; }
-
-        /* شبكة القنوات */
-        .channels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 15px; padding: 20px 0; }
-        .channel-card { background: white; padding: 10px; text-align: center; border-radius: var(--rounded); cursor: pointer; transition: 0.3s; box-shadow: 0 2px 4px var(--bk-shadow); }
-        .channel-card:hover { transform: translateY(-5px); border: 1px solid var(--main_color); }
-        .channel-card img { width: 80px; height: 80px; object-fit: contain; }
-        .channel-card h3 { font-size: 14px; margin-top: 10px; color: #333; }
+        .channel-card:hover { transform: scale(1.05); border: 1px solid var(--main_color); }
+        .channel-card img { width: 70px; height: 70px; object-fit: contain; margin-bottom: 10px; }
+        .channel-card h3 { margin: 0; font-size: 16px; color: #333; }
+        
+        .test-notice { background: #ffeb3b; padding: 10px; text-align: center; border-radius: 5px; margin-bottom: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="container">
-        <h1>YALLA-AZZOUZI LIVE</h1>
-    </div>
+    <h1>YALLA-AZZOUZI LIVE</h1>
 </header>
 
 <div class="container">
-    
-    <section id="main-player-section">
-        <h2 id="playing-now-title" class="player-title">بث مباشر</h2>
-        <video id="video-player" controls></video>
-    </section>
+    <div class="test-notice">📢 تجربة فحص البث: هذه القنوات للتأكد من عمل الموقع برمجياً</div>
 
-    <div class="matches-container">
-        <h2 style="text-align: center; color: #210808;">⚽ مباريات اليوم ⚽</h2>
-        
-        <div class="match-card">
-            <div class="team">
-                <img src="https://ssl.gstatic.com/onebox/media/sports/logos/Th4fCH99p9Y6S77C57E6-A_48x48.png" alt="ليفربول">
-                <span>ليفربول</span>
-            </div>
-            <div class="match-info">
-                <div class="time">21:00</div>
-                <div class="status">مباشر</div>
-                <button class="live-btn" onclick="playStream('mbc&osn.m3u8', 'ليفربول ضد مان سيتي')">مشاهدة الآن</button>
-            </div>
-            <div class="team">
-                <img src="https://ssl.gstatic.com/onebox/media/sports/logos/8991.png" alt="مانشستر سيتي">
-                <span>مانشستر سيتي</span>
-            </div>
-        </div>
-
-        <div class="match-card">
-            <div class="team">
-                <img src="https://ssl.gstatic.com/onebox/media/sports/logos/v9_fL68js_E9_F96B2_A_48x48.png" alt="ريال مدريد">
-                <span>ريال مدريد</span>
-            </div>
-            <div class="match-info">
-                <div class="time">23:00</div>
-                <div class="status">إنتظار</div>
-                <button class="live-btn" onclick="playStream('amazon.m3u8', 'ريال مدريد ضد برشلونة')">مشاهدة الآن</button>
-            </div>
-            <div class="team">
-                <img src="https://ssl.gstatic.com/onebox/media/sports/logos/7.png" alt="برشلونة">
-                <span>برشلونة</span>
-            </div>
-        </div>
+    <div id="player-wrapper">
+        <div class="status-bar" id="status-text">اختر قناة لبدء البث</div>
+        <video id="video" controls></video>
     </div>
 
-    <h2 style="text-align: center; border-top: 2px solid var(--Gray2); padding-top: 20px;">📺 قنوات بث مباشر 📺</h2>
-    <div id="channels-container" class="channels-grid">
+    <div class="channels-grid">
+        <div class="channel-card" onclick="startPlay('https://live-hls-web-aje.getaj.net/AJE/index.m3u8', 'الجزيرة الإنجليزية (فحص)')">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Al_Jazeera_English_logo.svg/1200px-Al_Jazeera_English_logo.svg.png" alt="Test">
+            <h3>قناة فحص 1</h3>
         </div>
 
+        <div class="channel-card" onclick="startPlay('https://skynews-skynewsarabia-main.ateme.tv/playlist.m3u8', 'سكاي نيوز عربية')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Sky_News_Arabia_logo.svg/2560px-Sky_News_Arabia_logo.svg.png" alt="Test">
+            <h3>قناة فحص 2</h3>
+        </div>
+        
+        <div class="channel-card" onclick="startPlay('mbc&osn.m3u8', 'باقة MBC الخاص بك')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/MBC_Group_logo.svg/200px-MBC_Group_logo.svg.png" alt="Test">
+            <h3>ملفك الخاص 1</h3>
+        </div>
+    </div>
 </div>
 
 <script>
-    // مصفوفة القنوات المرفوعة مسبقاً
-    const channels = [
-        { name: "MBC & OSN Bundle", url: "mbc&osn.m3u8", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/MBC_Group_logo.svg/200px-MBC_Group_logo.svg.png" },
-        { name: "Amazon Prime Sport", url: "amazon.m3u8", logo: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png" },
-        { name: "Free CATV Stream", url: "Freecatv-41.m3u8", logo: "https://cdn-icons-png.flaticon.com/512/716/716429.png" }
-    ];
+    function startPlay(url, name) {
+        const video = document.getElementById('video');
+        const wrapper = document.getElementById('player-wrapper');
+        const status = document.getElementById('status-text');
 
-    const container = document.getElementById('channels-container');
-
-    channels.forEach(ch => {
-        const card = document.createElement('div');
-        card.className = 'channel-card';
-        card.innerHTML = `<img src="${ch.logo}"><h3>${ch.name}</h3>`;
-        card.onclick = () => playStream(ch.url, ch.name);
-        container.appendChild(card);
-    });
-
-    function playStream(url, name) {
-        const section = document.getElementById('main-player-section');
-        const video = document.getElementById('video-player');
-        const title = document.getElementById('playing-now-title');
-        
-        section.style.display = 'block';
-        title.innerText = "بث مباشر: " + name;
-        window.scrollTo({ top: section.offsetTop - 20, behavior: 'smooth' });
-
-        // استخدام البروكسي لتجاوز الحماية
-        const proxy = "https://cors-anywhere.herokuapp.com/";
-        const finalUrl = proxy + url;
+        wrapper.style.display = 'block';
+        status.innerText = "جاري الاتصال بـ: " + name;
+        window.scrollTo({ top: wrapper.offsetTop - 20, behavior: 'smooth' });
 
         if (Hls.isSupported()) {
-            var hls = new Hls();
-            hls.loadSource(finalUrl);
+            const hls = new Hls();
+            hls.loadSource(url);
             hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-            
-            hls.on(Hls.Events.ERROR, function (event, data) {
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play();
+                status.innerText = "بث مباشر: " + name + " (يعمل)";
+            });
+            hls.on(Hls.Events.ERROR, function(event, data) {
                 if (data.fatal) {
-                    console.error("فشل تحميل البث، تأكد من تفعيل بروكسي CORS");
+                    status.innerText = "فشل التحميل: الرابط قد يكون متوقفاً";
                 }
             });
         } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = finalUrl;
-            video.addEventListener('loadedmetadata', () => video.play());
+            video.src = url;
+            video.addEventListener('loadedmetadata', function() {
+                video.play();
+            });
         }
     }
 </script>
-
-<footer style="text-align: center; padding: 20px; color: #777; font-size: 12px;">
-    جميع الحقوق محفوظة © يلا عزوزي 2024
-</footer>
 
 </body>
 </html>
