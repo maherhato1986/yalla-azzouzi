@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>يلا عزوزي - البث الشامل</title>
+    <title>يلا عزوزي - البث المباشر</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        body { background: #0f0f0f; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
-        header { background: #1a1a1a; padding: 15px; text-align: center; border-bottom: 2px solid #e74c3c; position: sticky; top: 0; z-index: 100; }
-        .container { max-width: 1000px; margin: auto; padding: 20px; }
-        #video-container { background: #000; border-radius: 12px; overflow: hidden; margin-bottom: 20px; border: 2px solid #333; position: relative; }
-        video { width: 100%; aspect-ratio: 16/9; display: block; }
-        .channel-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; height: 400px; overflow-y: auto; background: #1a1a1a; padding: 10px; border-radius: 8px; }
-        .channel-item { background: #252525; padding: 10px; border-radius: 5px; text-align: center; cursor: pointer; font-size: 12px; transition: 0.2s; border: 1px solid transparent; }
-        .channel-item:hover { background: #e74c3c; border-color: white; }
-        .loading { text-align: center; padding: 20px; color: #e74c3c; font-weight: bold; }
-        #current-track { padding: 10px; background: #e74c3c; font-weight: bold; font-size: 14px; text-align: center; }
+        :root { --main: #e74c3c; --bg: #0b0b0b; --card: #1a1a1a; }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; padding: 0; }
+        header { background: #000; padding: 20px; text-align: center; border-bottom: 2px solid var(--main); }
+        .container { max-width: 1100px; margin: auto; padding: 20px; }
+        #player-wrapper { background: #000; border-radius: 12px; overflow: hidden; margin-bottom: 30px; display: none; border: 1px solid #333; }
+        video { width: 100%; aspect-ratio: 16/9; }
+        .status-bar { background: var(--main); padding: 10px; font-weight: bold; text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+        .card { background: var(--card); padding: 15px; border-radius: 8px; text-align: center; cursor: pointer; border: 1px solid transparent; transition: 0.3s; }
+        .card:hover { border-color: var(--main); transform: translateY(-3px); }
+        .card img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 8px; }
+        .loader { text-align: center; padding: 40px; color: var(--main); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -23,78 +25,81 @@
 <header><h1>YALLA AZZOUZI LIVE</h1></header>
 
 <div class="container">
-    <div id="video-container">
-        <div id="current-track">اختر قناة من القائمة بالأسفل</div>
+    <div id="player-wrapper">
+        <div id="track-info" class="status-bar">جاري التحميل...</div>
         <video id="video" controls autoplay></video>
     </div>
 
-    <h3 style="border-right: 4px solid #e74c3c; padding-right: 10px;">جميع القنوات في مستودعك:</h3>
-    <div id="list-container" class="channel-list">
-        <div class="loading">جاري قراءة ملف playlist (2).m3u8...</div>
+    <h2 style="border-right: 4px solid var(--main); padding-right: 15px;">📺 قائمة القنوات المتاحة</h2>
+    <div id="channel-grid" class="grid">
+        <div class="loader">جاري جلب القنوات من ملفات m3u8...</div>
     </div>
 </div>
 
 <script>
-    const playlistURL = 'playlist (2).m3u8'; // الملف الموجود في مستودعك
+    // أسماء الملفات كما هي في مستودعك
+    const files = ['playlist.m3u8', 'playlist (2).m3u8'];
+    const grid = document.getElementById('channel-grid');
     const video = document.getElementById('video');
-    const listContainer = document.getElementById('list-container');
-    const trackLabel = document.getElementById('current-track');
+    const wrapper = document.getElementById('player-wrapper');
+    const trackInfo = document.getElementById('track-info');
 
-    async function loadPlaylist() {
-        try {
-            const response = await fetch(playlistURL);
-            const data = await response.text();
-            const lines = data.split('\n');
-            listContainer.innerHTML = ''; // مسح علامة التحميل
-
-            for (let i = 0; i < lines.length; i++) {
-                if (lines[i].startsWith('#EXTINF')) {
-                    // استخراج اسم القناة
-                    const parts = lines[i].split(',');
-                    const name = parts[parts.length - 1].trim() || "قناة مجهولة";
-                    const url = lines[i + 1] ? lines[i + 1].trim() : null;
-
-                    if (url && url.startsWith('http')) {
-                        const item = document.createElement('div');
-                        item.className = 'channel-item';
-                        item.innerText = name;
-                        item.onclick = () => playStream(url, name);
-                        listContainer.appendChild(item);
-                    }
-                }
-            }
-        } catch (error) {
-            listContainer.innerHTML = '<div class="loading">فشل تحميل الملف. تأكد من وجود playlist.m3u8 في المستودع</div>';
+    async function loadAllPlaylists() {
+        grid.innerHTML = ''; 
+        for (const file of files) {
+            try {
+                const response = await fetch(file);
+                if (!response.ok) continue;
+                const text = await response.text();
+                parseM3U(text);
+            } catch (e) { console.error("Error loading " + file); }
         }
     }
 
-    function playStream(url, name) {
-        trackLabel.innerText = "تشغيل الآن: " + name;
+    function parseM3U(content) {
+        const lines = content.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+            if (lines[i].startsWith('#EXTINF')) {
+                const name = lines[i].split(',')[1] || "قناة غير معروفة";
+                const logoMatch = lines[i].match(/tvg-logo="([^"]+)"/);
+                const logo = logoMatch ? logoMatch[1] : 'https://cdn-icons-png.flaticon.com/512/716/716429.png';
+                const url = lines[i + 1]?.trim();
+
+                if (url && url.startsWith('http')) {
+                    createCard(name, url, logo);
+                }
+            }
+        }
+    }
+
+    function createCard(name, url, logo) {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `<img src="${logo}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/716/716429.png'"><div>${name}</div>`;
+        div.onclick = () => play(url, name);
+        grid.appendChild(div);
+    }
+
+    function play(url, name) {
+        wrapper.style.display = 'block';
+        trackInfo.innerText = "تشغيل الآن: " + name;
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // البروكسي لحل مشكلة "مش شغاله في الموقع"
-        const proxy = "https://api.allorigins.win/raw?url=";
-        const finalUrl = proxy + encodeURIComponent(url);
+        // البروكسي لتجاوز حظر المتصفح (CORS)
+        const finalUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
 
         if (Hls.isSupported()) {
             const hls = new Hls();
-            hls.loadSource(finalUrl); // تشغيل عبر البروكسي
+            hls.loadSource(finalUrl);
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-            
-            hls.on(Hls.Events.ERROR, (event, data) => {
-                if (data.fatal) {
-                    console.error("خطأ في تشغيل الرابط حتى مع البروكسي.");
-                }
-            });
         } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
             video.src = finalUrl;
             video.play();
         }
     }
 
-    loadPlaylist();
+    loadAllPlaylists();
 </script>
-
 </body>
 </html>
