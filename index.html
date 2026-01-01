@@ -2,22 +2,21 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Yalla Azzouzi - Live TV</title>
+    <title>Yalla Azzouzi Live</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
         :root { --neon: #00fbff; --dark: #0a0a0a; }
-        body { background: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; }
-        header { background: #000; padding: 15px; text-align: center; border-bottom: 2px solid var(--neon); }
-        .nav-tabs { display: flex; overflow-x: auto; background: #111; padding: 10px; gap: 10px; position: sticky; top: 0; z-index: 10; }
-        .tab { background: #222; border: 1px solid #333; padding: 8px 15px; border-radius: 20px; cursor: pointer; white-space: nowrap; font-size: 13px; }
+        body { background: var(--dark); color: white; font-family: sans-serif; margin: 0; padding-bottom: 50px; }
+        header { background: #000; padding: 20px; text-align: center; border-bottom: 2px solid var(--neon); box-shadow: 0 0 15px var(--neon); }
+        .nav-tabs { display: flex; overflow-x: auto; background: #111; padding: 10px; gap: 10px; position: sticky; top: 0; z-index: 100; }
+        .tab { background: #222; border: 1px solid #333; padding: 10px 20px; border-radius: 25px; cursor: pointer; white-space: nowrap; transition: 0.3s; }
         .tab.active { background: var(--neon); color: #000; font-weight: bold; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; padding: 15px; }
-        .card { background: #161616; border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; border: 1px solid #222; transition: 0.3s; }
-        .card:hover { border-color: var(--neon); transform: translateY(-5px); }
-        .card img { width: 45px; height: 45px; object-fit: contain; margin-bottom: 10px; }
-        .card h3 { font-size: 14px; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        #player-view { display: none; width: 100%; max-width: 800px; margin: 10px auto; border: 1px solid var(--neon); }
-        video { width: 100%; aspect-ratio: 16/9; background: #000; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; padding: 20px; }
+        .card { background: #1a1a1a; border-radius: 15px; padding: 15px; text-align: center; cursor: pointer; border: 1px solid #333; transition: 0.3s; }
+        .card:hover { border-color: var(--neon); transform: scale(1.05); }
+        .card img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 10px; border-radius: 10px; }
+        #player-view { display: none; width: 100%; max-width: 900px; margin: 20px auto; background: #000; border: 1px solid var(--neon); }
+        video { width: 100%; aspect-ratio: 16/9; }
     </style>
 </head>
 <body>
@@ -25,83 +24,66 @@
 <header><h1>YALLA <span style="color:var(--neon)">AZZOUZI</span> TV</h1></header>
 
 <div id="player-view">
-    <div id="p-title" style="padding:10px; text-align:center; font-size:14px; background:#111; border-bottom: 1px solid #222;"></div>
+    <div id="p-title" style="padding:10px; text-align:center; background:#111;"></div>
     <video id="video" controls autoplay playsinline></video>
 </div>
 
-<div class="nav-tabs" id="tabs">
-    <div class="tab active" onclick="filterBy('الكل', event)">الكل</div>
-    <div class="tab" onclick="filterBy('beIN', event)">🟣 beIN</div>
-    <div class="tab" onclick="filterBy('SSC', event)">🟢 SSC</div>
-    <div class="tab" onclick="filterBy('رياضة', event)">⚽ رياضة</div>
+<div class="nav-tabs">
+    <div class="tab active" onclick="filter('الكل', event)">الكل</div>
+    <div class="tab" onclick="filter('beIN', event)">beIN</div>
+    <div class="tab" onclick="filter('SSC', event)">SSC</div>
+    <div class="tab" onclick="filter('رياضة', event)">رياضة</div>
 </div>
 
 <div id="grid" class="grid"></div>
 
 <script>
-    let allChannels = [];
-    const video = document.getElementById('video');
+    let allData = [];
     const hls = new Hls();
+    const video = document.getElementById('video');
 
-    async function start() {
+    async function load() {
         try {
-            // جلب ملف الـ JSON الذي ينتجه سكريبت البايثون
-            const r = await fetch('channels.json?t=' + Date.now());
-            if (!r.ok) throw new Error("File not found");
-            allChannels = await r.json();
-            
-            // تصنيف القنوات
-            allChannels = allChannels.map(c => {
-                let type = 'عربية';
-                const n = c.name.toUpperCase();
-                if (n.includes('BEIN')) type = 'beIN';
-                else if (n.includes('SSC')) type = 'SSC';
-                else if (n.includes('SPORT') || n.includes('AD') || n.includes('KASS')) type = 'رياضة';
-                return { ...c, type };
-            });
-
-            render(allChannels);
+            const r = await fetch('channels.json?v=' + Date.now());
+            allData = await r.json();
+            display(allData);
         } catch (e) {
-            document.getElementById('grid').innerHTML = '<p style="text-align:center;">جاري تحديث القنوات... يرجى الانتظار</p>';
+            document.getElementById('grid').innerHTML = "<h3>جاري جلب القنوات من الروبوت.. حدث الصفحة بعد دقيقتين</h3>";
         }
     }
 
-    function render(list) {
+    function display(list) {
         const grid = document.getElementById('grid');
         grid.innerHTML = '';
         list.forEach(c => {
-            const d = document.createElement('div');
-            d.className = 'card';
-            d.innerHTML = `<img src="${c.logo}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/716/716429.png'"><h3>${c.name}</h3>`;
-            d.onclick = () => {
+            const item = document.createElement('div');
+            item.className = 'card';
+            item.innerHTML = `<img src="${c.logo}"><h3>${c.name}</h3>`;
+            item.onclick = () => {
                 document.getElementById('player-view').style.display = 'block';
                 document.getElementById('p-title').innerText = c.name;
                 window.scrollTo({top: 0, behavior: 'smooth'});
-
-                // استخدام البروكسي الخاص بك لفك التشفير
-                const proxyUrl = "https://yalla-azzouzi.crimson-grass-c7f2.workers.dev/?url=" + encodeURIComponent(c.url);
-
+                
+                const finalUrl = "https://yalla-azzouzi.crimson-grass-c7f2.workers.dev/?url=" + encodeURIComponent(c.url);
                 if (Hls.isSupported()) {
-                    hls.detachMedia();
-                    hls.loadSource(proxyUrl);
+                    hls.loadSource(finalUrl);
                     hls.attachMedia(video);
-                    hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                    video.src = proxyUrl;
+                } else {
+                    video.src = finalUrl;
                 }
             };
-            grid.appendChild(d);
+            grid.appendChild(item);
         });
     }
 
-    function filterBy(t, event) {
-        document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-        event.target.classList.add('active');
-        if (t === 'الكل') render(allChannels);
-        else render(allChannels.filter(c => c.type === t || (t === 'رياضة' && (c.type === 'beIN' || c.type === 'SSC'))));
+    function filter(type, e) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        e.target.classList.add('active');
+        if(type === 'الكل') display(allData);
+        else display(allData.filter(c => c.name.toUpperCase().includes(type.toUpperCase())));
     }
 
-    start();
+    load();
 </script>
 </body>
 </html>
