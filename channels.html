@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة القنوات - يلا عزوزي</title>
+    <style>
+        body { background: #eceef2; font-family: sans-serif; margin: 0; padding: 20px; }
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .channel-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .channel-card:hover { transform: translateY(-5px); border: 1px solid #e74c3c; }
+        .channel-card img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 10px; }
+        .channel-card h3 { font-size: 14px; margin: 0; color: #333; }
+        #player-container { display: none; margin-bottom: 30px; background: #000; padding: 10px; border-radius: 8px; }
+        video { width: 100%; max-height: 450px; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+
+    <h1 style="text-align: center; color: #210808;">قنوات يلا عزوزي المباشرة</h1>
+
+    <div id="player-container">
+        <video id="video" controls></video>
+        <h2 id="current-channel" style="color: #fff; text-align: center;"></h2>
+    </div>
+
+    <div class="channels-grid" id="channels-list">
+        </div>
+
+<script>
+    // أسماء الملفات التي رفعتها على السيرفر (يجب أن تكون في نفس المجلد)
+    const m3uFiles = ['Freecatv-41.m3u8', 'mbc&osn.m3u8', 'amazon prime sports.m3u8'];
+
+    async function loadChannels() {
+        const listContainer = document.getElementById('channels-list');
+        
+        for (const file of m3uFiles) {
+            try {
+                const response = await fetch(file);
+                const data = await response.text();
+                parseM3U(data);
+            } catch (err) {
+                console.error("خطأ في تحميل الملف: " + file);
+            }
+        }
+    }
+
+    function parseM3U(content) {
+        const lines = content.split('\n');
+        const listContainer = document.getElementById('channels-list');
+        
+        let currentChannel = {};
+
+        lines.forEach(line => {
+            if (line.startsWith('#EXTINF:')) {
+                // استخراج اسم القناة والصورة
+                const nameMatch = line.split(',')[1];
+                const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+                
+                currentChannel.name = nameMatch ? nameMatch.trim() : "قناة غير معروفة";
+                currentChannel.logo = logoMatch ? logoMatch[1] : "https://via.placeholder.com/60?text=TV";
+            } else if (line.startsWith('http')) {
+                // استخراج الرابط وإنشاء الكارد
+                currentChannel.url = line.trim();
+                createChannelCard(currentChannel);
+                currentChannel = {}; // تصفير البيانات للقناة التالية
+            }
+        });
+    }
+
+    function createChannelCard(channel) {
+        const listContainer = document.getElementById('channels-list');
+        const card = document.createElement('div');
+        card.className = 'channel-card';
+        card.innerHTML = `
+            <img src="${channel.logo}" alt="${channel.name}">
+            <h3>${channel.name}</h3>
+        `;
+        card.onclick = () => playChannel(channel.url, channel.name);
+        listContainer.appendChild(card);
+    }
+
+    function playChannel(url, name) {
+        const container = document.getElementById('player-container');
+        const video = document.getElementById('video');
+        const title = document.getElementById('current-channel');
+        
+        container.style.display = 'block';
+        title.innerText = "أنت تشاهد الآن: " + name;
+
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource(url);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play();
+            });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = url;
+            video.play();
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // تشغيل الدالة عند فتح الصفحة
+    loadChannels();
+</script>
+
+</body>
+</html>
