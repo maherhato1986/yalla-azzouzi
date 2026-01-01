@@ -2,20 +2,21 @@ import requests
 import json
 import re
 
-# مصادر موثوقة يتم تحديثها يومياً من IPTV-ORG ومصادر أخرى مفتوحة
+# مصادر عالمية متخصصة في روابط beIN والرياضة (Raw Links)
 SOURCES = [
-    "https://iptv-org.github.io/iptv/countries/qa.m3u", # قنوات قطر (تشمل beIN)
-    "https://iptv-org.github.io/iptv/languages/ara.m3u", # القنوات العربية العامة
-    "https://raw.githubusercontent.com/maherhato1986/yalla-azzouzi/main/playlist.m3u8" # ملفك الحالي للطوارئ
+    "https://iptv-org.github.io/iptv/countries/qa.m3u", # قنوات قطر الأساسية
+    "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/ar.m3u", # روابط عربية مباشرة
+    "https://raw.githubusercontent.com/maherhato1986/yalla-azzouzi/main/playlist.m3u8", # ملفك الحالي
+    "https://raw.githubusercontent.com/Guu-M/IPTV/main/Bein.m3u" # مصدر خارجي متخصص لـ beIN
 ]
 
 def fetch_channels():
     channels_list = []
-    seen_urls = set() # لمنع تكرار نفس الرابط
+    seen_urls = set()
 
     for url in SOURCES:
         try:
-            print(f"جاري جلب البيانات من: {url}")
+            print(f"Searching in: {url}")
             response = requests.get(url, timeout=15)
             if response.status_code == 200:
                 lines = response.text.split('\n')
@@ -24,15 +25,10 @@ def fetch_channels():
                 for line in lines:
                     line = line.strip()
                     if line.startswith("#EXTINF"):
-                        # استخراج اسم القناة واللوجو إذا وجد
+                        # استخراج اسم القناة واللوجو بدقة
                         name_match = re.search('tvg-name="([^"]+)"', line)
                         logo_match = re.search('tvg-logo="([^"]+)"', line)
-                        
-                        title = ""
-                        if name_match:
-                            title = name_match.group(1)
-                        else:
-                            title = line.split(',')[-1]
+                        title = name_match.group(1) if name_match else line.split(',')[-1]
                         
                         current_channel = {
                             "name": title,
@@ -40,23 +36,22 @@ def fetch_channels():
                         }
                     
                     elif line.startswith("http") and current_channel:
-                        channel_url = line
-                        # تصفية القنوات: نريد beIN Sports والقنوات الرياضية فقط
-                        interest_keywords = ["beIN", "Sports", "SSC", "AD Sports", "الكأس"]
-                        if any(key.lower() in current_channel['name'].lower() for key in interest_keywords):
-                            if channel_url not in seen_urls:
-                                current_channel["url"] = channel_url
+                        # فلترة مركزة على beIN Sports
+                        target_keys = ["beIN", "Sports", "SSC", "Alkass", "AD Sports"]
+                        if any(key.lower() in current_channel['name'].lower() for key in target_keywords):
+                            if line not in seen_urls:
+                                current_channel["url"] = line
                                 channels_list.append(current_channel)
-                                seen_urls.add(channel_url)
+                                seen_urls.add(line)
                         current_channel = {}
         except Exception as e:
-            print(f"خطأ في جلب {url}: {e}")
+            print(f"Error skipping {url}: {e}")
 
-    # حفظ البيانات في ملف channels.json ليعرضها الموقع
+    # حفظ النتائج في channels.json ليعرضها الموقع
     with open('channels.json', 'w', encoding='utf-8') as f:
         json.dump({"channels": channels_list}, f, ensure_ascii=False, indent=4)
     
-    print(f"تم بنجاح! تم العثور على {len(channels_list)} قناة رياضية.")
+    print(f"Done! Found {len(channels_list)} sports channels.")
 
 if __name__ == "__main__":
     fetch_channels()
