@@ -1,0 +1,34 @@
+name: Update Channels Daily
+
+on:
+  schedule:
+    - cron: '0 * * * *' # سيعمل السكريبت مرة كل ساعة تلقائياً
+  workflow_dispatch: # يتيح لك تشغيل السكريبت يدوياً للتجربة
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Run update script
+        run: python "update_list.py" # تأكد أن هذا هو نفس اسم الملف في GitHub
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add channels.json
+          git commit -m "تحديث تلقائي للقنوات" || exit 0
+          git push
