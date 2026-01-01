@@ -1,235 +1,41 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yalla Azzouzi | يلا عزوزي - بث مباشر</title>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <style>
-        :root {
-            --primary: #e74c3c;
-            --dark-bg: #0f0f0f;
-            --card-bg: #1e1e1e;
-            --text-main: #ffffff;
-            --text-dim: #b3b3b3;
-        }
-
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #000;
-            padding: 15px 0;
-            text-align: center;
-            border-bottom: 2px solid var(--primary);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        header h1 {
-            color: var(--primary);
-            margin: 0;
-            letter-spacing: 2px;
-            font-size: 24px;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        /* تصميم المشغل */
-        .player-container {
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
-            display: none; /* يظهر عند الاختيار */
-        }
-
-        video {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            display: block;
-        }
-
-        .playing-info {
-            padding: 15px;
-            background: var(--card-bg);
-            border-top: 1px solid #333;
-        }
-
-        /* شبكة القنوات */
-        .section-title {
-            font-size: 20px;
-            margin-bottom: 20px;
-            border-right: 4px solid var(--primary);
-            padding-right: 15px;
-        }
-
-        .channels-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 15px;
-        }
-
-        .channel-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-
-        .channel-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            background: #252525;
-        }
-
-        .channel-logo {
-            width: 60px;
-            height: 60px;
-            background: #333;
-            border-radius: 50%;
-            margin: 0 auto 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--primary);
-            overflow: hidden;
-        }
-
-        .channel-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .channel-name {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-main);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            color: var(--text-dim);
-            font-size: 13px;
-        }
-    </style>
+    <title>تجربة تشغيل يلا عزوزي</title>
 </head>
-<body>
+<body style="background:#000; color:#fff; text-align:center;">
 
-<header>
-    <h1>YALLA AZZOUZI</h1>
-</header>
-
-<div class="container">
+    <h1>فحص تشغيل البث المباشر</h1>
     
-    <div id="player-section" class="player-container">
-        <video id="main-video" controls></video>
-        <div class="playing-info">
-            <span id="current-channel-name" style="color: var(--primary); font-weight: bold;">جاري التشغيل...</span>
-        </div>
+    <video id="my-video" controls autoplay width="100%" style="max-width:800px; border:5px solid red;">
+        <source src="https://skynews-skynewsarabia-main.ateme.tv/playlist.m3u8" type="application/x-mpegURL">
+        متصفحك لا يدعم التشغيل المباشر.
+    </video>
+
+    <div style="margin-top:20px;">
+        <button onclick="playTest()" style="padding:20px; background:green; color:white; font-size:20px;">اضغط هنا لتجربة التشغيل</button>
     </div>
 
-    <h2 class="section-title">📺 قائمة القنوات المباشرة</h2>
-    
-    <div id="channels-list" class="channels-grid">
-        <p id="loader">جاري تحميل القنوات من Playlist...</p>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        function playTest() {
+            var video = document.getElementById('my-video');
+            // رابط قناة سكاي نيوز (لأننا نعرف أنه شغال 100%)
+            var videoSrc = 'https://skynews-skynewsarabia-main.ateme.tv/playlist.m3u8';
 
-</div>
-
-<footer>
-    &copy; 2024 Yalla Azzouzi Live - جميع الحقوق محفوظة
-</footer>
-
-<script>
-    const playlistFile = 'playlist.m3u8';
-    const video = document.getElementById('main-video');
-    const playerSection = document.getElementById('player-section');
-    const channelNameDisp = document.getElementById('current-channel-name');
-    const channelsList = document.getElementById('channels-list');
-
-    // دالة لجلب ومعالجة ملف المجموعات
-    async function initApp() {
-        try {
-            const response = await fetch(playlistFile);
-            const data = await response.text();
-            parseM3U(data);
-        } catch (err) {
-            document.getElementById('loader').innerText = "خطأ في تحميل قائمة القنوات.";
-        }
-    }
-
-    function parseM3U(content) {
-        const lines = content.split('\n');
-        channelsList.innerHTML = '';
-        
-        for (let i = 0; i < lines.length; i++) {
-            if (lines[i].startsWith('#EXTINF')) {
-                // استخراج الاسم واللوجو
-                const info = lines[i];
-                const name = info.split(',')[1] || "قناة غير معروفة";
-                const logoMatch = info.match(/tvg-logo="([^"]+)"/);
-                const logo = logoMatch ? logoMatch[1] : null;
-                const streamUrl = lines[i + 1].trim();
-
-                createChannelCard(name, streamUrl, logo);
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(videoSrc);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.play();
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = videoSrc;
+                video.play();
             }
         }
-    }
-
-    function createChannelCard(name, url, logo) {
-        const card = document.createElement('div');
-        card.className = 'channel-card';
-        
-        const logoContent = logo ? `<img src="${logo}" onerror="this.src='https://via.placeholder.com/60/333/ff4444?text=TV'">` : name.substring(0, 2);
-        
-        card.innerHTML = `
-            <div class="channel-logo">${logoContent}</div>
-            <div class="channel-name">${name}</div>
-        `;
-        
-        card.onclick = () => playStream(url, name);
-        channelsList.appendChild(card);
-    }
-
-    function playStream(url, name) {
-        playerSection.style.display = 'block';
-        channelNameDisp.innerText = "بث مباشر: " + name;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        if (Hls.isSupported()) {
-            const hls = new Hls();
-            hls.loadSource(url);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = url;
-            video.addEventListener('loadedmetadata', () => video.play());
-        }
-    }
-
-    initApp();
-</script>
-
+    </script>
 </body>
 </html>
