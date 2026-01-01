@@ -1,4 +1,4 @@
-unction start()<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -34,26 +34,24 @@ unction start()<!DOCTYPE html>
     <div class="tab" onclick="filterBy('beIN', event)">🟣 beIN</div>
     <div class="tab" onclick="filterBy('SSC', event)">🟢 SSC</div>
     <div class="tab" onclick="filterBy('رياضة', event)">⚽ رياضة</div>
-    <div class="tab" onclick="filterBy('عربية', event)">📺 قنوات عربية</div>
 </div>
 
 <div id="grid" class="grid"></div>
 
 <script>
-    let channels = [];
+    let allChannels = [];
     const video = document.getElementById('video');
     const hls = new Hls();
 
-async function start() {
+    async function start() {
         try {
-            // التعديل هنا: نقرأ من channels.json الذي ينتجه ملف البايثون
+            // جلب ملف الـ JSON الذي ينتجه سكريبت البايثون
             const r = await fetch('channels.json?t=' + Date.now());
-            if (!r.ok) throw new Error("لم يتم العثور على ملف channels.json");
+            if (!r.ok) throw new Error("File not found");
+            allChannels = await r.json();
             
-            channels = await r.json();
-            
-            // إضافة تصنيف القنوات تلقائياً بناءً على الاسم
-            channels = channels.map(c => {
+            // تصنيف القنوات
+            allChannels = allChannels.map(c => {
                 let type = 'عربية';
                 const n = c.name.toUpperCase();
                 if (n.includes('BEIN')) type = 'beIN';
@@ -62,10 +60,9 @@ async function start() {
                 return { ...c, type };
             });
 
-            render(channels);
+            render(allChannels);
         } catch (e) {
-            console.error("خطأ:", e);
-            document.getElementById('grid').innerHTML = `<p style="text-align:center; color:red;">جاري تحديث القنوات... أو تأكد من تشغيل سكريبت البايثون</p>`;
+            document.getElementById('grid').innerHTML = '<p style="text-align:center;">جاري تحديث القنوات... يرجى الانتظار</p>';
         }
     }
 
@@ -81,7 +78,7 @@ async function start() {
                 document.getElementById('p-title').innerText = c.name;
                 window.scrollTo({top: 0, behavior: 'smooth'});
 
-                // رابط البروكسي الخاص بك في Cloudflare لفك التشفير
+                // استخدام البروكسي الخاص بك لفك التشفير
                 const proxyUrl = "https://yalla-azzouzi.crimson-grass-c7f2.workers.dev/?url=" + encodeURIComponent(c.url);
 
                 if (Hls.isSupported()) {
@@ -100,13 +97,11 @@ async function start() {
     function filterBy(t, event) {
         document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
         event.target.classList.add('active');
-        if (t === 'الكل') render(channels);
-        else render(channels.filter(c => c.type === t || (t === 'رياضة' && (c.type === 'beIN' || c.type === 'SSC'))));
+        if (t === 'الكل') render(allChannels);
+        else render(allChannels.filter(c => c.type === t || (t === 'رياضة' && (c.type === 'beIN' || c.type === 'SSC'))));
     }
 
     start();
 </script>
 </body>
 </html>
-
-
