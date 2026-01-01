@@ -1,108 +1,83 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>يلا عزوزي | فحص البث المباشر</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>يلا عزوزي | مكتبة القنوات</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        :root { --main_color: #e74c3c; --header_bg: #210808; --body_bg: #eceef2; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--body_bg); margin: 0; direction: rtl; }
-        header { background: var(--header_bg); color: white; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        :root { --main: #e74c3c; --bg: #1a1a1a; }
+        body { font-family: sans-serif; background: #f4f4f4; margin: 0; direction: rtl; }
+        header { background: #210808; color: white; padding: 20px; text-align: center; }
         .container { max-width: 1000px; margin: auto; padding: 20px; }
-        
-        #player-wrapper { 
-            background: #000; 
-            border-radius: 12px; 
-            overflow: hidden; 
-            margin-bottom: 30px; 
-            border: 3px solid var(--main_color);
-            display: none; /* يظهر عند النقر */
-        }
-        video { width: 100%; display: block; }
-        
-        .status-bar { background: #333; color: #fff; padding: 10px; text-align: center; font-size: 14px; }
-
-        .channels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
-        .channel-card { 
-            background: white; 
-            padding: 15px; 
-            text-align: center; 
-            border-radius: 10px; 
-            cursor: pointer; 
-            transition: 0.3s; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
-        }
-        .channel-card:hover { transform: scale(1.05); border: 1px solid var(--main_color); }
-        .channel-card img { width: 70px; height: 70px; object-fit: contain; margin-bottom: 10px; }
-        .channel-card h3 { margin: 0; font-size: 16px; color: #333; }
-        
-        .test-notice { background: #ffeb3b; padding: 10px; text-align: center; border-radius: 5px; margin-bottom: 20px; font-weight: bold; }
+        #player-section { display: none; background: #000; padding: 10px; border-radius: 10px; margin-bottom: 20px; }
+        video { width: 100%; border: 2px solid var(--main); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+        .btn { background: white; padding: 10px; border-radius: 5px; cursor: pointer; text-align: center; border: 1px solid #ddd; font-size: 12px; }
+        .btn:hover { border-color: var(--main); color: var(--main); }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>YALLA-AZZOUZI LIVE</h1>
-</header>
+<header><h1>YALLA-AZZOUZI LIVE</h1></header>
 
 <div class="container">
-    <div class="test-notice">📢 تجربة فحص البث: هذه القنوات للتأكد من عمل الموقع برمجياً</div>
-
-    <div id="player-wrapper">
-        <div class="status-bar" id="status-text">اختر قناة لبدء البث</div>
+    <div id="player-section">
+        <h3 id="title" style="color:white; text-align:center;"></h3>
         <video id="video" controls></video>
     </div>
 
-    <div class="channels-grid">
-        <div class="channel-card" onclick="startPlay('https://live-hls-web-aje.getaj.net/AJE/index.m3u8', 'الجزيرة الإنجليزية (فحص)')">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Al_Jazeera_English_logo.svg/1200px-Al_Jazeera_English_logo.svg.png" alt="Test">
-            <h3>قناة فحص 1</h3>
-        </div>
-
-        <div class="channel-card" onclick="startPlay('https://skynews-skynewsarabia-main.ateme.tv/playlist.m3u8', 'سكاي نيوز عربية')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Sky_News_Arabia_logo.svg/2560px-Sky_News_Arabia_logo.svg.png" alt="Test">
-            <h3>قناة فحص 2</h3>
-        </div>
-        
-        <div class="channel-card" onclick="startPlay('mbc&osn.m3u8', 'باقة MBC الخاص بك')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/MBC_Group_logo.svg/200px-MBC_Group_logo.svg.png" alt="Test">
-            <h3>ملفك الخاص 1</h3>
-        </div>
+    <h2 style="text-align:center;">📺 القنوات من ملف Playlist المرفوع 📺</h2>
+    <div id="list" class="grid">
+        <p style="text-align:center; grid-column: 1/-1;">جاري معالجة القنوات من ملف playlist.m3u8...</p>
     </div>
 </div>
 
 <script>
-    function startPlay(url, name) {
-        const video = document.getElementById('video');
-        const wrapper = document.getElementById('player-wrapper');
-        const status = document.getElementById('status-text');
+    // هذه الدالة تقرأ ملف m3u8 الذي رفعته وتحوله لأزرار
+    async function loadPlaylist() {
+        const response = await fetch('playlist.m3u8');
+        const data = await response.text();
+        const lines = data.split('\n');
+        const listDiv = document.getElementById('list');
+        listDiv.innerHTML = '';
 
-        wrapper.style.display = 'block';
-        status.innerText = "جاري الاتصال بـ: " + name;
-        window.scrollTo({ top: wrapper.offsetTop - 20, behavior: 'smooth' });
+        for (let i = 0; i < lines.length; i++) {
+            if (lines[i].startsWith('#EXTINF')) {
+                // استخراج اسم القناة
+                const name = lines[i].split(',')[1] || "قناة غير معروفة";
+                const url = lines[i + 1].trim();
+                
+                const btn = document.createElement('div');
+                btn.className = 'btn';
+                btn.innerText = name;
+                btn.onclick = () => play(url, name);
+                listDiv.appendChild(btn);
+            }
+        }
+    }
+
+    function play(url, name) {
+        const video = document.getElementById('video');
+        document.getElementById('player-section').style.display = 'block';
+        document.getElementById('title').innerText = name;
+        window.scrollTo({top: 0, behavior: 'smooth'});
+
+        // استخدام بروكسي لتشغيل الروابط الخارجية
+        const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
 
         if (Hls.isSupported()) {
             const hls = new Hls();
-            hls.loadSource(url);
+            hls.loadSource(proxyUrl);
             hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                video.play();
-                status.innerText = "بث مباشر: " + name + " (يعمل)";
-            });
-            hls.on(Hls.Events.ERROR, function(event, data) {
-                if (data.fatal) {
-                    status.innerText = "فشل التحميل: الرابط قد يكون متوقفاً";
-                }
-            });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = url;
-            video.addEventListener('loadedmetadata', function() {
-                video.play();
-            });
+            hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+        } else {
+            video.src = proxyUrl;
+            video.play();
         }
     }
-</script>
 
+    loadPlaylist();
+</script>
 </body>
 </html>
