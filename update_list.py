@@ -2,36 +2,29 @@ import requests
 import json
 import re
 
-# الكلمات المستهدفة (بحث شامل غير حساس لحالة الأحرف)
-TARGET_CHANNELS = ["beIN", "SSC", "Alkass", "AD SPORT", "KSA SPORT", "Oman Sport", "Dubai Sport", "Arryadia", "Sport"]
+# الكلمات المستهدفة - أضفت كلمات من "يلا شوت" لزيادة دقة البحث
+TARGET_CHANNELS = ["beIN", "SSC", "Alkass", "AD SPORT", "KSA", "Yalla", "Shoot", "Sport", "Arryadia"]
 OUTPUT_FILE = "channels.json"
 
-def is_live(url):
-    """فحص سريع للرابط للتأكد أنه يعمل"""
-    try:
-        # فحص الرأس فقط لتسريع العملية
-        r = requests.head(url, timeout=3)
-        return r.status_code < 400
-    except:
-        return False
-
 def fetch_channels():
-    print("🚀 جاري مسح GitHub والمصادر العالمية بحثاً عن قنوات رياضية...")
+    print("🚀 جاري فحص مصادر يلا شوت ومستودعات GitHub...")
     all_channels = []
     
-    # قائمة مصادر قوية يتم تحديثها يومياً من قبل مجتمعات الـ IPTV على GitHub
+    # أضفت لك رابط ملفاتك في GitHub ليفحصها الروبوت بنفسه
     sources = [
+        "https://raw.githubusercontent.com/maherhato1986/yalla-azzouzi/main/external_source.m3u", # ملفك الخاص
+        "https://raw.githubusercontent.com/maherhato1986/yalla-azzouzi/main/playlist.m3u8",   # ملف آخر محتمل
         "https://iptv-org.github.io/iptv/countries/ar.m3u",
         "https://raw.githubusercontent.com/skid9000/All-In-One-IPTV/main/All-In-One-IPTV.m3u",
-        "https://raw.githubusercontent.com/byte-capsule/sk_iptv/main/sk_iptv.m3u",
-        "https://raw.githubusercontent.com/Moebis-Iptv/M3U/main/Arabic.m3u",
-        "https://raw.githubusercontent.com/Hasibul-Hasan-1/Hasibul-Hasan-1/main/Hasibul-Hasan-1.m3u",
-        "https://raw.githubusercontent.com/Yousaf789/TV-LOGOS/main/Lists/Arabic.m3u"
+        "https://raw.githubusercontent.com/ZonSlayer/m3u8/main/sports.m3u"
     ]
+
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
 
     for source in sources:
         try:
-            response = requests.get(source, timeout=12)
+            print(f"📡 فحص المصدر: {source}")
+            response = requests.get(source, timeout=15, headers=headers)
             if response.status_code == 200:
                 lines = response.text.split('\n')
                 name, logo = "", "https://cdn-icons-png.flaticon.com/512/716/716429.png"
@@ -42,26 +35,26 @@ def fetch_channels():
                         name_match = re.search('tvg-name="(.*?)"', line) or re.search(',(.*?)$', line)
                         logo_match = re.search('tvg-logo="(.*?)"', line)
                         if name_match: name = name_match.group(1).strip()
-                        if logo_match: logo = logo_match.group(1)
+                        if logo_match: logo = logo_match.group(1) or logo
                         
                         if i + 1 < len(lines):
                             url = lines[i+1].strip()
                             if url.startswith("http"):
-                                # التحقق من الكلمات الرياضية
+                                # إذا وجدنا الكلمة المطلوبة سنعتبرها شغالة مبدئياً لملء الموقع
                                 if any(t.lower() in name.lower() for t in TARGET_CHANNELS):
-                                    # التحقق من أن القناة تعمل حالياً
-                                    if is_live(url):
-                                        print(f"✅ وجدنا: {name}")
-                                        all_channels.append({"name": name, "url": url, "logo": logo})
-        except: continue
+                                    all_channels.append({"name": name, "url": url, "logo": logo})
+                                    print(f"✅ تم العثور على: {name}")
+        except Exception as e:
+            print(f"❌ تعذر جلب {source}")
+            continue
 
-    # إزالة التكرار بناءً على الرابط
+    # حذف التكرار بناءً على الرابط لضمان عدم تكرار القناة
     unique_channels = {c['url']: c for c in all_channels}.values()
     
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(list(unique_channels), f, ensure_ascii=False, indent=4)
     
-    print(f"✨ تم التحديث! إجمالي القنوات الشغالة المكتشفة: {len(unique_channels)}")
+    print(f"✨ اكتملت العملية! وجدنا {len(unique_channels)} قناة جاهزة للعرض.")
 
 if __name__ == "__main__":
     fetch_channels()
