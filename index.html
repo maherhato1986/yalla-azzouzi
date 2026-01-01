@@ -65,16 +65,45 @@
             const data = await res.json();
             
             // قنوات beIN المشفرة (سيرفرات تضمين قوية)
-            const premium = [
-                { name: "beIN Sports 1", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
-                    { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be1", type: "iframe" },
-                    { name: "سيرفر 2", url: "https://fcdn.fustv.pro/v/bein1.html", type: "iframe" }
-                ]},
-                { name: "SSC Sports 1", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5e/SSC_Logo.svg", servers: [
-                    { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/ssc1", type: "iframe" },
-                    { name: "سيرفر 2", url: "https://fcdn.fustv.pro/v/ssc1.html", type: "iframe" }
-                ]}
-            ];
+    const premium = [
+    { name: "beIN Sports 1", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be1", type: "iframe" },
+        { name: "سيرفر 2", url: "https://fcdn.fustv.pro/v/bein1.html", type: "iframe" }
+    ]},
+    { name: "beIN Sports 2", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be2", type: "iframe" },
+        { name: "سيرفر 2", url: "https://fcdn.fustv.pro/v/bein2.html", type: "iframe" }
+    ]},
+    { name: "beIN Sports 3", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be3", type: "iframe" },
+        { name: "سيرفر 2", url: "https://fcdn.fustv.pro/v/bein3.html", type: "iframe" }
+    ]},
+    { name: "beIN Sports 4", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be4", type: "iframe" }
+    ]},
+    { name: "beIN Sports 5", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be5", type: "iframe" }
+    ]},
+    { name: "beIN Sports 6", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be6", type: "iframe" }
+    ]},
+    { name: "beIN Sports 7", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be7", type: "iframe" }
+    ]},
+    { name: "beIN Sports 8", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be8", type: "iframe" }
+    ]},
+    { name: "beIN Sports 9", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be9", type: "iframe" }
+    ]},
+    { name: "beIN Sports 10", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be10", type: "iframe" }
+    ]},
+    { name: "SSC Sports 1 HD", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5e/SSC_Logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/ssc1", type: "iframe" },
+        { name: "سيرفر 2", url: "https://fcdn.fustv.pro/v/ssc1.html", type: "iframe" }
+    ]}
+];
 
             channelsContainer.innerHTML = '';
             [...premium, ...data.channels].forEach(ch => {
@@ -114,3 +143,4 @@
 </script>
 </body>
 </html>
+
