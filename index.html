@@ -2,134 +2,50 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yalla Azzouzi | يلا عزوزي - البث التلقائي</title>
+    <title>يلا عزوزي - اختبار التشغيل النهائي</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        :root { --main: #00fbff; --bg: #0a0a0a; --card: #161616; }
-        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; }
-        header { background: #000; padding: 20px; text-align: center; border-bottom: 2px solid var(--main); box-shadow: 0 0 20px rgba(0,251,255,0.2); }
-        .container { max-width: 1200px; margin: auto; padding: 20px; }
-        
-        /* مشغل الفيديو */
-        #player-box { background: #000; border-radius: 15px; overflow: hidden; margin-bottom: 30px; border: 1px solid #333; display: none; }
-        video { width: 100%; aspect-ratio: 16/9; display: block; }
-        .playing-now { background: var(--main); color: #000; padding: 10px; font-weight: bold; text-align: center; }
-
-        /* التصنيفات */
-        .tabs { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 15px; margin-bottom: 20px; }
-        .tab-btn { background: var(--card); border: 1px solid #333; color: white; padding: 10px 20px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
-        .tab-btn.active { background: var(--main); color: #000; border-color: var(--main); }
-
-        /* شبكة القنوات */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; }
-        .card { background: var(--card); border-radius: 12px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #222; }
-        .card:hover { border-color: var(--main); transform: translateY(-5px); }
-        .card img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 10px; }
-        .card h3 { font-size: 12px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        
-        .loading { text-align: center; padding: 50px; color: var(--main); font-weight: bold; }
+        body { background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 20px; }
+        .player-box { max-width: 800px; margin: auto; border: 2px solid #00fbff; border-radius: 10px; overflow: hidden; background: #111; }
+        video { width: 100%; aspect-ratio: 16/9; }
+        .btn-list { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .btn { background: #1a1a1a; border: 1px solid #00fbff; color: #00fbff; padding: 15px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+        .btn:hover { background: #00fbff; color: #000; }
+        .warning { color: #ffbc00; font-size: 14px; margin-top: 20px; border: 1px dashed #ffbc00; padding: 10px; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1 style="margin:0;">YALLA AZZOUZI <span style="font-size:12px; vertical-align:middle; color:var(--main);">LIVE STREAM</span></h1>
-</header>
-
-<div class="container">
+    <h1>YALLA AZZOUZI LIVE 📺</h1>
     
-    <div id="player-box">
-        <div id="current-title" class="playing-now">أنت تشاهد الآن...</div>
+    <div class="player-box">
         <video id="video" controls autoplay></video>
     </div>
 
-    <div class="tabs">
-        <button class="tab-btn active" onclick="loadCategory('arabic')">🇸🇦 قنوات عربية</button>
-        <button class="tab-btn" onclick="loadCategory('sports')">⚽ رياضة عالمية</button>
-        <button class="tab-btn" onclick="loadCategory('movies')">🎬 أفلام</button>
-        <button class="tab-btn" onclick="loadCategory('kids')">👶 أطفال</button>
+    <div class="warning">
+        ⚠️ إذا لم تعمل القنوات بالأسفل، تأكد أن إضافة <b>CORS</b> (الزرقاء) مفعلة في متصفحك.
     </div>
 
-    <div id="channel-grid" class="grid">
-        <div class="loading">جاري جلب أحدث الروابط...</div>
+    <div class="btn-list">
+        <button class="btn" onclick="play('https://live-hls-web-aje.getaj.net/AJE/index.m3u8')">قناة الجزيرة (رابط رسمي)</button>
+        <button class="btn" onclick="play('https://skynews-skynewsarabia-main.ateme.tv/playlist.m3u8')">سكاي نيوز (رابط رسمي)</button>
+        <button class="btn" onclick="play('https://rt-arab.warnermedia.com/hls/index.m3u8')">RT Arabic (رابط رسمي)</button>
+        <button class="btn" onclick="play('https://shls-me-v1.akamaized.net/out/v1/ad66517a264d4b2488d55c1b50030541/index.m3u8')">قناة المشهد (رابط رسمي)</button>
     </div>
-</div>
 
-<script>
-    const video = document.getElementById('video');
-    const grid = document.getElementById('channel-grid');
-    const playerBox = document.getElementById('player-box');
-
-    // مصادر الروابط التلقائية (مستودعات IPTV عالمية محدثة)
-    const sources = {
-        arabic: 'https://iptv-org.github.io/iptv/languages/ara.m3u',
-        sports: 'https://iptv-org.github.io/iptv/categories/sports.m3u',
-        movies: 'https://iptv-org.github.io/iptv/categories/movies.m3u',
-        kids: 'https://iptv-org.github.io/iptv/categories/kids.m3u'
-    };
-
-    async function loadCategory(cat) {
-        grid.innerHTML = '<div class="loading">جاري الاتصال بالسيرفر...</div>';
-        
-        // تحديث شكل الأزرار
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        event.target.classList.add('active');
-
-        try {
-            const res = await fetch(sources[cat]);
-            const text = await res.text();
-            parseM3U(text);
-        } catch (e) {
-            grid.innerHTML = '<div style="text-align:center; width:100%;">فشل الاتصال. تأكد من تفعيل إضافة CORS</div>';
-        }
-    }
-
-    function parseM3U(data) {
-        grid.innerHTML = '';
-        const lines = data.split('\n');
-        let count = 0;
-
-        for (let i = 0; i < lines.length; i++) {
-            if (lines[i].startsWith('#EXTINF') && count < 40) { // جلب أول 40 قناة للسرعة
-                const name = lines[i].split(',')[1] || "قناة";
-                const logoMatch = lines[i].match(/tvg-logo="([^"]+)"/);
-                const logo = logoMatch ? logoMatch[1] : 'https://cdn-icons-png.flaticon.com/512/716/716429.png';
-                const url = lines[i + 1]?.trim();
-
-                if (url && url.startsWith('http')) {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `<img src="${logo}"><h3>${name}</h3>`;
-                    card.onclick = () => play(url, name);
-                    grid.appendChild(card);
-                    count++;
-                }
+    <script>
+        function play(url) {
+            const video = document.getElementById('video');
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
+                video.play();
             }
         }
-    }
-
-    function play(url, name) {
-        playerBox.style.display = 'block';
-        document.getElementById('current-title').innerText = "بث مباشر: " + name;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        // استخدام البروكسي لضمان التشغيل في الموقع
-        const finalUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
-
-        if (Hls.isSupported()) {
-            const hls = new Hls();
-            hls.loadSource(finalUrl);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-        } else {
-            video.src = finalUrl;
-            video.play();
-        }
-    }
-
-    // تحميل القنوات العربية تلقائياً عند فتح الموقع
-    loadCategory('arabic');
-</script>
+    </script>
 </body>
 </html>
