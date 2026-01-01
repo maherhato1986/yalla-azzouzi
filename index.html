@@ -44,26 +44,45 @@
     const video = document.getElementById('video');
     const hls = new Hls();
 
-    async function start() {
-        try {
-            // التعديل: جلب البيانات من channels.json الذي ينتجه سكريبت البايثون
-            const r = await fetch('channels.json?t=' + Date.now());
-            channels = await r.json();
-            
-            // إضافة تصنيف القنوات بناءً على الاسم
-            channels = channels.map(c => {
+async function start() {
+    try {
+        // تأكد أن هذا الاسم هو نفس اسم الملف الذي ينتجه سكريبت البايثون
+        const r = await fetch('playlist.m3u8?t=' + Date.now()); 
+        if (!r.ok) throw new Error("ملف القنوات غير موجود");
+        
+        const text = await r.text();
+        const lines = text.split('\n');
+        
+        channels = []; // تفريغ القائمة قبل الملء
+        lines.forEach((line, i) => {
+            if (line.startsWith('#EXTINF')) {
+                const name = line.split(',')[1]?.trim() || "قناة غير معروفة";
+                const url = lines[i+1]?.trim();
+                const logoMatch = line.match(/tvg-logo="([^"]+)"/);
+                const logo = logoMatch ? logoMatch[1] : 'https://cdn-icons-png.flaticon.com/512/716/716429.png';
+                
                 let type = 'عربية';
-                if (c.name.includes('BEIN') || c.name.includes('beIN')) type = 'beIN';
-                else if (c.name.includes('SSC')) type = 'SSC';
-                else if (c.name.includes('SPORT') || c.name.includes('كأس')) type = 'رياضة';
-                return { ...c, type };
-            });
+                const n = name.toUpperCase();
+                if (n.includes('BEIN')) type = 'beIN';
+                else if (n.includes('SSC')) type = 'SSC';
+                else if (n.includes('SPORT') || n.includes('AD') || n.includes('KASS')) type = 'رياضة';
 
-            render(channels);
-        } catch (e) {
-            console.error("خطأ في جلب القنوات:", e);
+                if (url && url.startsWith('http')) {
+                    channels.push({ name, url, logo, type });
+                }
+            }
+        });
+
+        if (channels.length === 0) {
+            document.getElementById('grid').innerHTML = '<p style="text-align:center;">جاري تحديث القنوات... انتظر لحظة</p>';
+        } else {
+            render(channels); // عرض القنوات فوراً
         }
+    } catch (e) {
+        console.error(e);
+        document.getElementById('grid').innerHTML = '<p style="text-align:center;">خطأ: تأكد من وجود ملف playlist.m3u8 في GitHub</p>';
     }
+}
 
     function render(list) {
         const grid = document.getElementById('grid');
@@ -104,3 +123,4 @@
 </script>
 </body>
 </html>
+
