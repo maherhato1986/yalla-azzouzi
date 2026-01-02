@@ -93,22 +93,26 @@ if (file_exists($jsonFile)) {
         });
     });
 
-    function setSource(url) {
-        // التحقق إذا كان الرابط هو iframe أو HLS مباشر
-        if (url.includes('html') || url.includes('/e/') || !url.includes('.m3u8')) {
-            videoBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
-        } else {
-            videoBox.innerHTML = `<video id="video" controls autoplay class="w-100"></video>`;
-            const video = document.getElementById('video');
-            if (Hls.isSupported()) {
-                const hls = new Hls();
-                hls.loadSource(url);
-                hls.attachMedia(video);
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = url;
-            }
+function setSource(url) {
+    // تشفير الرابط ليمر عبر البروكسي
+    const proxiedUrl = `proxy.php?link=${btoa(url)}`;
+
+    if (url.includes('html') || url.includes('/e/') || !url.includes('.m3u8')) {
+        // إذا كان رابط إطار (Iframe) نتركه كما هو
+        videoBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
+    } else {
+        // إذا كان رابط HLS نمرره عبر البروكسي الخاص بنا
+        videoBox.innerHTML = `<video id="video" controls autoplay class="w-100"></video>`;
+        const video = document.getElementById('video');
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(proxiedUrl); // استخدام البروكسي هنا
+            hls.attachMedia(video);
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = proxiedUrl;
         }
     }
+}
 
     function handlePlay(ch) {
         document.getElementById('mainPlayer').classList.remove('d-none');
