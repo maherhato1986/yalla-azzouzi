@@ -1,7 +1,18 @@
 [
-  {
-    "id": 123456,
-    "home": "Barcelona",
-    "away": "Real Madrid"
-  }
+    {
+        "id": 1,
+        "home": "ريال مدريد",
+        "away": "برشلونة",
+        "time": "21:00",
+        "channel": "beIN Sports 1",
+        "stream_url": "https://example.com/live/stream1.m3u8"
+    },
+    {
+        "id": 2,
+        "home": "ليفربول",
+        "away": "مانشستر سيتي",
+        "time": "19:30",
+        "channel": "beIN Sports 2",
+        "stream_url": "https://example.com/live/stream2.m3u8"
+    }
 ]
