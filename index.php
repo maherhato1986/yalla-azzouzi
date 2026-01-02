@@ -93,23 +93,22 @@ if (file_exists($jsonFile)) {
         });
     });
 
-function setSource(url) {
-    // تشفير الرابط ليمر عبر البروكسي
-    const proxiedUrl = `proxy.php?link=${btoa(url)}`;
+function setSource(url, type) {
+    // هذه الخطوة هي التي تجعل الـ PHP يعمل فعلياً
+    // نقوم بتمرير الرابط عبر ملف proxy.php لفك الحظر وتحويله لـ https
+    const finalUrl = type === 'hls' ? 'proxy.php?link=' + btoa(url) : url;
 
-    if (url.includes('html') || url.includes('/e/') || !url.includes('.m3u8')) {
-        // إذا كان رابط إطار (Iframe) نتركه كما هو
+    if (type === 'iframe') {
         videoBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
     } else {
-        // إذا كان رابط HLS نمرره عبر البروكسي الخاص بنا
         videoBox.innerHTML = `<video id="video" controls autoplay class="w-100"></video>`;
         const video = document.getElementById('video');
         if (Hls.isSupported()) {
             const hls = new Hls();
-            hls.loadSource(proxiedUrl); // استخدام البروكسي هنا
+            hls.loadSource(finalUrl); // هنا نستخدم الرابط المحمي عبر البروكسي
             hls.attachMedia(video);
         } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = proxiedUrl;
+            video.src = finalUrl;
         }
     }
 }
