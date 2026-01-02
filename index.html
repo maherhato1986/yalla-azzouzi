@@ -57,9 +57,11 @@
     ];
 
 function setSource(url, type) {
-    // هذه الخطوة هي التي تجعل الـ PHP يعمل فعلياً
-    // نقوم بتمرير الرابط عبر ملف proxy.php لفك الحظر وتحويله لـ https
-    const finalUrl = type === 'hls' ? 'proxy.php?link=' + btoa(url) : url;
+    // أي رابط لا يبدأ بـ https سنمرره عبر البروكسي الخاص بك
+    let finalUrl = url;
+    if (url.startsWith('http://')) {
+        finalUrl = 'proxy.php?link=' + btoa(url);
+    }
 
     if (type === 'iframe') {
         videoBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
@@ -68,9 +70,9 @@ function setSource(url, type) {
         const video = document.getElementById('video');
         if (Hls.isSupported()) {
             const hls = new Hls();
-            hls.loadSource(finalUrl); // هنا نستخدم الرابط المحمي عبر البروكسي
+            hls.loadSource(finalUrl); 
             hls.attachMedia(video);
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        } else {
             video.src = finalUrl;
         }
     }
@@ -120,4 +122,5 @@ function setSource(url, type) {
 </script>
 </body>
 </html>
+
 
