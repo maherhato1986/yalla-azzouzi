@@ -1,0 +1,16 @@
+{
+  "123456": {
+    "home": "Barcelona",
+    "away": "Real Madrid",
+    "streams": [
+      {
+        "name": "Server 1",
+        "url": "https://example.com/embed/abc"
+      },
+      {
+        "name": "Server 2",
+        "url": "https://example.com/embed/xyz"
+      }
+    ]
+  }
+}
