@@ -68,41 +68,32 @@ const premium = [
     ]}
 ];
 
- let __hls = null;
+function setSource(url, type) {
+    if (__hls) { try { __hls.destroy(); } catch(e) {} __hls = null; }
 
-  function setSource(url, type) {
-    // تنظيف المشغل السابق
-    if (__hls) {
-      try { __hls.destroy(); } catch(e) {}
-      __hls = null;
-    }
-
-    // منع روابط http على GitHub Pages (بدون proxy)
+    // استخدام البروكسي للروابط غير المشفرة
+    let finalUrl = url;
     if (url.startsWith('http://')) {
-      alert('هذا الرابط غير آمن. استخدم رابط HTTPS أو استضافة تدعم Proxy بشكل قانوني.');
-      return;
+        finalUrl = 'proxy.php?link=' + btoa(url); 
     }
 
     if (type === 'iframe') {
-      videoBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
-      return;
+        videoBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
+        return;
     }
 
-    // HLS
     videoBox.innerHTML = `<video id="video" controls autoplay class="w-100"></video>`;
     const video = document.getElementById('video');
-
     if (Hls.isSupported()) {
-      __hls = new Hls({
-        maxBufferLength: 30,
-        liveSyncDurationCount: 3
-      });
-      __hls.loadSource(url);
-      __hls.attachMedia(video);
+        __hls = new Hls();
+        __hls.loadSource(finalUrl); 
+        __hls.attachMedia(video);
     } else {
-      video.src = url;
+        video.src = finalUrl;
     }
-  }
+}
+
+
     function handlePlay(ch) {
         document.getElementById('mainPlayer').classList.remove('d-none');
         serverSwitch.innerHTML = '';
@@ -147,6 +138,7 @@ const premium = [
 </script>
 </body>
 </html>
+
 
 
 
