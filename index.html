@@ -69,30 +69,29 @@ const premium = [
 ];
 
 function setSource(url, type) {
-    if (__hls) { try { __hls.destroy(); } catch(e) {} __hls = null; }
-
-    // استخدام البروكسي للروابط غير المشفرة
-    let finalUrl = url;
-    if (url.startsWith('http://')) {
-        finalUrl = 'proxy.php?link=' + btoa(url); 
+    // تنظيف المشغل السابق
+    if (__hls) {
+      try { __hls.destroy(); } catch(e) {}
+      __hls = null;
     }
 
     if (type === 'iframe') {
-        videoBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
+        // السماح بتشغيل الـ Iframe دون قيود إضافية
+        videoBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; encrypted-media" style="width:100%; height:100%; border:0;"></iframe>`;
         return;
     }
 
+    // لتشغيل روابط HLS (m3u8)
     videoBox.innerHTML = `<video id="video" controls autoplay class="w-100"></video>`;
     const video = document.getElementById('video');
     if (Hls.isSupported()) {
         __hls = new Hls();
-        __hls.loadSource(finalUrl); 
+        __hls.loadSource(url); 
         __hls.attachMedia(video);
     } else {
-        video.src = finalUrl;
+        video.src = url;
     }
 }
-
 
     function handlePlay(ch) {
         document.getElementById('mainPlayer').classList.remove('d-none');
@@ -138,6 +137,7 @@ function setSource(url, type) {
 </script>
 </body>
 </html>
+
 
 
 
