@@ -41,20 +41,32 @@
     const serverSwitch = document.getElementById('serverSwitch');
 
     // قنوات beIN و SSC الثابتة (سيرفرات Embed)
-    const premium = [
-        { name: "beIN Sports 1", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
-            { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be1", type: "iframe" },
-            { name: "سيرفر 2", url: "https://fcdn.fustv.pro/v/bein1.html", type: "iframe" }
-        ]},
-        { name: "beIN Sports 2", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
-            { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be2", type: "iframe" },
-            { name: "سيرفر 2", url: "https://fcdn.fustv.pro/v/bein2.html", type: "iframe" }
-        ]},
-        { name: "SSC Sports 1 HD", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5e/SSC_Logo.svg", servers: [
-            { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/ssc1", type: "iframe" },
-            { name: "سيرفر 2", url: "https://fcdn.fustv.pro/v/ssc1.html", type: "iframe" }
-        ]}
-    ];
+// القنوات المحدثة بنظام Embed (Iframe)
+const premium = [
+    { name: "beIN Sports 1", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be1", type: "iframe" },
+        { name: "سيرفر 2", url: "https://fcdn.fustv.pro/v/bein1.html", type: "iframe" }
+    ]},
+    { name: "beIN Sports 2", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be2", type: "iframe" },
+        { name: "سيرفر 2", url: "https://fcdn.fustv.pro/v/bein2.html", type: "iframe" }
+    ]},
+    { name: "beIN Sports 3", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bc/BeIN_Sports_logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/be3", type: "iframe" },
+        { name: "سيرفر 2", url: "https://fcdn.fustv.pro/v/bein3.html", type: "iframe" }
+    ]},
+    { name: "SSC Sports 1 HD", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5e/SSC_Logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/ssc1", type: "iframe" },
+        { name: "سيرفر 2", url: "https://fcdn.fustv.pro/v/ssc1.html", type: "iframe" }
+    ]},
+    { name: "SSC Sports 2 HD", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5e/SSC_Logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/ssc2", type: "iframe" },
+        { name: "سيرفر 2", url: "https://fcdn.fustv.pro/v/ssc2.html", type: "iframe" }
+    ]},
+    { name: "SSC Sports Extra 1", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5e/SSC_Logo.svg", servers: [
+        { name: "سيرفر 1", url: "https://vdo.m7sy.com/e/ssce1", type: "iframe" }
+    ]}
+];
 
  let __hls = null;
 
@@ -135,6 +147,7 @@
 </script>
 </body>
 </html>
+
 
 
 
