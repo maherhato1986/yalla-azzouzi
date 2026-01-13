@@ -56,28 +56,41 @@
         ]}
     ];
 
-function setSource(url, type) {
-    // أي رابط لا يبدأ بـ https سنمرره عبر البروكسي الخاص بك
-    let finalUrl = url;
+ let __hls = null;
+
+  function setSource(url, type) {
+    // تنظيف المشغل السابق
+    if (__hls) {
+      try { __hls.destroy(); } catch(e) {}
+      __hls = null;
+    }
+
+    // منع روابط http على GitHub Pages (بدون proxy)
     if (url.startsWith('http://')) {
-        finalUrl = 'proxy.php?link=' + btoa(url);
+      alert('هذا الرابط غير آمن. استخدم رابط HTTPS أو استضافة تدعم Proxy بشكل قانوني.');
+      return;
     }
 
     if (type === 'iframe') {
-        videoBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
-    } else {
-        videoBox.innerHTML = `<video id="video" controls autoplay class="w-100"></video>`;
-        const video = document.getElementById('video');
-        if (Hls.isSupported()) {
-            const hls = new Hls();
-            hls.loadSource(finalUrl); 
-            hls.attachMedia(video);
-        } else {
-            video.src = finalUrl;
-        }
+      videoBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
+      return;
     }
-}
 
+    // HLS
+    videoBox.innerHTML = `<video id="video" controls autoplay class="w-100"></video>`;
+    const video = document.getElementById('video');
+
+    if (Hls.isSupported()) {
+      __hls = new Hls({
+        maxBufferLength: 30,
+        liveSyncDurationCount: 3
+      });
+      __hls.loadSource(url);
+      __hls.attachMedia(video);
+    } else {
+      video.src = url;
+    }
+  }
     function handlePlay(ch) {
         document.getElementById('mainPlayer').classList.remove('d-none');
         serverSwitch.innerHTML = '';
@@ -122,5 +135,6 @@ function setSource(url, type) {
 </script>
 </body>
 </html>
+
 
 
