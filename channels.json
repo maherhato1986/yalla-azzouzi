@@ -1,489 +1,1776 @@
+[
+  {
+    "name": "&Flix",
+    "logo": "https://static.epg.best/in/AndFlix.in.png",
+    "url": "https://sneh-z5api.herokuapp.com/?c=0-9-channel_2105335046",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "AndFlix.in",
+      "name": "&Flix",
+      "url": ""
+    }
+  },
+  {
+    "name": "&Pictures",
+    "logo": "https://static.epg.best/in/AndPictures.in.png",
+    "url": "https://sneh-z5api.herokuapp.com/?c=0-9-tvpictureshd",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "Afghanistan",
+        "code": "AF"
+      },
+      {
+        "name": "Bangladesh",
+        "code": "BD"
+      },
+      {
+        "name": "Bhutan",
+        "code": "BT"
+      },
+      {
+        "name": "India",
+        "code": "IN"
+      },
+      {
+        "name": "Sri Lanka",
+        "code": "LK"
+      },
+      {
+        "name": "Maldives",
+        "code": "MV"
+      },
+      {
+        "name": "Nepal",
+        "code": "NP"
+      },
+      {
+        "name": "Pakistan",
+        "code": "PK"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Pashto",
+        "code": "pus"
+      }
+    ],
+    "tvg": {
+      "id": "AndPictures.in",
+      "name": "&Pictures",
+      "url": ""
+    }
+  },
+  {
+    "name": "&privé HD",
+    "logo": "https://static.epg.best/in/AndPrive.in.png",
+    "url": "https://sneh-z5api.herokuapp.com/?c=0-9-privéhd",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "Afghanistan",
+        "code": "AF"
+      },
+      {
+        "name": "Bangladesh",
+        "code": "BD"
+      },
+      {
+        "name": "Bhutan",
+        "code": "BT"
+      },
+      {
+        "name": "India",
+        "code": "IN"
+      },
+      {
+        "name": "Sri Lanka",
+        "code": "LK"
+      },
+      {
+        "name": "Maldives",
+        "code": "MV"
+      },
+      {
+        "name": "Nepal",
+        "code": "NP"
+      },
+      {
+        "name": "Pakistan",
+        "code": "PK"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Pashto",
+        "code": "pus"
+      }
+    ],
+    "tvg": {
+      "id": "AndPriveHD.in",
+      "name": "&privé HD",
+      "url": ""
+    }
+  },
+  {
+    "name": "&TV HD",
+    "logo": "https://static.epg.best/in/AndTV.in.png",
+    "url": "https://sneh-z5api.herokuapp.com/?c=0-9-tvhd_0",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "Afghanistan",
+        "code": "AF"
+      },
+      {
+        "name": "Bangladesh",
+        "code": "BD"
+      },
+      {
+        "name": "Bhutan",
+        "code": "BT"
+      },
+      {
+        "name": "India",
+        "code": "IN"
+      },
+      {
+        "name": "Sri Lanka",
+        "code": "LK"
+      },
+      {
+        "name": "Maldives",
+        "code": "MV"
+      },
+      {
+        "name": "Nepal",
+        "code": "NP"
+      },
+      {
+        "name": "Pakistan",
+        "code": "PK"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Pashto",
+        "code": "pus"
+      }
+    ],
+    "tvg": {
+      "id": "AndTVHD.in",
+      "name": "&TV HD",
+      "url": ""
+    }
+  },
+  {
+    "name": "B4U Bhojpuri",
+    "logo": "https://i.imgur.com/FizAx6D.png",
+    "url": "http://14.199.164.20:4001/play/a0nq/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Bhojpuri",
+        "code": "bho"
+      }
+    ],
+    "tvg": {
+      "id": "B4UBhojpuri.in",
+      "name": "B4U Bhojpuri",
+      "url": ""
+    }
+  },
+  {
+    "name": "B4U Hitz",
+    "logo": null,
+    "url": "http://14.199.164.20:4001/play/a0wh/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "B4UHitz.in",
+      "name": "B4U Hitz",
+      "url": ""
+    }
+  },
+  {
+    "name": "B4U Kadak",
+    "logo": "https://i.imgur.com/vwkjtRT.png",
+    "url": "http://103.199.160.85/Content/moviehouse/Live/Channel(MovieHouse)/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "B4UKadak.in",
+      "name": "B4U Kadak",
+      "url": ""
+    }
+  },
+  {
+    "name": "B4U movies",
+    "logo": "https://i.imgur.com/FiIewq2.png",
+    "url": "http://14.199.164.20:4001/play/a0wj/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "B4UMovies.in",
+      "name": "B4U movies",
+      "url": ""
+    }
+  },
+  {
+    "name": "B4U Plus",
+    "logo": "https://i.imgur.com/SsooYqR.png",
+    "url": "http://14.199.164.20:4001/play/a0wi/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "B4UPlus.in",
+      "name": "B4U Plus",
+      "url": ""
+    }
+  },
+  {
+    "name": "Bflix Movies",
+    "logo": "https://i.imgur.com/z3ALZQQ.jpg",
+    "url": "https://m-c036-j2apps.s.llnwi.net/hls/5045.BFlixMovies.in.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "BflixMovies.in",
+      "name": "Bflix Movies",
+      "url": ""
+    }
+  },
+  {
+    "name": "Bhojpuri Cinema",
+    "logo": "https://i.imgur.com/ABxIO7r.jpg",
+    "url": "http://14.199.164.20:4001/play/a0rj/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Bhojpuri",
+        "code": "bho"
+      }
+    ],
+    "tvg": {
+      "id": "BhojpuriCinema.in",
+      "name": "Bhojpuri Cinema",
+      "url": ""
+    }
+  },
+  {
+    "name": "Box Cinema",
+    "logo": "https://i.imgur.com/LGJlmtp.png",
+    "url": "http://14.199.164.20:4001/play/a0su/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "BoxCinema.in",
+      "name": "Box Cinema",
+      "url": ""
+    }
+  },
+  {
+    "name": "Dhinchaak",
+    "logo": "https://i.imgur.com/T2c6PjU.jpg",
+    "url": "http://14.199.164.20:4001/play/a0o5/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "Dhinchaak.in",
+      "name": "Dhinchaak",
+      "url": ""
+    }
+  },
+  {
+    "name": "Dhinchaak 2",
+    "logo": "https://i.imgur.com/AC4ze9o.jpg",
+    "url": "http://14.199.164.20:4001/play/a0tm/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "Dhinchaak2.in",
+      "name": "Dhinchaak 2",
+      "url": ""
+    }
+  },
+  {
+    "name": "KCV Movies",
+    "logo": "https://i.imgur.com/NY94lnZ.png",
+    "url": "http://198.144.149.82:8080/NOTV/KCVMOVIE/index.m3u8?token=GTR",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Malayalam",
+        "code": "mal"
+      }
+    ],
+    "tvg": {
+      "id": "KCVMovies.in",
+      "name": "KCV Movies",
+      "url": ""
+    }
+  },
+  {
+    "name": "Maha Movie",
+    "logo": "https://i.imgur.com/hpShFDL.png",
+    "url": "http://14.199.164.20:4001/play/a0q7/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "MahaMovie.in",
+      "name": "Maha Movie",
+      "url": ""
+    }
+  },
+  {
+    "name": "Maha Movie",
+    "logo": "https://i.imgur.com/hpShFDL.png",
+    "url": "https://m-c036-j2apps.s.llnwi.net/hls/2820.MahaMovie.in.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "MahaMovie.in",
+      "name": "Maha Movie",
+      "url": ""
+    }
+  },
+  {
+    "name": "Manoranjan Grand",
+    "logo": "https://i.imgur.com/2BSvBGG.png",
+    "url": "http://14.199.164.20:4001/play/a0m2/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "ManoranjanGrand.in",
+      "name": "Manoranjan Grand",
+      "url": ""
+    }
+  },
+  {
+    "name": "Manoranjan Movies",
+    "logo": "https://i.imgur.com/F7uHOyA.png",
+    "url": "https://m-c036-j2apps.s.llnwi.net/hls/2172.ManoranjanMovies.in.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "ManoranjanMovies.in",
+      "name": "Manoranjan Movies",
+      "url": ""
+    }
+  },
+  {
+    "name": "Nee Cinema",
+    "logo": "https://i.imgur.com/vYme2fs.png",
+    "url": "https://live.neestream.com/neestream_01/nee_cinema/playlist.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Malayalam",
+        "code": "mal"
+      }
+    ],
+    "tvg": {
+      "id": "NeeCinema.in",
+      "name": "Nee Cinema",
+      "url": ""
+    }
+  },
+  {
+    "name": "Public Movies",
+    "logo": "https://i.imgur.com/GpAvaCx.png",
+    "url": "http://14.199.164.20:4001/play/a0ll/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Kannada",
+        "code": "kan"
+      }
+    ],
+    "tvg": {
+      "id": "PublicMovies.in",
+      "name": "Public Movies",
+      "url": ""
+    }
+  },
+  {
+    "name": "Star Cinema",
+    "logo": null,
+    "url": "http://c0.cdn.trinity-tv.net/stream/nh9u54a7sfnc2hwzxr2zwykwkqm43bgyyzsm68ybbbnjei8kytwcgs3zm5gnw5c6efa5gr3fadzqe686w8gj2eaehrj89wvujvqza3kez78dtknwbbmnqf79yygmqqg7e9pnc3i3bpywjkiqrwke94yf.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "StarCinema.in",
+      "name": "Star Cinema",
+      "url": ""
+    }
+  },
+  {
+    "name": "Studio One Plus",
+    "logo": "https://i.imgur.com/DBbajAs.jpg",
+    "url": "http://free.fullspeed.tv/iptv-query?streaming-ip=https://www.youtube.com/channel/UCEoaVUxpFlmCxwRBy9yhb1Q/live",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Telugu",
+        "code": "tel"
+      }
+    ],
+    "tvg": {
+      "id": "StudioOnePlus.in",
+      "name": "Studio One Plus",
+      "url": ""
+    }
+  },
+  {
+    "name": "Studio One Plus",
+    "logo": "https://i.imgur.com/DBbajAs.jpg",
+    "url": "http://14.199.164.20:4001/play/a0oh/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Telugu",
+        "code": "tel"
+      }
+    ],
+    "tvg": {
+      "id": "StudioOnePlus.in",
+      "name": "Studio One Plus",
+      "url": ""
+    }
+  },
+  {
+    "name": "Studio One Yuva",
+    "logo": "https://i.imgur.com/nACKF3x.jpg",
+    "url": "http://free.fullspeed.tv/iptv-query?streaming-ip=https://www.youtube.com/channel/UCqR2tCs8ufgAjRd6rn4a2wg/live",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Telugu",
+        "code": "tel"
+      }
+    ],
+    "tvg": {
+      "id": "StudioOneYuva.in",
+      "name": "Studio One Yuva",
+      "url": ""
+    }
+  },
+  {
+    "name": "Studio One Yuva",
+    "logo": "https://i.imgur.com/nACKF3x.jpg",
+    "url": "http://14.199.164.20:4001/play/a0sr/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Telugu",
+        "code": "tel"
+      }
+    ],
+    "tvg": {
+      "id": "StudioOneYuva.in",
+      "name": "Studio One Yuva",
+      "url": ""
+    }
+  },
+  {
+    "name": "Thrill",
+    "logo": "http://console.celestialtiger.com/images/upload/1f6e441382a388940977fd9e165178c42fe0c193.png",
+    "url": "http://45.126.83.51/qwr9ew/s/s34/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "Afghanistan",
+        "code": "AF"
+      },
+      {
+        "name": "Bangladesh",
+        "code": "BD"
+      },
+      {
+        "name": "Bhutan",
+        "code": "BT"
+      },
+      {
+        "name": "India",
+        "code": "IN"
+      },
+      {
+        "name": "Sri Lanka",
+        "code": "LK"
+      },
+      {
+        "name": "Maldives",
+        "code": "MV"
+      },
+      {
+        "name": "Nepal",
+        "code": "NP"
+      },
+      {
+        "name": "Pakistan",
+        "code": "PK"
+      }
+    ],
+    "languages": [
+      {
+        "name": "English",
+        "code": "eng"
+      }
+    ],
+    "tvg": {
+      "id": "Thrill.hk",
+      "name": "Thrill",
+      "url": ""
+    }
+  },
+  {
+    "name": "Uthradam Movies",
+    "logo": "https://i.imgur.com/KdsS0g5.png",
+    "url": "http://185.105.4.245:1935/livesp/uthradam/playlist.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Malayalam",
+        "code": "mal"
+      }
+    ],
+    "tvg": {
+      "id": "UthradamMovies.in",
+      "name": "Uthradam Movies",
+      "url": ""
+    }
+  },
+  {
+    "name": "Utsav Gold",
+    "logo": "https://i.imgur.com/FYym7gH.png",
+    "url": "http://208.115.215.42/Utsav_Gold_HD/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "UtsavGold.in",
+      "name": "Utsav Gold",
+      "url": ""
+    }
+  },
+  {
+    "name": "Wow Cinema One",
+    "logo": "https://i.imgur.com/s690F67.png",
+    "url": "http://14.199.164.20:4001/play/a0n3/index.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "WowCinemaOne.in",
+      "name": "Wow Cinema One",
+      "url": ""
+    }
+  },
+  {
+    "name": "Yupp Thirai",
+    "logo": "https://i.imgur.com/6E8SbCf.png",
+    "url": "http://119.81.82.28/encoded/yuppthirai_800/playlist.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Tamil",
+        "code": "tam"
+      }
+    ],
+    "tvg": {
+      "id": "YuppThirai.in",
+      "name": "Yupp Thirai",
+      "url": ""
+    }
+  },
+  {
+    "name": "Zee Action",
+    "logo": "https://i.imgur.com/BvAXCNf.png",
+    "url": "https://f8e7y4c6.ssl.hwcdn.net/action/playlist.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "ZeeAction.in",
+      "name": "Zee Action",
+      "url": ""
+    }
+  },
+  {
+    "name": "Zee Action",
+    "logo": "https://i.imgur.com/BvAXCNf.png",
+    "url": "https://y5w8j4a9.ssl.hwcdn.net/action/playlist.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "ZeeAction.in",
+      "name": "Zee Action",
+      "url": ""
+    }
+  },
+  {
+    "name": "Zee Bangla",
+    "logo": "http://imagesdishtvd2h.whatsonindia.com/dasimages/channel/landscape/360x270/USKY2MD6.png",
+    "url": "https://sneh-z5api.herokuapp.com/?c=0-9-zeebangla",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "ZeeBangla.in",
+      "name": "Zee Bangla",
+      "url": ""
+    }
+  },
+  {
+    "name": "Zee Bangla Cinema",
+    "logo": "https://i.imgur.com/QFqJax5.png",
+    "url": "https://sneh-z5api.herokuapp.com/?c=0-9-zeebanglacinema",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "ZeeBanglaCinema.in",
+      "name": "Zee Bangla Cinema",
+      "url": ""
+    }
+  },
+  {
+    "name": "Zee Bollywood",
+    "logo": "http://imagesdishtvd2h.whatsonindia.com/dasimages/channel/landscape/360x270/gq8mpPvf.png",
+    "url": "https://sneh-z5api.herokuapp.com/?c=0-9-zeeclassic",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Hindi",
+        "code": "hin"
+      }
+    ],
+    "tvg": {
+      "id": "ZeeBollywood.in",
+      "name": "Zee Bollywood",
+      "url": ""
+    }
+  },
+  {
+    "name": "Zee Mundo",
+    "logo": "https://zeemundo.com/wp-content/uploads/2018/06/logo-120.png",
+    "url": "https://f8e7y4c6.ssl.hwcdn.net/mundohd/playlist.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Spanish",
+        "code": "spa"
+      }
+    ],
+    "tvg": {
+      "id": "ZeeMundo.in",
+      "name": "Zee Mundo",
+      "url": ""
+    }
+  },
+  {
+    "name": "Zee Mundo",
+    "logo": "https://zeemundo.com/wp-content/uploads/2018/06/logo-120.png",
+    "url": "https://y5w8j4a9.ssl.hwcdn.net/mundohd/playlist.m3u8",
+    "categories": [
+      {
+        "name": "Movies",
+        "slug": "movies"
+      }
+    ],
+    "countries": [
+      {
+        "name": "India",
+        "code": "IN"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Spanish",
+        "code": "spa"
+      }
+    ],
+    "tvg": {
+      "id": "ZeeMundo.in",
+      "name": "Zee Mundo",
+      "url": ""
+    }
+  }
+]
+
+
+
 {
-    "channels": [
-        {
-            "name": "MBC DRAMA PLUS HD",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a05z"
-        },
-        {
-            "name": "MBC5 HD",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a05y"
-        },
-        {
-            "name": "OSN Action",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a036"
-        },
-        {
-            "name": "OSN Movies",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a04q"
-        },
-        {
-            "name": "OSN Movies First",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a035"
-        },
-        {
-            "name": "OSN YH Cinema",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a03a"
-        },
-        {
-            "name": "OSN YaHala",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a05o"
-        },
-        {
-            "name": "OSN Yahala Oula",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a04t"
-        },
-        {
-            "name": "ST-SportBein",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a08f"
-        },
-        {
-            "name": "beIN Drama HD1",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a05w"
-        },
-        {
-            "name": "beIN Movies HD1",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a069"
-        },
-        {
-            "name": "beIN Movies HD2",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a06a"
-        },
-        {
-            "name": "beIN Movies HD3",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a06b"
-        },
-        {
-            "name": "beIN Movies HD4",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a06c"
-        },
-        {
-            "name": "beIN Sports HD1 PREMIUM",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a05u"
-        },
-        {
-            "name": "beIN Sports HD6",
-            "logo": "",
-            "url": "http://213.57.124.217:8000/play/a05v"
-        },
-        {
-            "name": "Amazon Prime 1 HD Events",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a05b"
-        },
-        {
-            "name": "Amazon Prime 10 HD Events",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a05l"
-        },
-        {
-            "name": "Amazon Prime 2 HD Events",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a05c"
-        },
-        {
-            "name": "Amazon Prime 3 HD Events",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a05d"
-        },
-        {
-            "name": "Amazon Prime 4 HD Events",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a05e"
-        },
-        {
-            "name": "Amazon Prime 5 HD Events",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a05f"
-        },
-        {
-            "name": "Amazon Prime 6 HD Events",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a05g"
-        },
-        {
-            "name": "Amazon Prime 7 HD Events",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a05h"
-        },
-        {
-            "name": "Amazon Prime 8 HD Events",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a05i"
-        },
-        {
-            "name": "Amazon Prime 9 HD Events",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a05j"
-        },
-        {
-            "name": "MBC+ Variety HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06f"
-        },
-        {
-            "name": "beIN AFC 1 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a073"
-        },
-        {
-            "name": "beIN AFC 2 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a074"
-        },
-        {
-            "name": "beIN AFC 3 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a075"
-        },
-        {
-            "name": "beIN Baraem",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06e"
-        },
-        {
-            "name": "beIN Drama  1 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06a"
-        },
-        {
-            "name": "beIN Fatafeat HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06b"
-        },
-        {
-            "name": "beIN Global HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a072"
-        },
-        {
-            "name": "beIN Gourmet HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06c"
-        },
-        {
-            "name": "beIN Jeem",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06d"
-        },
-        {
-            "name": "beIN Movies 1 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06h"
-        },
-        {
-            "name": "beIN Movies 2 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06g"
-        },
-        {
-            "name": "beIN Movies 3 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06j"
-        },
-        {
-            "name": "beIN Movies 4 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06i"
-        },
-        {
-            "name": "beIN Series 1 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06l"
-        },
-        {
-            "name": "beIN Series 2 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06k"
-        },
-        {
-            "name": "beIN Sports 1 English HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06y"
-        },
-        {
-            "name": "beIN Sports 1 French HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a070"
-        },
-        {
-            "name": "beIN Sports 1 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06o"
-        },
-        {
-            "name": "beIN Sports 1 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a04h"
-        },
-        {
-            "name": "beIN Sports 1 Premium HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06v"
-        },
-        {
-            "name": "beIN Sports 1 SD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a04i"
-        },
-        {
-            "name": "beIN Sports 2 English HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06z"
-        },
-        {
-            "name": "beIN Sports 2 French HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a071"
-        },
-        {
-            "name": "beIN Sports 2 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06p"
-        },
-        {
-            "name": "beIN Sports 2 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a04j"
-        },
-        {
-            "name": "beIN Sports 2 Premium HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06w"
-        },
-        {
-            "name": "beIN Sports 2 SD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a04k"
-        },
-        {
-            "name": "beIN Sports 3 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06q"
-        },
-        {
-            "name": "beIN Sports 3 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a04l"
-        },
-        {
-            "name": "beIN Sports 3 Premium HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06x"
-        },
-        {
-            "name": "beIN Sports 3 SD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a04m"
-        },
-        {
-            "name": "beIN Sports 4 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06r"
-        },
-        {
-            "name": "beIN Sports 5 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06s"
-        },
-        {
-            "name": "beIN Sports 6 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06t"
-        },
-        {
-            "name": "beIN Sports 7 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06u"
-        },
-        {
-            "name": "beIN Sports HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06n"
-        },
-        {
-            "name": "beIN Sports Max 10 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a04t"
-        },
-        {
-            "name": "beIN Sports Max 4 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a04n"
-        },
-        {
-            "name": "beIN Sports Max 5 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a04o"
-        },
-        {
-            "name": "beIN Sports Max 6 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a04p"
-        },
-        {
-            "name": "beIN Sports Max 7 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a04q"
-        },
-        {
-            "name": "beIN Sports Max 8 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a04r"
-        },
-        {
-            "name": "beIN Sports Max 9 HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a04s"
-        },
-        {
-            "name": "beIN Sports News HD",
-            "logo": "",
-            "url": "http://194.127.172.154:8000/play/a06m"
-        },
-        {
-            "name": "MBC 1",
-            "logo": "",
-            "url": "https://mbc1-enc.edgenextcdn.net/out/v1/0965e4d7deae49179172426cbfb3bc5e/index.m3u8"
-        },
-        {
-            "name": "MBC 3",
-            "logo": "",
-            "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-3-usa/5d58265a862a476dc7f97694addb5ded/index.m3u8"
-        },
-        {
-            "name": "MBC 4",
-            "logo": "",
-            "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-4/24f134f1cd63db9346439e96b86ca6ed/index.m3u8"
-        },
-        {
-            "name": "MBC 5",
-            "logo": "",
-            "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-5/ee6b000cee0629411b666ab26cb13e9b/index.m3u8"
-        },
-        {
-            "name": "MBC دراما",
-            "logo": "",
-            "url": "https://mbc1-enc.edgenextcdn.net/out/v1/b0b3a0e6750d4408bb86d703d5feffd1/index.m3u8"
-        },
-        {
-            "name": "MBC+ دراما",
-            "logo": "",
-            "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-plus-drama/e37251ec2aac8f6c98f75cd0fa37cd28/index.m3u8"
-        },
-        {
-            "name": "MBC بـــولــــيّـــود",
-            "logo": "",
-            "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-bollywood/546eb40d7dcf9a209255dd2496903764/index.m3u8"
-        },
-        {
-            "name": "MBC عــــراق",
-            "logo": "",
-            "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-iraq/e38c44b1b43474e1c39cb5b90203691e/index.m3u8"
-        },
-        {
-            "name": "MBC FM",
-            "logo": "",
-            "url": "https://mbcfm-riyadh-prod-dub.shahid.net/out/v1/69c8a03f507e422f99cf5c07291c9e3a/index.m3u8"
-        },
-        {
-            "name": "MBC مصر",
-            "logo": "",
-            "url": "https://mbc1-enc.edgenextcdn.net/out/v1/d5036cabf11e45bf9d0db410ca135c18/index.m3u8"
-        },
-        {
-            "name": "MBC مصر 2",
-            "logo": "",
-            "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-masr-2/754931856515075b0aabf0e583495c68/index.m3u8"
-        },
-        {
-            "name": "MBC دراما مصر",
-            "logo": "",
-            "url": "https://shls-live-enc.edgenextcdn.net/out/v1/08eca926a78a41339b8010c882410307/index.m3u8"
-        },
-        {
-            "name": "N1 Bosna i Hercegovina",
-            "logo": "",
-            "url": "https://best-str.umn.cdn.united.cloud/stream?channel=n1bos&p=n1Sh4redSecre7iNf0&sp=n1info&stream=sp1400&u=n1info"
-        },
-        {
-            "name": "13 Prime",
-            "logo": "",
-            "url": "https://origin.dpsgo.com/ssai/event/p4mmBxEzSmKAxY1GusOHrw/master.m3u8"
-        },
-        {
-            "name": "MBC Masr 2",
-            "logo": "",
-            "url": "https://shls-masr2-ak.akamaized.net/out/v1/f683685242b549f48ea8a5171e3e993a/index.m3u8"
-        },
-        {
-            "name": "Tagesschau24",
-            "logo": "",
-            "url": "https://tagesschau.akamaized.net/hls/live/2020115/tagesschau/tagesschau_1/master.m3u8"
-        },
-        {
-            "name": "MBC TV",
-            "logo": "",
-            "url": "http://123.254.72.24:1935/tvlive/livestream2/playlist.m3u8"
-        },
-        {
-            "name": "Prime Ⓖ",
-            "logo": "",
-            "url": "https://livebeta.publika.md/LIVE/1/600.m3u8"
-        },
-        {
-            "name": "MBC 2 Ⓢ",
-            "logo": "",
-            "url": "http://37.122.156.107:4000/play/a07g/index.m3u8"
-        },
-        {
-            "name": "MBC 3",
-            "logo": "",
-            "url": "https://shls-mbc3-prod-dub.shahid.net/out/v1/d5bbe570e1514d3d9a142657d33d85e6/index.m3u8"
-        },
-        {
-            "name": "MBC 4",
-            "logo": "",
-            "url": "https://mbc4-prod-dub-ak.akamaized.net/out/v1/c08681f81775496ab4afa2bac7ae7638/index.m3u8"
-        },
-        {
-            "name": "MBC 5",
-            "logo": "",
-            "url": "https://shls-mbc5-prod-dub.shahid.net/out/v1/2720564b6a4641658fdfb6884b160da2/index.m3u8"
-        },
-        {
-            "name": "MBC Action Ⓢ",
-            "logo": "",
-            "url": "http://37.122.156.107:4000/play/a07h/index.m3u8"
-        },
-        {
-            "name": "MBC Bollywood",
-            "logo": "",
-            "url": "https://shls-mbcbollywood-prod-dub.shahid.net/out/v1/a79c9d7ef2a64a54a64d5c4567b3462a/index.m3u8"
-        },
-        {
-            "name": "MBC Max Ⓢ",
-            "logo": "",
-            "url": "http://37.122.156.107:4000/play/a07i/index.m3u8"
-        },
-        {
-            "name": "MBC Persia",
-            "logo": "",
-            "url": "https://shls-mbcpersia-prod-dub.shahid.net/out/v1/bdc7cd0d990e4c54808632a52c396946/index.m3u8"
+    
+  "openapi": "3.0.0",
+  "x-api-id": "front",
+  "x-explorer-enabled": false,
+  "x-proxy-enabled": true,
+  "x-samples-enabled": true,
+  "info": {
+    "version": "1.0.0",
+    "title": "Channel API",
+    "contact": {
+      "name": "Front Platform",
+      "url": "https://community.front.com"
+    }
+  },
+  "security": [
+    {
+      "http": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://api2.frontapp.com"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "http": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "responses": {
+      "acceptedMessage": {
+        "description": "An accepted message",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "default": "accepted"
+                },
+                "message_uid": {
+                  "type": "string",
+                  "description": "Message unique identifier"
+                }
+              }
+            }
+          }
         }
-    ]
+      },
+      "applicationMessageTemplate": {
+        "description": "An application message template",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApplicationMessageTemplateResponse"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "ApplicationMessageTemplate": {
+        "required": [
+          "external_id",
+          "name",
+          "blurb",
+          "is_disabled",
+          "status_name",
+          "variable_mappings",
+          "template_preview"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ApplicationMessageTemplateEditBlob"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "external_id": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "ApplicationMessageTemplateEditBlob": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the message template."
+          },
+          "blurb": {
+            "type": "string",
+            "description": "A limited preview of the message template content."
+          },
+          "is_disabled": {
+            "type": "boolean",
+            "description": "Whether the message template is enabled for use in the external service."
+          },
+          "status_name": {
+            "type": "string",
+            "description": "Either \"PENDING\", \"APPROVED\", or \"REJECTED\". This value helps admins understand why a template may be enabled or disabled in the external service."
+          },
+          "variable_mappings": {
+            "type": "array",
+            "description": "List of variable mappings",
+            "items": {
+              "type": "object",
+              "required": [
+                "uid",
+                "type",
+                "name"
+              ],
+              "properties": {
+                "uid": {
+                  "type": "string",
+                  "description": "Value of the variable"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Name of the variable"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "Type of the variable"
+                }
+              }
+            }
+          },
+          "template_preview": {
+            "type": "string",
+            "description": "Preview of the template"
+          }
+        }
+      },
+      "ApplicationMessageTemplateResponse": {
+        "description": "Response for an application message template.",
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "number",
+            "description": "ID of the application message template",
+            "example": "msg_777"
+          }
+        }
+      },
+      "InboundMessage": {
+        "required": [
+          "sender",
+          "body",
+          "metadata"
+        ],
+        "properties": {
+          "sender": {
+            "type": "object",
+            "description": "Data of the sender",
+            "required": [
+              "handle"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the sender"
+              },
+              "handle": {
+                "type": "string",
+                "description": "Handle of the sender. It can be any string used to uniquely identify the sender. **Important:** When sending a phone number, include a country code preceded by a plus (+) sign. For example, +33 for France. If you do not send a country code or include a plus sign, Front will normalize your phone number to the USA (+1)."
+              },
+              "email": {
+                "type": "string",
+                "description": "Email of the sender. When provided, links this contact to existing contacts with the same email to prevent duplicates across channels."
+              }
+            }
+          },
+          "subject": {
+            "type": "string",
+            "description": "Subject of the message"
+          },
+          "body": {
+            "type": "string",
+            "description": "The body of the message in HTML or plain text format."
+          },
+          "metadata": {
+            "type": "object",
+            "required": [
+              "external_id",
+              "external_conversation_id"
+            ],
+            "properties": {
+              "external_id": {
+                "type": "string",
+                "maxLength": 200,
+                "description": "External identifier of the message"
+              },
+              "external_conversation_id": {
+                "type": "string",
+                "maxLength": 200,
+                "description": "External identifier of the conversation. Will be used to thread messages."
+              },
+              "referenced_message_external_id": {
+                "type": "string",
+                "maxLength": 200,
+                "description": "External identifier of the message that this message is replying to. Use this for explicit replies."
+              }
+            }
+          },
+          "delivered_at": {
+            "type": "integer",
+            "description": "Time in seconds at which message was created in external system"
+          },
+          "attachments": {
+            "description": "Binary data of attached files. Must use `Content-Type: multipart/form-data` if specified. See [example](https://gist.github.com/hdornier/e04d04921032e98271f46ff8a539a4cb) or read more about [Attachments](https://dev.frontapp.com/docs/attachments-1).  Max 25 MB.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            }
+          }
+        }
+      },
+      "OutboundMessage": {
+        "required": [
+          "to",
+          "body",
+          "metadata"
+        ],
+        "description": "Payload to receive an outbound message from an external system into Front.",
+        "properties": {
+          "sender_name": {
+            "type": "string",
+            "description": "Name of the sender"
+          },
+          "to": {
+            "type": "array",
+            "description": "Data of the message recipient",
+            "items": {
+              "type": "object",
+              "required": [
+                "handle"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the recipient"
+                },
+                "handle": {
+                  "type": "string",
+                  "description": "Handle of the recipient. It can be any string used to uniquely identify the sender. **Important:** When sending a phone number, include a country code preceded by a plus (+) sign. For example, +33 for France. If you do not send a country code or include a plus sign, Front will normalize your phone number to the USA (+1)."
+                },
+                "email": {
+                  "type": "string",
+                  "description": "Email of the recipient. When provided, links this contact to existing contacts with the same email to prevent duplicates across channels."
+                }
+              }
+            }
+          },
+          "subject": {
+            "type": "string",
+            "description": "Subject of the message"
+          },
+          "author_id": {
+            "type": "string",
+            "description": "ID of the teammate on behalf of whom the message is sent"
+          },
+          "body": {
+            "type": "string",
+            "description": "The body of the message in HTML or plain text format."
+          },
+          "metadata": {
+            "type": "object",
+            "required": [
+              "external_id",
+              "external_conversation_id"
+            ],
+            "properties": {
+              "external_id": {
+                "type": "string",
+                "maxLength": 200,
+                "description": "External identifier of the message"
+              },
+              "external_conversation_id": {
+                "type": "string",
+                "maxLength": 200,
+                "description": "External identifier of the conversation. Will be used to thread messages."
+              },
+              "referenced_message_external_id": {
+                "type": "string",
+                "maxLength": 200,
+                "description": "External identifier of the message that this message is replying to. Use this for explicit replies."
+              }
+            }
+          },
+          "delivered_at": {
+            "type": "integer",
+            "description": "Time in seconds at which message was created in external system"
+          },
+          "attachments": {
+            "description": "Binary data of attached files. Must use `Content-Type: multipart/form-data` if specified. See [example](https://gist.github.com/hdornier/e04d04921032e98271f46ff8a539a4cb) or read more about [Attachments](https://dev.frontapp.com/docs/attachments-1).  Max 25 MB.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            }
+          }
+        }
+      },
+      "UpdateChannel": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status of the channel",
+            "enum": [
+              "offline",
+              "ok"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/channels/{channel_id}": {
+      "patch": {
+        "summary": "Update Channel",
+        "operationId": "update-channel",
+        "description": "Update a channel.",
+        "tags": [
+          "Channels"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channel_id",
+            "required": true,
+            "description": "The Channel ID. Alternatively, you can supply the channel address as a [resource alias](https://dev.frontapp.com/docs/resource-aliases-1).",
+            "schema": {
+              "type": "string",
+              "default": "cha_123"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Channel details",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateChannel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
+    },
+    "/channels/{channel_id}/application_message_templates": {
+      "put": {
+        "summary": "Sync application message template",
+        "operationId": "sync-application-message-template",
+        "description": "Import an application message template from an external service (such as WhatsApp or Facebook). The message template becomes available for use by the channel specified if configured as described in [this topic](https://dev.frontapp.com/update/docs/application-channel-message-templates).",
+        "tags": [
+          "Application Message Templates"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channel_id",
+            "required": true,
+            "description": "The channel ID. Alternatively, you can supply the channel address as a [resource alias](https://dev.frontapp.com/docs/resource-aliases-1).",
+            "schema": {
+              "type": "string",
+              "default": "cha_123"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationMessageTemplate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/applicationMessageTemplate"
+          },
+          "400": {
+            "description": "Channel is not an application channel or does not support application message templates."
+          }
+        }
+      }
+    },
+    "/channels/{channel_id}/application_message_templates/{external_id}": {
+      "patch": {
+        "summary": "Update application message template",
+        "operationId": "update-application-message-template",
+        "description": "Update an application message template that already exists in Front.",
+        "tags": [
+          "Application Message Templates"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channel_id",
+            "required": true,
+            "description": "The channel ID. Alternatively, you can supply the channel address as a [resource alias](https://dev.frontapp.com/docs/resource-aliases-1).",
+            "schema": {
+              "type": "string",
+              "default": "cha_123"
+            }
+          },
+          {
+            "in": "path",
+            "name": "external_id",
+            "required": true,
+            "description": "The external ID of the application message template.",
+            "schema": {
+              "type": "string",
+              "default": "ext_123"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationMessageTemplateEditBlob"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/applicationMessageTemplate"
+          },
+          "400": {
+            "description": "Channel is not an application channel or does not support application message templates."
+          }
+        }
+      }
+    },
+    "/channels/{channel_id}/conversations/{conv_ext_id}/messages/{message_ext_id}/status": {
+      "put": {
+        "summary": "Update external message status",
+        "operationId": "update-external-message-status",
+        "description": "Update the status of an outbound message by external ID. This endpoint is used by external systems (like SMS providers or custom channels)\nto notify Front when a message's delivery status has changed.\n\n**Available status changes:**\n- `failed`: Mark a message as failed. When marked as failed, the conversation is reopened so the team can take action.\n\n**Note:** This endpoint is only available for outbound messages.\n",
+        "tags": [
+          "Messages"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channel_id",
+            "required": true,
+            "description": "The channel ID. Alternatively, you can supply the channel address as a [resource alias](https://dev.frontapp.com/docs/resource-aliases-1).",
+            "schema": {
+              "type": "string",
+              "default": "cha_123"
+            }
+          },
+          {
+            "in": "path",
+            "name": "conv_ext_id",
+            "required": true,
+            "description": "The conversation's external ID.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "message_ext_id",
+            "required": true,
+            "description": "The message's external ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "status"
+                ],
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "failed"
+                    ],
+                    "description": "The status to set for the message. Currently only 'failed' is supported."
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Optional reason for the status change. This will be displayed to users and logged for debugging purposes."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
+    },
+    "/channels/{channel_id}/inbound_messages": {
+      "post": {
+        "summary": "Sync inbound message",
+        "operationId": "sync-inbound-message",
+        "description": "Import a message that was received by the channel.",
+        "tags": [
+          "Messages"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channel_id",
+            "required": true,
+            "description": "The channel ID. Alternatively, you can supply the channel address as a [resource alias](https://dev.frontapp.com/docs/resource-aliases-1).",
+            "schema": {
+              "type": "string",
+              "default": "cha_123"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InboundMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "$ref": "#/components/responses/acceptedMessage"
+          }
+        }
+      }
+    },
+    "/channels/{channel_id}/outbound_messages": {
+      "post": {
+        "summary": "Sync outbound message",
+        "operationId": "sync-outbound-message",
+        "description": "Import a message that was sent from the channel.",
+        "tags": [
+          "Messages"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channel_id",
+            "required": true,
+            "description": "The channel ID. Alternatively, you can supply the channel address as a [resource alias](https://dev.frontapp.com/docs/resource-aliases-1).",
+            "schema": {
+              "type": "string",
+              "default": "cha_123"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OutboundMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "$ref": "#/components/responses/acceptedMessage"
+          }
+        }
+      }
+    }
+  }
 }
